@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec=/usr/local/bin/TermPaper
+Icon=/usr/local/share/icons/TermPaper.png
+Comment=Program for find work
+Terminal=false
+Version=0.1
+Type=Application
+Name=Work
+Categories=Office
+ 
