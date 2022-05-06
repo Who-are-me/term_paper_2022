@@ -28,17 +28,47 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 	Widgets Network)
 set(PROJECT_SOURCES
     # sources
     source/main.cxx
-    source/windows/startwindow/startwindow.cxx
-    source/network/conector.cxx
     source/core/application.cxx
     source/database/database.cxx
+    source/network/conector.cxx
+    source/windows/start/startwindow.cxx
+    source/windows/authorization/authorizationwindow.cxx
+    source/windows/owerviewuser/owerviewuserwindow.cxx
+    source/windows/owerviewadmin/owerviewadminwindow.cxx
+    source/windows/filter/filterwindow.cxx
+    source/windows/controllcurrentprofile/controllcurrentprofilewindow.cxx
+    source/windows/controllallprofile/controllallprofilewindow.cxx
+    source/windows/exposeitem/exposeitemwindow.cxx
+    source/windows/removeitem/removeitemwindow.cxx
+    source/windows/updateitem/updateitemwindow.cxx
+    source/windows/createitem/createitemwindow.cxx
     # headers
-    source/windows/startwindow/startwindow.hxx
-    source/network/conector.hxx
     source/core/application.hxx
     source/database/database.hxx
+    source/network/conector.hxx
+    source/windows/start/startwindow.hxx
+    source/windows/authorization/authorizationwindow.hxx
+    source/windows/owerviewuser/owerviewuserwindow.hxx
+    source/windows/owerviewadmin/owerviewadminwindow.hxx
+    source/windows/filter/filterwindow.hxx
+    source/windows/controllcurrentprofile/controllcurrentprofilewindow.hxx
+    source/windows/controllallprofile/controllallprofilewindow.hxx
+    source/windows/exposeitem/exposeitemwindow.hxx
+    source/windows/removeitem/removeitemwindow.hxx
+    source/windows/updateitem/updateitemwindow.hxx
+    source/windows/createitem/createitemwindow.hxx
     # ui files
-    source/windows/startwindow/startwindow.ui
+    source/windows/start/startwindow.ui
+    source/windows/authorization/authorizationwindow.ui
+    source/windows/owerviewuser/owerviewuserwindow.ui
+    source/windows/owerviewadmin/owerviewadminwindow.ui
+    source/windows/filter/filterwindow.ui
+    source/windows/controllcurrentprofile/controllcurrentprofilewindow.ui
+    source/windows/controllallprofile/controllallprofilewindow.ui
+    source/windows/exposeitem/exposeitemwindow.ui
+    source/windows/removeitem/removeitemwindow.ui
+    source/windows/updateitem/updateitemwindow.ui
+    source/windows/createitem/createitemwindow.ui
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
@@ -55,4 +85,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 
+target_include_directories(${PROJECT_NAME} PUBLIC source/core)
+target_include_directories(${PROJECT_NAME} PUBLIC source/database)
+target_include_directories(${PROJECT_NAME} PUBLIC source/network)
 target_include_directories(${PROJECT_NAME} PUBLIC source/windows)

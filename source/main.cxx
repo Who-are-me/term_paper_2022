@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "startwindow/startwindow.hxx"
+#include "start/startwindow.hxx"
 
 
 int main(int argc, char *argv[]) {
