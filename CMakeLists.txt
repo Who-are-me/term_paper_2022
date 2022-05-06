@@ -13,8 +13,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+message("Your build OS system ${CMAKE_HOST_SYSTEM_NAME}")
+
 if(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Linux")
-    message("Your build system Linux")
     set(CMAKE_CXX_COMPILER "/bin/clang++")
     set(GCC_COVERAGE_COMPILE_FLAGS " -Ofast ")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
@@ -28,8 +29,14 @@ set(PROJECT_SOURCES
     # sources
     source/main.cxx
     source/windows/startwindow/startwindow.cxx
+    source/network/conector.cxx
+    source/core/application.cxx
+    source/database/database.cxx
     # headers
     source/windows/startwindow/startwindow.hxx
+    source/network/conector.hxx
+    source/core/application.hxx
+    source/database/database.hxx
     # ui files
     source/windows/startwindow/startwindow.ui
 )
