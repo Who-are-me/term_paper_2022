@@ -76,4 +76,5 @@ Thumbs.db
 *release*
 *kdev*
 .kdev*
+*.txt.user
 
