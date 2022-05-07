@@ -1,15 +1,21 @@
 #include <QApplication>
+#include <QDebug>
 
-#include "start/startwindow.hxx"
+#include "application.hxx"
 
 
 int main(int argc, char *argv[]) {
+    qDebug() << "App: this application will be started";
+
     QApplication app(argc, argv);
-    StartWindow start_window;
+    Application application;
+    int return_code = 0;
 
-    start_window.show();
-    start_window.setWindowTitle("Storchak Vasil");
-    start_window.resize(320, 320);
+    application.run();
 
-    return app.exec();
+    return_code = app.exec();
+
+    qDebug() << "App: this application was finished";
+
+    return return_code;
 }

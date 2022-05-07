@@ -1,11 +1,15 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QDebug>
+
+#include "authorization/authorizationwindow.hxx"
+#include "filter/filterwindow.hxx"
+
+#define D_SW	qDebug() << "StartWindow: "
 
 
-QT_BEGIN_NAMESPACE
 namespace Ui { class StartWindow; }
-QT_END_NAMESPACE
 
 
 class StartWindow : public QMainWindow {
@@ -16,5 +20,16 @@ public:
     ~StartWindow();
 
 private:
-    Ui::StartWindow *ui;
+    Ui::StartWindow 	*ui;
+    AuthorizationWindow *w_auth;
+    FilterWindow		*w_filter;
+
+    bool createWindowAuthorization();
+    bool createWindowFilter();
+    void configureWindowAuthorization();
+    void configureWindowFilter();
+
+private slots:
+    void on_btn_login_released();
+    void on_btn_filter_released();
 };
