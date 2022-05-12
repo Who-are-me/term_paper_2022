@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QDebug>
+#include <QString>
 
 #include "application.hxx"
 
@@ -15,7 +16,8 @@ int main(int argc, char *argv[]) {
 
     return_code = app.exec();
 
-    qDebug() << "App: this application was finished";
+    // FIXME `double free or corruption (fasttop)`
+    qDebug() << "App: this application was finished return code: " + QString::number(return_code);
 
-    return return_code;
+    return 0;
 }

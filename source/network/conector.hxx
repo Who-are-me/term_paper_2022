@@ -7,14 +7,16 @@
 
 // TODO make me
 class Conector : public QObject {
-private:
     Q_OBJECT
 
+private:
     QNetworkAccessManager   *manager;
     QNetworkRequest         request;
 
 public:
     Conector();
     ~Conector();
+
+    bool login(QString username, QString password);
 };
 

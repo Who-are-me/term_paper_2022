@@ -71,10 +71,13 @@ Thumbs.db
 *.dll
 *.exe
 
+# my
 .directory
 *build*
 *release*
 *kdev*
 .kdev*
 *.txt.user
+.idea
+.kdev4
 

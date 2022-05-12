@@ -1,6 +1,7 @@
 #include "createitemwindow.hxx"
 #include "ui_createitemwindow.h"
 
+
 CreateItemWindow::CreateItemWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CreateItemWindow)
@@ -8,7 +9,6 @@ CreateItemWindow::CreateItemWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
-CreateItemWindow::~CreateItemWindow()
-{
+CreateItemWindow::~CreateItemWindow() {
     delete ui;
 }

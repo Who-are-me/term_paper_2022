@@ -1,8 +1,6 @@
 #include <QDebug>
 
 #include "startwindow.hxx"
-// #include "build-debug/TermPaper_autogen/include/ui_startwindow.h"
-//#include "../../../build-debug/TermPaper_autogen/include/ui_startwindow.h"
 #include "ui_startwindow.h"
 
 

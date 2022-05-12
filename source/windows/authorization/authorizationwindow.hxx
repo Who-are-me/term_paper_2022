@@ -21,10 +21,10 @@ public:
     ~AuthorizationWindow();
 
 private:
-    Ui::AuthorizationWindow 		*ui;
-    ControlAllProfilesWindow 		*w_control_all_profiles;
-    ControlCurrentProfilesWindow 	*w_control_current_profiles;
-    RegisterWindow					*w_register;
+    Ui::AuthorizationWindow         *ui;
+    ControlAllProfilesWindow        *w_control_all_profiles;
+    ControlCurrentProfilesWindow    *w_control_current_profiles;
+    RegisterWindow	                *w_register;
 
     bool createWindowRegister();
     bool createWindowLogin();

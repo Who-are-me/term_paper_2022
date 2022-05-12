@@ -61,7 +61,7 @@ void AuthorizationWindow::configureWindowRegister() {
 bool AuthorizationWindow::configureWindowAdminLogin() {
     w_control_all_profiles = new ControlAllProfilesWindow();
 
-    this->configureWindowAdminLogin();
+//    this->configureWindowAdminLogin();
 
     D_AW << "create and configuration login(all) window successful";
 

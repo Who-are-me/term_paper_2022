@@ -1,27 +1,28 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.17)
 
 set(PROJECT_NAME TermPaper)
 
 project(${PROJECT_NAME} VERSION 0.1 LANGUAGES CXX)
 
-# set Qt SDK
-set(CMAKE_PREFIX_PATH /opt/qt/5.15.2/gcc_64)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 20)
 
-message("Path to autogen files " ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/include/)
-message("Your build OS system ${CMAKE_HOST_SYSTEM_NAME}")
+if(UNIX)
+    set(GCC_COVERAGE_COMPILE_FLAGS "-Ofast -Wall ")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}${GCC_COVERAGE_COMPILE_FLAGS}" )
+endif(UNIX)
 
-if(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Linux")
-    set(CMAKE_CXX_COMPILER "/bin/clang++")
-    set(GCC_COVERAGE_COMPILE_FLAGS " -Ofast ")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
-    message("Clang++ flags: ${CMAKE_CXX_FLAGS}")
-endif()
+message("\nConfigure information:")
+message("Path to autogen files: \t" ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/include/)
+message("Your build OS: \t\t${CMAKE_HOST_SYSTEM_NAME}")
+message("C++ compile:  \t\t${CMAKE_CXX_COMPILER}")
+message("Clang++ flags:\t\t${CMAKE_CXX_FLAGS}")
+message("Qt version: \t\t5")
+message("End indormation:\n")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS 	Widgets Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 	Widgets Network)
@@ -44,6 +45,7 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.cxx
     source/windows/createitem/createitemwindow.cxx
     source/windows/authorization/register/registerwindow.cxx
+    source/network/cookiesmanager.hxx source/network/cookiesmanager.cxx
     # headers
     source/core/application.hxx
     source/database/database.hxx
@@ -60,6 +62,7 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.hxx
     source/windows/createitem/createitemwindow.hxx
     source/windows/authorization/register/registerwindow.hxx
+    source/network/cookiesmanager.hxx source/network/cookiesmanager.hxx
     # ui files
     source/windows/start/startwindow.ui
     source/windows/authorization/authorizationwindow.ui
@@ -73,6 +76,8 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.ui
     source/windows/createitem/createitemwindow.ui
     source/windows/authorization/register/registerwindow.ui
+    # resource
+    resource.qrc
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
@@ -93,7 +98,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC source/core)
 target_include_directories(${PROJECT_NAME} PUBLIC source/database)
 target_include_directories(${PROJECT_NAME} PUBLIC source/network)
 target_include_directories(${PROJECT_NAME} PUBLIC source/windows)
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/include)
 
 
 

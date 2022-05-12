@@ -27,14 +27,14 @@ fi
 echo "Installing..."
 
 cp ./bin/${NAME_PROGRAM} ${PATH_INSTALLING}
-cp ../install_files/${NAME_PROGRAM}.desktop ${PATH_INSTALLING_DESKTOP}
+cp ../resource/install_files/${NAME_PROGRAM}.desktop ${PATH_INSTALLING_DESKTOP}
 
 if [ ! -d ${PATH_INSTALLING_ICON} ]
 then
     mkdir ${PATH_INSTALLING_ICON}
 fi
 
-cp ../install_files/${NAME_PROGRAM}.png ${PATH_INSTALLING_ICON}
+cp ../resource/install_files/${NAME_PROGRAM}.png ${PATH_INSTALLING_ICON}
 
 if [ -f ${PATH_INSTALLING}/${NAME_PROGRAM} ]
 then

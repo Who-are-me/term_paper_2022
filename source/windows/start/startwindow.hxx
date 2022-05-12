@@ -3,8 +3,8 @@
 #include <QMainWindow>
 #include <QDebug>
 
-#include "authorization/authorizationwindow.hxx"
 #include "filter/filterwindow.hxx"
+#include "authorization/authorizationwindow.hxx"
 
 #define D_SW	qDebug() << "StartWindow: "
 
