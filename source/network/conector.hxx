@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtNetwork/QtNetwork>
+#include "cookiesmanager.hxx"
 
 
 // TODO make me
@@ -12,6 +13,7 @@ class Conector : public QObject {
 private:
     QNetworkAccessManager   *manager;
     QNetworkRequest         request;
+    CookiesManager			cookies_manager;
 
 public:
     Conector();

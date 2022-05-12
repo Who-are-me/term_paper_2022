@@ -31,6 +31,7 @@ set(PROJECT_SOURCES
     # sources
     source/main.cxx
     source/core/application.cxx
+    source/core/log.cxx
     source/database/database.cxx
     source/network/conector.cxx
     source/windows/start/startwindow.cxx
@@ -45,9 +46,10 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.cxx
     source/windows/createitem/createitemwindow.cxx
     source/windows/authorization/register/registerwindow.cxx
-    source/network/cookiesmanager.hxx source/network/cookiesmanager.cxx
+    source/network/cookiesmanager.cxx
     # headers
     source/core/application.hxx
+    source/core/log.hxx
     source/database/database.hxx
     source/network/conector.hxx
     source/windows/start/startwindow.hxx
@@ -62,7 +64,7 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.hxx
     source/windows/createitem/createitemwindow.hxx
     source/windows/authorization/register/registerwindow.hxx
-    source/network/cookiesmanager.hxx source/network/cookiesmanager.hxx
+    source/network/cookiesmanager.hxx
     # ui files
     source/windows/start/startwindow.ui
     source/windows/authorization/authorizationwindow.ui
