@@ -6,9 +6,6 @@
 
 class CookiesManager : QObject {
     Q_OBJECT
-private:
-    inline static QString host;
-    inline static QString command;
 
 public:
     CookiesManager();
@@ -21,13 +18,16 @@ public:
     static void setCommand(const QString &newCommand);
 
 private:
-    static QString cookies;
+    inline static QString cookies;
+    inline static QString command;
+    inline static QString host;
+    const QString cookie_path = ".cache/cookie";
     bool exists_cookies;
 
     bool restoreCookie();
-    bool saveToDisk();
-    bool getFromDisk();
-    bool validCookie();
+    bool loadFromDisk();
+    bool writeToDisk();
+    bool isValidCookie(QString validation);
 
 protected:
     QString getCookie();

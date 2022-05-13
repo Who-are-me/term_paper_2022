@@ -2,22 +2,27 @@
 #include <QDebug>
 #include <QString>
 
+
 #include "application.hxx"
+#include "log.hxx"
+
+
+#define PATH_TO_STYLE "./resource/style/Yashi.qss"
 
 
 int main(int argc, char *argv[]) {
-    qDebug() << "App: this application will be started";
+    Log::info("App: this application will be started");
 
-    QApplication app(argc, argv);
+    QApplication q_app(argc, argv);
     Application application;
     int return_code = 0;
 
+    q_app.setStyleSheet(application.loadStyle(PATH_TO_STYLE));
     application.run();
 
-    return_code = app.exec();
+    return_code = q_app.exec();
 
-    // FIXME `double free or corruption (fasttop)`
-    qDebug() << "App: this application was finished return code: " + QString::number(return_code);
+    Log::info("App: this application was finished return code: " + QString::number(return_code));
 
     return 0;
 }

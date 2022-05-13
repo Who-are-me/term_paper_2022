@@ -7,7 +7,7 @@ RegisterWindow::RegisterWindow(QWidget *parent) :
     ui(new Ui::RegisterWindow)
 {
     ui->setupUi(this);
-    D_RW << "create object";
+//    D_RW << "create object";
 }
 
 RegisterWindow::~RegisterWindow() {

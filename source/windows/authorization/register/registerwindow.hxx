@@ -1,9 +1,6 @@
 #pragma once
 
 #include <QDialog>
-#include <QDebug>
-
-#define D_RW	qDebug() << "RegisterWindow: "
 
 
 namespace Ui { class RegisterWindow; }
@@ -19,5 +16,10 @@ public:
 
 private:
     Ui::RegisterWindow *ui;
+
+signals:
+//    void showRegister();
+
+private slots:
 };
 

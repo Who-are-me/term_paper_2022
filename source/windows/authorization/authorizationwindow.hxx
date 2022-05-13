@@ -1,13 +1,10 @@
 #pragma once
 
 #include <QDialog>
-#include <QDebug>
 
-#include "controlallprofiles/controlallprofileswindow.hxx"
-#include "controlcurrentprofiles/controlcurrentprofileswindow.hxx"
-#include "authorization/register/registerwindow.hxx"
-
-#define D_AW	qDebug() << "AuthorizationWindow: "
+//#include "controlallprofiles/controlallprofileswindow.hxx"
+//#include "controlcurrentprofiles/controlcurrentprofileswindow.hxx"
+//#include "authorization/register/registerwindow.hxx"
 
 
 namespace Ui { class AuthorizationWindow; }
@@ -17,24 +14,23 @@ class AuthorizationWindow : public QDialog {
     Q_OBJECT
 
 public:
-    explicit AuthorizationWindow(QWidget *parent = nullptr);
+    AuthorizationWindow(QWidget *parent = nullptr);
     ~AuthorizationWindow();
 
 private:
     Ui::AuthorizationWindow         *ui;
-    ControlAllProfilesWindow        *w_control_all_profiles;
-    ControlCurrentProfilesWindow    *w_control_current_profiles;
-    RegisterWindow	                *w_register;
+//    ControlAllProfilesWindow        *w_control_all_profiles;
+//    ControlCurrentProfilesWindow    *w_control_current_profiles;
+//    RegisterWindow	                *w_register;
 
-    bool createWindowRegister();
-    bool createWindowLogin();
-    bool createWindowAdminLogin();
-    void configureWindowRegister();
-    void configureWindowLogin();
-    bool configureWindowAdminLogin();
+signals:
+    void pushLogin();
+    void showRegister();
+    void backScreen();
 
 private slots:
     void on_btn_login_released();
     void on_btn_register_released();
+    void on_btn_back_released();
 };
 

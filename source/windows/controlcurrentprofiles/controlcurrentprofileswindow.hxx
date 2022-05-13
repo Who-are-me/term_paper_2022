@@ -12,7 +12,7 @@ class ControlCurrentProfilesWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ControlCurrentProfilesWindow(QWidget *parent = nullptr);
+    ControlCurrentProfilesWindow(QWidget *parent = nullptr);
     ~ControlCurrentProfilesWindow();
 
 private:
