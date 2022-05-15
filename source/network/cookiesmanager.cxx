@@ -19,18 +19,22 @@ CookiesManager::~CookiesManager() {
 }
 
 
-const QString &CookiesManager::getHost() {
-    return host;
-}
-
-
-void CookiesManager::setHost(const QString &newHost) {
-    host = newHost;
-}
-
-
 const QString &CookiesManager::getCommand() {
     return command;
+}
+
+
+bool CookiesManager::isExistsCookie() {
+    if(!exists_cookies || cookies.isEmpty() || !isValidCookie(this->cookies)) {
+        if(!loadFromDisk()) {
+            if(!restoreCookie()) {
+                Log::critical("Cookie isn't created");
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    return true;
 }
 
 
@@ -67,9 +71,15 @@ bool CookiesManager::restoreCookie() {
 
     if(isValidCookie(temp_cookies)) {
         this->cookies = temp_cookies;
-    }
+        this->exists_cookies = true;
 
-    return true;
+        return true;
+    }
+    else {
+        this->exists_cookies = false;
+
+        return false;
+    }
 }
 
 
@@ -77,14 +87,16 @@ bool CookiesManager::writeToDisk() {
     QFile file(cookie_path);
 
     if(!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        Log::info("no open cookie file");
+        Log::info("not open cookie file");
+
         return false;
     }
+    else {
+        QTextStream text_stream(&file);
+        text_stream << this->cookies;
 
-    QTextStream text_stream(&file);
-    text_stream << cookies;
-
-    return true;
+        return true;
+    }
 }
 
 
@@ -106,13 +118,14 @@ bool CookiesManager::loadFromDisk() {
     file.close();
 
     if(isValidCookie(data)) {
-        cookies = data;
+        this->cookies = data;
+        this->exists_cookies = true;
+
+        return true;
     }
     else {
         return false;
     }
-
-    return true;
 }
 
 
@@ -132,9 +145,12 @@ bool CookiesManager::isValidCookie(QString validation) {
 
 
 QString CookiesManager::getCookie() {
-    if(cookies.isEmpty()) {
-        if(loadFromDisk()) {
-            restoreCookie();
+    if(!exists_cookies || cookies.isEmpty() || !isValidCookie(this->cookies)) {
+        if(!loadFromDisk()) {
+            if(!restoreCookie()) {
+                Log::critical("Cookie isn't created");
+                exit(EXIT_FAILURE);
+            }
         }
     }
 

@@ -1,35 +1,32 @@
 #pragma once
 
-#include <QObject>
 #include <QString>
 
 
-class CookiesManager : QObject {
-    Q_OBJECT
+#define PATH_TO_COOKIE ".cache/cookie"
 
+
+class CookiesManager {
 public:
     CookiesManager();
     ~CookiesManager();
 
-    static const QString &getHost();
-    static void setHost(const QString &newHost);
-
-    static const QString &getCommand();
     static void setCommand(const QString &newCommand);
+
+protected:
+    static const QString &getCommand();
+    bool isExistsCookie();
+    QString getCookie();
 
 private:
     inline static QString cookies;
     inline static QString command;
-    inline static QString host;
-    const QString cookie_path = ".cache/cookie";
+    const QString cookie_path = PATH_TO_COOKIE;
     bool exists_cookies;
 
     bool restoreCookie();
     bool loadFromDisk();
     bool writeToDisk();
     bool isValidCookie(QString validation);
-
-protected:
-    QString getCookie();
 };
 

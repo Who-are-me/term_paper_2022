@@ -21,19 +21,32 @@ message("Path to autogen files: \t" ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/
 message("Your build OS: \t\t${CMAKE_HOST_SYSTEM_NAME}")
 message("C++ compile:  \t\t${CMAKE_CXX_COMPILER}")
 message("Clang++ flags:\t\t${CMAKE_CXX_FLAGS}")
-message("Qt version: \t\t5")
+message("Qt version: \t\t${QT_VERSION_MAJOR}")
 message("End indormation:\n")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS 	Widgets Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 	Widgets Network)
 
 set(PROJECT_SOURCES
-    # sources
+    # SOURCES ###########################################################
     source/main.cxx
+    # core
     source/core/application.cxx
     source/core/log.cxx
+    # database
     source/database/database.cxx
+    # network
     source/network/conector.cxx
+    source/network/cookiesmanager.cxx
+    source/network/dao/accountdao.cxx
+    source/network/dao/educationdao.cxx
+    source/network/dao/resumedao.cxx
+    source/network/dao/vacancydao.cxx
+    source/network/models/account.cxx
+    source/network/models/education.cxx
+    source/network/models/resume.cxx
+    source/network/models/vacancy.cxx
+    # windows
     source/windows/start/startwindow.cxx
     source/windows/authorization/authorizationwindow.cxx
     source/windows/owerviewuser/owerviewuserwindow.cxx
@@ -46,12 +59,24 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.cxx
     source/windows/createitem/createitemwindow.cxx
     source/windows/authorization/register/registerwindow.cxx
-    source/network/cookiesmanager.cxx
-    # headers
+    # HEADERS ############################################################
+    # core
     source/core/application.hxx
     source/core/log.hxx
+    # database
     source/database/database.hxx
+    # network
     source/network/conector.hxx
+    source/network/cookiesmanager.hxx
+    source/network/dao/accountdao.hxx
+    source/network/dao/educationdao.hxx
+    source/network/dao/resumedao.hxx
+    source/network/dao/vacancydao.hxx
+    source/network/models/account.hxx
+    source/network/models/education.hxx
+    source/network/models/resume.hxx
+    source/network/models/vacancy.hxx
+    # windows
     source/windows/start/startwindow.hxx
     source/windows/authorization/authorizationwindow.hxx
     source/windows/owerviewuser/owerviewuserwindow.hxx
@@ -64,8 +89,7 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.hxx
     source/windows/createitem/createitemwindow.hxx
     source/windows/authorization/register/registerwindow.hxx
-    source/network/cookiesmanager.hxx
-    # ui files
+    # UI FILES ############################################################
     source/windows/start/startwindow.ui
     source/windows/authorization/authorizationwindow.ui
     source/windows/owerviewuser/owerviewuserwindow.ui
@@ -78,7 +102,7 @@ set(PROJECT_SOURCES
     source/windows/updateitem/updateitemwindow.ui
     source/windows/createitem/createitemwindow.ui
     source/windows/authorization/register/registerwindow.ui
-    # resource
+    # RESOURCE #############################################################
     resource.qrc
 )
 
