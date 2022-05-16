@@ -38,6 +38,7 @@ set(PROJECT_SOURCES
     # network
     source/network/conector.cxx
     source/network/cookiesmanager.cxx
+    source/network/dao/networkdao.cxx
     source/network/dao/accountdao.cxx
     source/network/dao/educationdao.cxx
     source/network/dao/resumedao.cxx
@@ -68,6 +69,7 @@ set(PROJECT_SOURCES
     # network
     source/network/conector.hxx
     source/network/cookiesmanager.hxx
+    source/network/dao/networkdao.hxx
     source/network/dao/accountdao.hxx
     source/network/dao/educationdao.hxx
     source/network/dao/resumedao.hxx
