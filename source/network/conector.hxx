@@ -5,10 +5,20 @@
 #include <QtNetwork/QtNetwork>
 
 #include "cookiesmanager.hxx"
+#include "dao/accountdao.hxx"
+#include "dao/educationdao.hxx"
+#include "dao/resumedao.hxx"
+#include "dao/vacancydao.hxx"
 
 
 // TODO make internet connector
-class Conector : public QObject, public CookiesManager {
+class Conector
+        : public CookiesManager
+        , public AccountDAO
+        , public EducationDAO
+        , public ResumeDAO
+        , public VacancyDAO
+{
     Q_OBJECT
 
 private:
@@ -35,17 +45,5 @@ public:
     // port
     const QString &getConnectPort() const;
     void setConnectPort(const QString &new_connect_port);
-
-    // account
-    // TODO implement me
-
-    // edu
-    // TODO implement me
-
-    // resume
-    // TODO implement me
-
-    // vacancy
-    // TODO implement me
 };
 
