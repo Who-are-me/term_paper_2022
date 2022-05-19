@@ -17,6 +17,9 @@ public:
     AuthorizationWindow(QWidget *parent = nullptr);
     ~AuthorizationWindow();
 
+    QString getLogin();
+    QString getPassword();
+
 private:
     Ui::AuthorizationWindow         *ui;
 //    ControlAllProfilesWindow        *w_control_all_profiles;

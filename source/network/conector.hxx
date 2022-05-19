@@ -13,7 +13,8 @@
 
 // TODO make internet connector
 class Conector
-        : public CookiesManager
+        : public QObject
+        , public CookiesManager
         , public AccountDAO
         , public EducationDAO
         , public ResumeDAO
@@ -22,8 +23,6 @@ class Conector
     Q_OBJECT
 
 private:
-    QNetworkAccessManager   *manager;
-    QNetworkRequest         request;
     QString					connect_host;
     QString					connect_port;
     QString					connect_path_to_login;
@@ -45,5 +44,8 @@ public:
     // port
     const QString &getConnectPort() const;
     void setConnectPort(const QString &new_connect_port);
+
+public slots:
+    void loginInServer();
 };
 

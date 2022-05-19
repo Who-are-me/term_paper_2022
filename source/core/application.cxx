@@ -15,11 +15,14 @@ Application::Application() {
     connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
     connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
 
+    connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
+
     Log::info("Appication: was successful created");
 }
 
 
 Application::~Application() {
+    delete net_conector;
     delete w_start;
     delete w_auth;
     delete w_filter;
@@ -30,6 +33,7 @@ Application::~Application() {
 
 
 bool Application::init() {
+    net_conector = new Conector();
     w_start = new StartWindow();
     w_auth = new AuthorizationWindow();
     w_filter = new FilterWindow();
@@ -38,6 +42,18 @@ bool Application::init() {
     w_currentprofiles = new ControlCurrentProfilesWindow();
 
     return true;
+}
+
+
+void Application::justTest() {
+    Log::info("JustTest: login => " + w_auth->getLogin() + ", password => " + w_auth->getPassword());
+}
+
+
+void Application::tryLogin() {
+    Log::info("try login");
+    net_conector->login(w_auth->getLogin(), w_auth->getPassword());
+//    Log::massert(conector->login(w_auth->getLogin(), w_auth->getPassword()), "not can login");
 }
 
 

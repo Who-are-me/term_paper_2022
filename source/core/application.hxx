@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QString>
 
+#include "conector.hxx"
 #include "start/startwindow.hxx"
 #include "filter/filterwindow.hxx"
 #include "authorization/authorizationwindow.hxx"
@@ -23,6 +24,9 @@ public:
     QString loadStyle(QString path);
 
 private:
+    // network
+    Conector						*net_conector;
+    // windows
     StartWindow 					*w_start;
     AuthorizationWindow 			*w_auth;
     FilterWindow					*w_filter;
@@ -33,6 +37,11 @@ private:
     bool init();
 
 private slots:
+    // it's test slot
+    void justTest();
+
+    void tryLogin();
+
     void moveToStartWindow();
     void moveToAuthWindow();
     void moveToFilterWindow();

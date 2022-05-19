@@ -15,6 +15,16 @@ AuthorizationWindow::~AuthorizationWindow() {
 }
 
 
+QString AuthorizationWindow::getLogin() {
+    return ui->le_login->text();
+}
+
+
+QString AuthorizationWindow::getPassword() {
+    return ui->le_password->text();
+}
+
+
 void AuthorizationWindow::on_btn_login_released() {
     // TODO make authorization
     emit pushLogin();

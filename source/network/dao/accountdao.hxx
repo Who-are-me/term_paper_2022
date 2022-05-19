@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QObject>
 #include <QString>
 #include <QList>
 
@@ -8,11 +7,12 @@
 #include "networkdao.hxx"
 
 
-class AccountDAO : public QObject, public NetworkDAO<Account, QString> {
-    Q_OBJECT
-
+class AccountDAO : public NetworkDAO<Account, QString> {
 public:
     AccountDAO();
+    AccountDAO(QString url, QString cookies);
+
+    bool init(QString url, QString cookies) override;
 
     bool create(const Account new_object) override;
     QList<Account> read(const QString read_of, QString option = "") override;

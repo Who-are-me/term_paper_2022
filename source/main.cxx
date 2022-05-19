@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
     return_code = q_app.exec();
 
-    Log::info("App: this application was finished return code: " + QString::number(return_code));
+    Log::info("App: this application was finished with return code: " + QString::number(return_code));
 
     return 0;
 }

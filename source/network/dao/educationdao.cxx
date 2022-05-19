@@ -6,6 +6,11 @@ EducationDAO::EducationDAO() {
 }
 
 
+bool EducationDAO::init(QString url, QString cookies) {
+    return true;
+}
+
+
 QList<Education> EducationDAO::readAll() {
     return QList<Education>();
 }

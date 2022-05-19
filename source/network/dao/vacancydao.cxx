@@ -6,6 +6,11 @@ VacancyDAO::VacancyDAO() {
 }
 
 
+bool VacancyDAO::init(QString url, QString cookies) {
+    return true;
+}
+
+
 QList<Vacancy> VacancyDAO::readAll() {
     return QList<Vacancy>();
 }

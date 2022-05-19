@@ -1,21 +1,22 @@
 #pragma once
 
-#include <QObject>
 #include <QList>
+#include <QString>
 
 #include "models/resume.hxx"
 #include "networkdao.hxx"
 
 
-class ResumeDAO : public QObject, public NetworkDAO<Resume, int> {
-    Q_OBJECT
-
+class ResumeDAO : public NetworkDAO<Resume, int> {
     QList<Resume> readAll();
     QList<Resume> readById(const int id);
     QList<Resume> readWithPagination(const int page, const int item_in_page);
 
 public:
     ResumeDAO();
+    ResumeDAO(QString url, QString cookies);
+
+    bool init(QString url, QString cookies) override;
 
     bool create(const Resume new_object) override;
     QList<Resume> read(const int read_of = -1, int option = -1) override;

@@ -25,7 +25,7 @@ const QString &CookiesManager::getCommand() {
 
 
 bool CookiesManager::isExistsCookie() {
-    if(!exists_cookies || cookies.isEmpty() || !isValidCookie(this->cookies)) {
+    if(!exists_cookies || this->cookies.isEmpty() || !isValidCookie(this->cookies)) {
         if(!loadFromDisk()) {
             if(!restoreCookie()) {
                 Log::critical("Cookie isn't created");
@@ -43,6 +43,7 @@ void CookiesManager::setCommand(const QString &newCommand) {
 }
 
 
+// TODO test me
 bool CookiesManager::restoreCookie() {
     Log::info("CookiesManager - restore cookies");
 
@@ -68,6 +69,8 @@ bool CookiesManager::restoreCookie() {
 
         last = ch;
     }
+
+    temp_cookies.chop(1);
 
     if(isValidCookie(temp_cookies)) {
         this->cookies = temp_cookies;
@@ -130,6 +133,8 @@ bool CookiesManager::loadFromDisk() {
 
 
 bool CookiesManager::isValidCookie(QString validation) {
+    Log::info("Cookies for validation: " + validation);
+
     if(validation.size() != 32) {
         return false;
     }
@@ -145,6 +150,7 @@ bool CookiesManager::isValidCookie(QString validation) {
 
 
 QString CookiesManager::getCookie() {
+    // TODO test me
     if(!exists_cookies || cookies.isEmpty() || !isValidCookie(this->cookies)) {
         if(!loadFromDisk()) {
             if(!restoreCookie()) {

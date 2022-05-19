@@ -1,16 +1,15 @@
+#include "log.hxx"
 #include "conector.hxx"
 
 
 Conector::Conector() {
     setConnectHost("http://localhost");
-    setConnectPort("22");
+    setConnectPort("8080");
     setConnectPathToLogin("/login");
 }
 
 
-Conector::~Conector() {
-    delete manager;
-}
+Conector::~Conector() { }
 
 
 const QString &Conector::getConnectHost() const {
@@ -43,12 +42,18 @@ void Conector::setConnectPort(const QString &new_connect_port) {
 }
 
 
+void Conector::loginInServer() {
+    // TODO implement me
+}
+
+
 bool Conector::login(QString username, QString password) {
     // DOTO make production version
     QString command = "curl --silent --output /dev/null --cookie-jar - -L POST " + this->connect_host + ":" + this->connect_port + this->connect_path_to_login + " -d \"username=" + username + "&password=" + password + "\"";
+    Log::info("Conector command: " + command);
     this->setCommand(command);
 
-    if(!this->isExistsCookie()) {
+    if(this->isExistsCookie()) {
         return true;
     }
     else {

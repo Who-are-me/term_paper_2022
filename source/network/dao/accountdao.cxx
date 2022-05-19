@@ -6,6 +6,16 @@ AccountDAO::AccountDAO() {
 }
 
 
+AccountDAO::AccountDAO(QString url, QString cookies) {
+
+}
+
+
+bool AccountDAO::init(QString url, QString cookies) {
+    return true;
+}
+
+
 bool AccountDAO::create(const Account new_object) {
     return true;
 }

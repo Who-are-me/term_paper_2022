@@ -11,11 +11,10 @@ public:
     CookiesManager();
     ~CookiesManager();
 
-    static void setCommand(const QString &newCommand);
-
 protected:
     static const QString &getCommand();
     bool isExistsCookie();
+    static void setCommand(const QString &newCommand);
     QString getCookie();
 
 private:

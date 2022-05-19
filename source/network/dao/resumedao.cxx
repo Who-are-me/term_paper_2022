@@ -6,6 +6,11 @@ ResumeDAO::ResumeDAO() {
 }
 
 
+bool ResumeDAO::init(QString url, QString cookies) {
+    return true;
+}
+
+
 QList<Resume> ResumeDAO::readAll() {
     return QList<Resume>();
 }
