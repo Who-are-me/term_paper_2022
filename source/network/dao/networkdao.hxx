@@ -8,7 +8,7 @@
 // T2 type of value for search
 template<typename T1, typename T2>
 class NetworkDAO {
-private:
+protected:
     QString url;
     QString cookies;
 

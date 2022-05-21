@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QObject>
 #include <QList>
 #include <QString>
 
@@ -7,7 +8,10 @@
 #include "networkdao.hxx"
 
 
-class VacancyDAO :  public NetworkDAO<Vacancy, int> {
+class VacancyDAO :  public NetworkDAO<Vacancy, int>, public QObject {
+    Q_OBJECT
+
+private:
     QList<Vacancy> readAll();
     QList<Vacancy> readById(const int id);
     QList<Vacancy> readWithPagination(const int page, const int item_in_page);

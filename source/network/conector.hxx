@@ -15,10 +15,6 @@
 class Conector
         : public QObject
         , public CookiesManager
-        , public AccountDAO
-        , public EducationDAO
-        , public ResumeDAO
-        , public VacancyDAO
 {
     Q_OBJECT
 
@@ -30,6 +26,11 @@ private:
 public:
     Conector();
     ~Conector();
+
+    AccountDAO 		account;
+    EducationDAO 	education;
+    ResumeDAO		resume;
+    VacancyDAO		vacancy;
 
     bool login(QString username, QString password);
 

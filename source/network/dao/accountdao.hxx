@@ -1,16 +1,29 @@
 #pragma once
 
+#include <QObject>
 #include <QString>
 #include <QList>
+#include <QtNetwork/QtNetwork>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
 
 #include "models/account.hxx"
 #include "networkdao.hxx"
 
 
-class AccountDAO : public NetworkDAO<Account, QString> {
+class AccountDAO : public NetworkDAO<Account, QString>, public QObject {
+    Q_OBJECT
+
+private:
+    QNetworkRequest *request;
+    QNetworkAccessManager *manager;
+
+    void init();
+
 public:
     AccountDAO();
     AccountDAO(QString url, QString cookies);
+    ~AccountDAO();
 
     bool init(QString url, QString cookies) override;
 
