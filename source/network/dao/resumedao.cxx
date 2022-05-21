@@ -6,7 +6,12 @@ ResumeDAO::ResumeDAO() {
 }
 
 
-bool ResumeDAO::init(QString url, QString cookies) {
+ResumeDAO::ResumeDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
+
+}
+
+
+bool ResumeDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
     return true;
 }
 

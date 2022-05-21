@@ -6,7 +6,12 @@ EducationDAO::EducationDAO() {
 }
 
 
-bool EducationDAO::init(QString url, QString cookies) {
+EducationDAO::EducationDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
+
+}
+
+
+bool EducationDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
     return true;
 }
 

@@ -1,12 +1,9 @@
 #pragma once
 
-#include <QObject>
 #include <QString>
 
 
-class Account : public QObject {
-    Q_OBJECT
-
+class Account {
 private:
     QString pip;
     QString city;

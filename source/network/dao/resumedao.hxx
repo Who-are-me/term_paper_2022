@@ -8,7 +8,7 @@
 #include "networkdao.hxx"
 
 
-class ResumeDAO : public NetworkDAO<Resume, int>, public QObject {
+class ResumeDAO : public QObject, public NetworkDAO<Resume, int> {
     Q_OBJECT
 
 private:
@@ -18,9 +18,9 @@ private:
 
 public:
     ResumeDAO();
-    ResumeDAO(QString url, QString cookies);
+    ResumeDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
 
-    bool init(QString url, QString cookies) override;
+    bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
 
     bool create(const Resume new_object) override;
     QList<Resume> read(const int read_of = -1, int option = -1) override;

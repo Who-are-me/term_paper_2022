@@ -1,12 +1,9 @@
 #pragma once
 
-#include <QObject>
 #include <QString>
 
 
-class Education : public QObject {
-    Q_OBJECT
-
+class Education {
 private:
     int 	id;
     QString	title;

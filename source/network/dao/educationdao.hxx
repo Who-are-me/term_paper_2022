@@ -8,7 +8,7 @@
 #include "networkdao.hxx"
 
 
-class EducationDAO : public NetworkDAO<Education, int>, public QObject {
+class EducationDAO : public QObject, public NetworkDAO<Education, int> {
     Q_OBJECT
 
 private:
@@ -18,9 +18,9 @@ private:
 
 public:
     EducationDAO();
-    EducationDAO(QString url, QString cookies);
+    EducationDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
 
-    bool init(QString url, QString cookies) override;
+    bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
 
     bool create(const Education new_object) override;
     QList<Education> read(const int read_of = -1, int option = -1) override;

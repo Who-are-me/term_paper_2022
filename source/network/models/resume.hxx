@@ -1,12 +1,9 @@
 #pragma once
 
-#include <QObject>
 #include <QString>
 
 
-class Resume : public QObject {
-    Q_OBJECT
-
+class Resume {
 private:
     int		id;
     QString	pip;

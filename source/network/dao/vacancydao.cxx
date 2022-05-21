@@ -1,12 +1,17 @@
 #include "vacancydao.hxx"
 
 
-VacancyDAO::VacancyDAO() {
+VacancyDAO::VacancyDAO(){
 
 }
 
 
-bool VacancyDAO::init(QString url, QString cookies) {
+VacancyDAO::VacancyDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
+
+}
+
+
+bool VacancyDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
     return true;
 }
 
