@@ -19,6 +19,7 @@ private:
 public:
     VacancyDAO();
     VacancyDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
+    ~VacancyDAO() override;
 
     bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
 

@@ -24,6 +24,12 @@ AccountDAO::AccountDAO(QString create_url, QString read_url, QString update_url,
 
 
 void AccountDAO::init() {
+    this->request = new QNetworkRequest();
+    this->manager_create = new QNetworkAccessManager();
+    this->manager_read = new QNetworkAccessManager();
+    this->manager_update = new QNetworkAccessManager();
+    this->manager_remove = new QNetworkAccessManager();
+
     connect(this->manager_create, &QNetworkAccessManager::finished, this, &AccountDAO::onCreate);
     connect(this->manager_read, &QNetworkAccessManager::finished, this, &AccountDAO::onRead);
     connect(this->manager_update, &QNetworkAccessManager::finished, this, &AccountDAO::onUpdate);
@@ -31,7 +37,13 @@ void AccountDAO::init() {
 }
 
 
-AccountDAO::~AccountDAO() { }
+AccountDAO::~AccountDAO() {
+    delete request;
+    delete manager_create;
+    delete manager_read;
+    delete manager_update;
+    delete manager_remove;
+}
 
 
 bool AccountDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {

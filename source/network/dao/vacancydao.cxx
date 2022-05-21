@@ -11,6 +11,11 @@ VacancyDAO::VacancyDAO(QString create_url, QString read_url, QString update_url,
 }
 
 
+VacancyDAO::~VacancyDAO() {
+
+}
+
+
 bool VacancyDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
     return true;
 }

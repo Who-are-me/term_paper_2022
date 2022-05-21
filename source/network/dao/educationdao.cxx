@@ -11,6 +11,15 @@ EducationDAO::EducationDAO(QString create_url, QString read_url, QString update_
 }
 
 
+EducationDAO::~EducationDAO() {
+    delete request;
+    delete manager_create;
+    delete manager_read;
+    delete manager_update;
+    delete manager_remove;
+}
+
+
 bool EducationDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
     return true;
 }

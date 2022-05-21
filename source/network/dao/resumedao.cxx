@@ -11,6 +11,11 @@ ResumeDAO::ResumeDAO(QString create_url, QString read_url, QString update_url, Q
 }
 
 
+ResumeDAO::~ResumeDAO() {
+
+}
+
+
 bool ResumeDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
     return true;
 }

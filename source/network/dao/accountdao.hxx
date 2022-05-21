@@ -20,7 +20,7 @@ private:
 public:
     AccountDAO();
     AccountDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
-    ~AccountDAO();
+    ~AccountDAO() override;
 
     bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
 

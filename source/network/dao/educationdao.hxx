@@ -19,6 +19,7 @@ private:
 public:
     EducationDAO();
     EducationDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
+    ~EducationDAO() override;
 
     bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
 

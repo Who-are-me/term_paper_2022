@@ -14,8 +14,8 @@
 template<typename T1, typename T2>
 class NetworkDAO : public DAO<T1, T2> {
 public:
-    NetworkDAO();
-    ~NetworkDAO();
+    NetworkDAO() {};
+    virtual ~NetworkDAO() {};
 
 protected:
     QString create_url;

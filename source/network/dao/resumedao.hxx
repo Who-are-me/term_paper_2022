@@ -19,6 +19,7 @@ private:
 public:
     ResumeDAO();
     ResumeDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
+    ~ResumeDAO() override;
 
     bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
 
