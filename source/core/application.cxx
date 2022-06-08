@@ -1,4 +1,5 @@
 #include <QFile>
+#include <QMessageBox>
 
 #include "log.hxx"
 #include "application.hxx"
@@ -9,11 +10,12 @@ Application::Application() {
         Log::critical("Application: not create windows");
 
     // TODO implement me
-//    connect(w_start, &StartWindow::XXXXXX, this, &Application::moveToXXXXXX);
+    // EXAMPLE => connect(w_start, &StartWindow::XXXXXX, this, &Application::moveToXXXXXX);
     connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
+    connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
+
     connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
     connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
-    connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
 
     connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
 
@@ -52,8 +54,29 @@ void Application::justTest() {
 
 void Application::tryLogin() {
     Log::info("try login");
+
     net_conector->login(w_auth->getLogin(), w_auth->getPassword());
-//    Log::massert(conector->login(w_auth->getLogin(), w_auth->getPassword()), "not can login");
+
+    if(!net_conector->checkIfEnableLoggedUser()) {
+        QMessageBox warning;
+        warning.setText("Wrong password or login name, please check this. 'Program will be pause for two seconds'");
+        warning.exec();
+
+        QObject().thread()->usleep(1000 * 1000 * 2);
+
+        return;
+    }
+
+    // FIXME check if seccessful login, implement for failed authorization
+    // Log::massert(conector->login(w_auth->getLogin(), w_auth->getPassword()), "not can login");
+
+    // TODO check if auth user is admin
+    if(false) {
+        moveToControlAllProfilesWindow();
+    }
+    else {
+        moveToControlCurrentProfilesWindow();
+    }
 }
 
 

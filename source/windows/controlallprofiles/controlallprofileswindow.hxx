@@ -1,14 +1,12 @@
-#ifndef CONTROLLALLPROFILEWINDOW_HXX
-#define CONTROLLALLPROFILEWINDOW_HXX
+#pragma once
 
 #include <QMainWindow>
 
-namespace Ui {
-class ControlAllProfilesWindow;
-}
 
-class ControlAllProfilesWindow : public QMainWindow
-{
+namespace Ui {class ControlAllProfilesWindow;}
+
+
+class ControlAllProfilesWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -19,4 +17,3 @@ private:
     Ui::ControlAllProfilesWindow *ui;
 };
 
-#endif // CONTROLLALLPROFILEWINDOW_HXX

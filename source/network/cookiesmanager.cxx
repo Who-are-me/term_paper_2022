@@ -38,12 +38,22 @@ bool CookiesManager::isExistsCookie() {
 }
 
 
+bool CookiesManager::tryConnect() {
+    if(!this->restoreCookie()) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+
 void CookiesManager::setCommand(const QString &newCommand) {
     command = newCommand;
 }
 
 
-// TODO test me
+// TODO test me, CookiesManager::restoreCookie
 bool CookiesManager::restoreCookie() {
     Log::info("CookiesManager - restore cookies");
 
@@ -145,6 +155,14 @@ bool CookiesManager::isValidCookie(QString validation) {
         }
     }
 
+    Log::info("Validation cookies is successful");
+
+    return true;
+}
+
+
+bool CookiesManager::updateCookie(QString new_cookie) {
+    // TODO implement me, CookiesManager::updataCookie
     return true;
 }
 

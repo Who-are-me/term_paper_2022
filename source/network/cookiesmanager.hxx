@@ -14,6 +14,7 @@ public:
 protected:
     static const QString &getCommand();
     bool isExistsCookie();
+    bool tryConnect();
     static void setCommand(const QString &newCommand);
     QString getCookie();
 
@@ -27,5 +28,6 @@ private:
     bool loadFromDisk();
     bool writeToDisk();
     bool isValidCookie(QString validation);
+    bool updateCookie(QString new_cookie);
 };
 

@@ -42,6 +42,7 @@ private slots:
 
     void tryLogin();
 
+    // move to next windows
     void moveToStartWindow();
     void moveToAuthWindow();
     void moveToFilterWindow();
