@@ -19,14 +19,22 @@ class Conector
     Q_OBJECT
 
 private:
+    // path values
     QString					connect_host;
     QString					connect_port;
     QString					connect_path_to_login;
     QString					logged_user;
+    QString					account_path_to_get;
+    QString					account_path_to_test_user_connect;
+    // end path values
     QNetworkAccessManager	*net_manager;
     QNetworkRequest			net_request;
     bool					is_admin;
     bool					is_logged;
+
+    bool checkIsAdmin();
+    bool initRequest(QString host, QString port, QString path);
+    QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data);
 
 public:
     Conector();
@@ -61,8 +69,16 @@ public:
     void setIsLoggedUser(const QString &new_data);
 
     // is admin
-    const QString &getIsAdmin() const;
-    void setIsAdmin(const QString &new_data);
+    const bool &getIsAdmin() const;
+    void setIsAdmin(bool &new_data);
+
+    // path to account get
+    const QString &getAccountPathToGet() const;
+    void setAccountPathToGet(const QString &new_account_path_to_get);
+
+    // path to account test page
+    const QString &getAccountPathToTestUserConnect() const;
+    void setAccountPathToTestUserConnect(const QString &new_account_path_to_test_user_connect);
 
 public slots:
     void loginInServer();

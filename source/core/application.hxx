@@ -35,6 +35,14 @@ private:
     ControlCurrentProfilesWindow	*w_currentprofiles;
 
     bool init();
+    bool closeAllWindowExcept(QString name_window);
+    // configure windows
+    void configureStartWindow();
+    void configureAuthWindow();
+    void configureFilterWindow();
+    void configureRegisterWindow();
+    void configureControlAllProfilesWindow();
+    void configureControlCurrentProfilesWindow();
 
 private slots:
     // it's test slot

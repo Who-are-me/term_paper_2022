@@ -2,21 +2,31 @@
 
 
 ResumeDAO::ResumeDAO() {
-
+    init();
 }
 
 
-ResumeDAO::ResumeDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
-
+ResumeDAO::ResumeDAO(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    init();
 }
 
 
 ResumeDAO::~ResumeDAO() {
-
+    delete manager;
 }
 
 
-bool ResumeDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
+void ResumeDAO::init() {
+    this->manager = new QNetworkAccessManager();
+}
+
+
+bool ResumeDAO::init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    return true;
+}
+
+
+bool ResumeDAO::setCookie(QString cookie) {
     return true;
 }
 
@@ -33,6 +43,16 @@ QList<Resume> ResumeDAO::readById(const int id) {
 
 QList<Resume> ResumeDAO::readWithPagination(const int page, const int item_in_page) {
     return QList<Resume>();
+}
+
+
+bool ResumeDAO::initRequest(QString path) {
+    return true;
+}
+
+
+QNetworkReply *ResumeDAO::send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) {
+    return manager->sendCustomRequest(request, method.toUtf8(), send_data);
 }
 
 

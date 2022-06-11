@@ -16,13 +16,16 @@ class AccountDAO : public QObject, public NetworkDAO<Account, QString> {
 
 private:
     void init();
+    bool initRequest(QString path) override;
+    QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) override;
 
 public:
     AccountDAO();
-    AccountDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
+    AccountDAO(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove);
     ~AccountDAO() override;
 
-    bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
+    bool init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) override;
+    bool setCookie(QString cookie) override;
 
     bool create(const Account new_object) override;
     QList<Account> read(const QString read_of, QString option = "") override;

@@ -3,6 +3,9 @@
 #include <QObject>
 #include <QList>
 #include <QString>
+#include <QtNetwork/QtNetwork>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
 
 #include "models/education.hxx"
 #include "networkdao.hxx"
@@ -12,16 +15,20 @@ class EducationDAO : public QObject, public NetworkDAO<Education, int> {
     Q_OBJECT
 
 private:
+    void init();
     QList<Education> readAll();
     QList<Education> readById(const int id);
     QList<Education> readWithPagination(const int page, const int item_in_page);
+    bool initRequest(QString path) override;
+    QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) override;
 
 public:
     EducationDAO();
-    EducationDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies);
+    EducationDAO(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove);
     ~EducationDAO() override;
 
-    bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) override;
+    bool init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) override;
+    bool setCookie(QString cookie) override;
 
     bool create(const Education new_object) override;
     QList<Education> read(const int read_of = -1, int option = -1) override;

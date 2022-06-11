@@ -11,13 +11,15 @@ Application::Application() {
 
     // TODO implement me
     // EXAMPLE => connect(w_start, &StartWindow::XXXXXX, this, &Application::moveToXXXXXX);
+    // connects start window
     connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
     connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
-
+    // connects auth window
     connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
     connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
-
     connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
+    // connects register window
+    connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
 
     Log::info("Appication: was successful created");
 }
@@ -47,6 +49,65 @@ bool Application::init() {
 }
 
 
+bool Application::closeAllWindowExcept(QString name_window) {
+    if(name_window != "w_start")
+        if(w_start->isVisible())
+            w_start->close();
+
+    if(name_window != "w_auth")
+        if(w_auth->isVisible())
+            w_auth->close();
+
+    if(name_window != "w_filter")
+        if(w_filter->isVisible())
+            w_filter->close();
+
+    if(name_window != "w_register")
+        if(w_register->isVisible())
+            w_register->close();
+
+    if(name_window != "w_allprofiles")
+        if(w_allprofiles->isVisible())
+            w_allprofiles->close();
+
+    if(name_window != "w_currentprofiles")
+        if(w_currentprofiles->isVisible())
+            w_currentprofiles->close();
+
+    return true;
+}
+
+
+void Application::configureStartWindow() {
+    this->w_start->setWindowTitle("Welcome");
+}
+
+
+void Application::configureAuthWindow() {
+    this->w_auth->setWindowTitle("Authorization");
+}
+
+
+void Application::configureFilterWindow() {
+    this->w_filter->setWindowTitle("Dashboard");
+}
+
+
+void Application::configureRegisterWindow() {
+    this->w_register->setWindowTitle("Register form");
+}
+
+
+void Application::configureControlAllProfilesWindow() {
+    this->w_allprofiles->setWindowTitle("Admin panel");
+}
+
+
+void Application::configureControlCurrentProfilesWindow() {
+    this->w_currentprofiles->setWindowTitle("User panel");
+}
+
+
 void Application::justTest() {
     Log::info("JustTest: login => " + w_auth->getLogin() + ", password => " + w_auth->getPassword());
 }
@@ -67,11 +128,7 @@ void Application::tryLogin() {
         return;
     }
 
-    // FIXME check if seccessful login, implement for failed authorization
-    // Log::massert(conector->login(w_auth->getLogin(), w_auth->getPassword()), "not can login");
-
-    // TODO check if auth user is admin
-    if(false) {
+    if(net_conector->getIsAdmin()) {
         moveToControlAllProfilesWindow();
     }
     else {
@@ -81,120 +138,49 @@ void Application::tryLogin() {
 
 
 void Application::moveToStartWindow() {
-    if(w_auth->isVisible())
-        w_auth->close();
+    this->closeAllWindowExcept("w_start");
 
-    if(w_filter->isVisible())
-        w_filter->close();
-
-    if(w_register->isVisible())
-        w_register->close();
-
-    if(w_allprofiles->isVisible())
-        w_allprofiles->close();
-
-    if(w_currentprofiles->isVisible())
-        w_currentprofiles->close();
-
+    this->configureStartWindow();
     w_start->show();
 }
 
 
 void Application::moveToAuthWindow() {
-    if(w_start->isVisible())
-        w_start->close();
+    this->closeAllWindowExcept("w_auth");
 
-    if(w_filter->isVisible())
-        w_filter->close();
-
-    if(w_register->isVisible())
-        w_register->close();
-
-    if(w_allprofiles->isVisible())
-        w_allprofiles->close();
-
-    if(w_currentprofiles->isVisible())
-        w_currentprofiles->close();
-
+    configureAuthWindow();
     w_auth->show();
 }
 
 
 void Application::moveToFilterWindow() {
-    if(w_auth->isVisible())
-        w_auth->close();
+    this->closeAllWindowExcept("w_filter");
 
-    if(w_start->isVisible())
-        w_start->close();
-
-    if(w_register->isVisible())
-        w_register->close();
-
-    if(w_allprofiles->isVisible())
-        w_allprofiles->close();
-
-    if(w_currentprofiles->isVisible())
-        w_currentprofiles->close();
-
+    configureFilterWindow();
     w_filter->show();
 }
 
+
 void Application::moveToRegisterWindow() {
-    if(w_auth->isVisible())
-        w_auth->close();
+    this->closeAllWindowExcept("w_register");
 
-    if(w_start->isVisible())
-        w_start->close();
-
-    if(w_filter->isVisible())
-        w_filter->close();
-
-    if(w_allprofiles->isVisible())
-        w_allprofiles->close();
-
-    if(w_currentprofiles->isVisible())
-        w_currentprofiles->close();
-
+    configureRegisterWindow();
     w_register->show();
 }
 
 
 void Application::moveToControlAllProfilesWindow() {
-    if(w_auth->isVisible())
-        w_auth->close();
+    this->closeAllWindowExcept("w_allprofiles");
 
-    if(w_filter->isVisible())
-        w_filter->close();
-
-    if(w_register->isVisible())
-        w_register->close();
-
-    if(w_currentprofiles->isVisible())
-        w_currentprofiles->close();
-
-    if(w_start->isVisible())
-        w_start->close();
-
+    configureControlAllProfilesWindow();
     w_allprofiles->show();
 }
 
 
 void Application::moveToControlCurrentProfilesWindow() {
-    if(w_auth->isVisible())
-        w_auth->close();
+    this->closeAllWindowExcept("w_currentprofiles");
 
-    if(w_filter->isVisible())
-        w_filter->close();
-
-    if(w_register->isVisible())
-        w_register->close();
-
-    if(w_allprofiles->isVisible())
-        w_allprofiles->close();
-
-    if(w_start->isVisible())
-        w_start->close();
-
+    configureControlCurrentProfilesWindow();
     w_currentprofiles->show();
 }
 

@@ -12,46 +12,56 @@ AccountDAO::AccountDAO() {
 }
 
 
-AccountDAO::AccountDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
-    this->create_url = create_url;
-    this->read_url = read_url;
-    this->update_url = update_url;
-    this->remove_url = remove_url;
-    this->cookies = cookies;
+AccountDAO::AccountDAO(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    this->host = host;
+    this->port = port;
+    this->path_create = path_create;
+    this->path_read = path_read;
+    this->path_update = path_update;
+    this->path_remove = path_remove;
 
     init();
 }
 
 
 void AccountDAO::init() {
-    this->request = new QNetworkRequest();
-    this->manager_create = new QNetworkAccessManager();
-    this->manager_read = new QNetworkAccessManager();
-    this->manager_update = new QNetworkAccessManager();
-    this->manager_remove = new QNetworkAccessManager();
+    this->manager = new QNetworkAccessManager();
+}
 
-    connect(this->manager_create, &QNetworkAccessManager::finished, this, &AccountDAO::onCreate);
-    connect(this->manager_read, &QNetworkAccessManager::finished, this, &AccountDAO::onRead);
-    connect(this->manager_update, &QNetworkAccessManager::finished, this, &AccountDAO::onUpdate);
-    connect(this->manager_remove, &QNetworkAccessManager::finished, this, &AccountDAO::onRemove);
+
+bool AccountDAO::initRequest(QString path) {
+    this->request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QVariant::fromValue(false));
+    this->request.setUrl(QUrl(this->host + ":" + this->port + path));
+    this->request.setRawHeader("Cookie", QByteArray::fromStdString("JSESSIONID=" + this->cookie.toStdString() + "; HttpOnly; path=/"));
+
+    return true;
+}
+
+
+QNetworkReply *AccountDAO::send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) {
+    return manager->sendCustomRequest(request, method.toUtf8(), send_data);
 }
 
 
 AccountDAO::~AccountDAO() {
-    delete request;
-    delete manager_create;
-    delete manager_read;
-    delete manager_update;
-    delete manager_remove;
+    delete manager;
 }
 
 
-bool AccountDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
-    this->create_url = create_url;
-    this->read_url = read_url;
-    this->update_url = update_url;
-    this->remove_url = remove_url;
-    this->cookies = cookies;
+bool AccountDAO::init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    this->host = host;
+    this->port = port;
+    this->path_create = path_create;
+    this->path_read = path_read;
+    this->path_update = path_update;
+    this->path_remove = path_remove;
+
+    return true;
+}
+
+
+bool AccountDAO::setCookie(QString cookie) {
+    this->cookie = cookie;
 
     return true;
 }
@@ -59,7 +69,11 @@ bool AccountDAO::init(QString create_url, QString read_url, QString update_url, 
 
 // TODO test me, check status code
 bool AccountDAO::create(const Account new_object) {
-    QJsonObject jobj;
+    QEventLoop 		loop;
+    QJsonObject 	jobj;
+    QNetworkReply* 	reply;
+    QByteArray 		json;
+    QByteArray 		result;
 
     jobj["pip"] = new_object.getPip();
     jobj["city"] = new_object.getCity();
@@ -73,14 +87,21 @@ bool AccountDAO::create(const Account new_object) {
     jobj["role"] = new_object.getRole();
 
     QJsonDocument jdoc(jobj);
-    QByteArray json = jdoc.toJson();
-    QString cookies_str = "JSESSIONID=" + this->cookies + "; HttpOnly; path=/";
+    json = jdoc.toJson();
 
-    request->setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
-    request->setRawHeader("Cookie", cookies_str.toUtf8());
-    request->setUrl(QUrl(this->create_url));
+    this->request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
+    this->initRequest(this->path_create);
+    reply = this->send("POST", this->manager, this->request, json);
 
-    manager_create->post(*request, json);
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    // wait for end requesting
+    loop.exec();
+
+    result = reply->readAll();
+    Log::info("Account::create reply: " + result);
+    Log::info("Account::create status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+    reply->deleteLater();
 
     return true;
 }
@@ -88,19 +109,22 @@ bool AccountDAO::create(const Account new_object) {
 
 // TODO test me, check status code
 QList<Account> AccountDAO::read(const QString read_of, QString option) {
-    QString 		cookies_str;
-    QString			query_url;
     QList<Account> 	return_list;
     Account 		temp_object;
     QJsonObject		jobj;
+    QEventLoop 		loop;
+    QNetworkReply* 	reply;
+    QByteArray 		result;
 
-    cookies_str = "JSESSIONID=" + this->cookies + "; HttpOnly; path=/";
-    jobj = QJsonDocument::fromJson(manager_read->get(*request)->readAll()).object();
-    query_url = this->read_url + "/" + read_of;
+    this->initRequest(this->path_read + read_of);
+    reply = this->send("GET", this->manager, this->request, "");
 
-    request->setRawHeader("Cookie", cookies_str.toUtf8());
-    request->setUrl(QUrl(query_url));
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
+    // wait for end requesting
+    loop.exec();
+
+    jobj = QJsonDocument::fromJson(reply->readAll()).object();
 
     temp_object.setPip(jobj["pip"].toString());
     temp_object.setCity(jobj["city"].toString());
@@ -115,13 +139,23 @@ QList<Account> AccountDAO::read(const QString read_of, QString option) {
 
     return_list.append(temp_object);
 
+    result = reply->readAll();
+    Log::info("Account::read reply: " + result);
+    Log::info("Account::read status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+
+    reply->deleteLater();
+
     return return_list;
 }
 
 
 // TODO test me, check status code
 bool AccountDAO::update(const QString update_of, const Account updated_object) {
-    QJsonObject jobj;
+    QEventLoop 		loop;
+    QJsonObject 	jobj;
+    QByteArray 		json;
+    QNetworkReply* 	reply;
+    QByteArray 		result;
 
     jobj["pip"] = updated_object.getPip();
     jobj["city"] = updated_object.getCity();
@@ -135,14 +169,22 @@ bool AccountDAO::update(const QString update_of, const Account updated_object) {
     jobj["role"] = updated_object.getRole();
 
     QJsonDocument jdoc(jobj);
-    QByteArray json = jdoc.toJson();
-    QString cookies_str = "JSESSIONID=" + this->cookies + "; HttpOnly; path=/";
+    json = jdoc.toJson();
 
-    request->setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
-    request->setRawHeader("Cookie", cookies_str.toUtf8());
-    request->setUrl(QUrl(this->update_url));
+    this->request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
+    this->initRequest(this->path_update + update_of);
+    reply = this->send("PATCH", this->manager, this->request, json);
 
-    manager_update->sendCustomRequest(*request, "PATCH", json);
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    // wait for end requesting
+    loop.exec();
+
+    result = reply->readAll();
+    Log::info("Account::update reply: " + result);
+    Log::info("Account::update status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+
+    reply->deleteLater();
 
     return true;
 }
@@ -150,13 +192,23 @@ bool AccountDAO::update(const QString update_of, const Account updated_object) {
 
 // TODO test me, check status code
 bool AccountDAO::remove(const QString remove_of) {
-    QString cookies_str = "JSESSIONID=" + this->cookies + "; HttpOnly; path=/";
-    QString query_url = this->remove_url + "/" + remove_of;
+    QEventLoop 		loop;
+    QNetworkReply* 	reply;
+    QByteArray 		result;
 
-    request->setRawHeader("Cookie", cookies_str.toUtf8());
-    request->setUrl(QUrl(query_url));
+    this->initRequest(this->path_remove + remove_of);
+    reply = this->send("DELETE", this->manager, this->request, "");
 
-    manager_remove->sendCustomRequest(*request, "DELETE", "");
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    // wait for end requesting
+    loop.exec();
+
+    result = reply->readAll();
+    Log::info("Account::delete reply: " + result);
+    Log::info("Account::delete status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+
+    reply->deleteLater();
 
     return true;
 }

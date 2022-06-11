@@ -17,17 +17,20 @@ public:
     NetworkDAO() {};
     virtual ~NetworkDAO() {};
 
-protected:
-    QString create_url;
-    QString read_url;
-    QString update_url;
-    QString remove_url;
-    QString cookies;
+    virtual bool setCookie(QString new_cookie);
 
-    QNetworkRequest 		*request;
-    QNetworkAccessManager 	*manager_create;
-    QNetworkAccessManager 	*manager_read;
-    QNetworkAccessManager 	*manager_update;
-    QNetworkAccessManager 	*manager_remove;
+protected:
+    QNetworkAccessManager	*manager;
+    QNetworkRequest			request;
+    QString 				host;
+    QString 				port;
+    QString 				path_create;
+    QString 				path_read;
+    QString 				path_update;
+    QString 				path_remove;
+    QString 				cookie;
+
+    virtual bool initRequest(QString path);
+    virtual QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data);
 };
 

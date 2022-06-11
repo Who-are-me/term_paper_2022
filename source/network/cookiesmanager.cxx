@@ -96,6 +96,7 @@ bool CookiesManager::restoreCookie() {
 }
 
 
+// TODO test me
 bool CookiesManager::writeToDisk() {
     QFile file(cookie_path);
 
@@ -113,6 +114,7 @@ bool CookiesManager::writeToDisk() {
 }
 
 
+// TODO test me
 bool CookiesManager::loadFromDisk() {
     QByteArray data;
     QFile file(cookie_path);
@@ -161,12 +163,14 @@ bool CookiesManager::isValidCookie(QString validation) {
 }
 
 
+// TODO meke me
 bool CookiesManager::updateCookie(QString new_cookie) {
     // TODO implement me, CookiesManager::updataCookie
     return true;
 }
 
 
+// TODO verification me
 QString CookiesManager::getCookie() {
     // TODO test me
     if(!exists_cookies || cookies.isEmpty() || !isValidCookie(this->cookies)) {

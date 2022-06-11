@@ -19,10 +19,10 @@ protected:
     QString getCookie();
 
 private:
-    inline static QString cookies;
-    inline static QString command;
-    const QString cookie_path = PATH_TO_COOKIE;
-    bool exists_cookies;
+    inline static QString 	cookies;
+    inline static QString 	command;
+    const QString 			cookie_path = PATH_TO_COOKIE;
+    bool 					exists_cookies;
 
     bool restoreCookie();
     bool loadFromDisk();

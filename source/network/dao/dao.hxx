@@ -12,7 +12,7 @@ class DAO {
 public:
     virtual ~DAO() {};
 
-    virtual bool init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) = 0;
+    virtual bool init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) = 0;
     virtual bool create(T1 new_object) = 0;
     virtual QList<T1> read(T2 read_of, T2 option) = 0;
     virtual bool update(T2 update_of, T1 updated_object) = 0;

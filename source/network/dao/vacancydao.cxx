@@ -2,21 +2,31 @@
 
 
 VacancyDAO::VacancyDAO(){
-
+    init();
 }
 
 
-VacancyDAO::VacancyDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
-
+VacancyDAO::VacancyDAO(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    init();
 }
 
 
 VacancyDAO::~VacancyDAO() {
-
+    delete manager;
 }
 
 
-bool VacancyDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
+void VacancyDAO::init() {
+    this->manager = new QNetworkAccessManager();
+}
+
+
+bool VacancyDAO::init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    return true;
+}
+
+
+bool VacancyDAO::setCookie(QString cookie) {
     return true;
 }
 
@@ -33,6 +43,16 @@ QList<Vacancy> VacancyDAO::readById(const int id) {
 
 QList<Vacancy> VacancyDAO::readWithPagination(const int page, const int item_in_page) {
     return QList<Vacancy>();
+}
+
+
+bool VacancyDAO::initRequest(QString path) {
+    return true;
+}
+
+
+QNetworkReply *VacancyDAO::send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) {
+    return manager->sendCustomRequest(request, method.toUtf8(), send_data);
 }
 
 

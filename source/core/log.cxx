@@ -32,7 +32,7 @@ void Log::critical(QString str) {
 
 void Log::massert(bool exp, QString msg) {
 #ifndef NDEBUG
-    critical("massert is not true");
     assert(((void)msg, exp));
+    critical("massert is not true");
 #endif
 }

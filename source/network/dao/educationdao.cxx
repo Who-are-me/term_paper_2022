@@ -2,25 +2,31 @@
 
 
 EducationDAO::EducationDAO() {
-
+    init();
 }
 
 
-EducationDAO::EducationDAO(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
-
+EducationDAO::EducationDAO(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    init();
 }
 
 
 EducationDAO::~EducationDAO() {
-    delete request;
-    delete manager_create;
-    delete manager_read;
-    delete manager_update;
-    delete manager_remove;
+    delete manager;
 }
 
 
-bool EducationDAO::init(QString create_url, QString read_url, QString update_url, QString remove_url, QString cookies) {
+void EducationDAO::init() {
+    this->manager = new QNetworkAccessManager();
+}
+
+
+bool EducationDAO::init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) {
+    return true;
+}
+
+
+bool EducationDAO::setCookie(QString cookie) {
     return true;
 }
 
@@ -38,6 +44,16 @@ QList<Education> EducationDAO::readById(const int id) {
 
 QList<Education> EducationDAO::readWithPagination(const int page, const int item_in_page) {
     return QList<Education>();
+}
+
+
+bool EducationDAO::initRequest(QString path) {
+    return true;
+}
+
+
+QNetworkReply *EducationDAO::send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) {
+    return manager->sendCustomRequest(request, method.toUtf8(), send_data);
 }
 
 

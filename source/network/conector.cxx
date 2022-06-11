@@ -3,11 +3,17 @@
 
 
 Conector::Conector() {
+    // TODO load this value from file or database
     setConnectHost("http://localhost");
     setConnectPort("8080");
     setConnectPathToLogin("/login");
 
+    setAccountPathToGet("/account/get/");
+    setAccountPathToTestUserConnect("/user");
+
     net_manager = new QNetworkAccessManager();
+
+//    this->account.init("", "", "", "", "");
 
     // TODO maybe remove this
     // connect(net_manager, &QNetworkAccessManager::finished, this, &Conector::onCheckIfEnableLoggedUser);
@@ -75,19 +81,87 @@ void Conector::setIsLoggedUser(const QString &new_data) {
 
 // ----------------------------------------------------------------
 
-const QString &Conector::getIsAdmin() const {
-    return logged_user;
+const bool &Conector::getIsAdmin() const {
+    return is_admin;
 }
 
 
-void Conector::setIsAdmin(const QString &new_data) {
-    this->logged_user = new_data;
+void Conector::setIsAdmin(bool &new_data) {
+    this->is_admin = new_data;
 }
 
 // ----------------------------------------------------------------
 
+// TODO maybe delete this
 void Conector::loginInServer() {
     // TODO implement me
+}
+
+// ----------------------------------------------------------------
+
+const QString &Conector::getAccountPathToGet() const {
+    return account_path_to_get;
+}
+
+
+void Conector::setAccountPathToGet(const QString &new_account_path_to_get) {
+    account_path_to_get = new_account_path_to_get;
+}
+
+// ----------------------------------------------------------------
+
+const QString &Conector::getAccountPathToTestUserConnect() const {
+    return account_path_to_test_user_connect;
+}
+
+
+void Conector::setAccountPathToTestUserConnect(const QString &new_account_path_to_test_user_connect) {
+    account_path_to_test_user_connect = new_account_path_to_test_user_connect;
+}
+
+// ----------------------------------------------------------------
+
+bool Conector::checkIsAdmin() {
+    this->initRequest(this->getConnectHost(), this->getConnectPort(), this->getAccountPathToGet() + this->getLoggedUser());
+
+    Log::info(this->getAccountPathToGet() + this->getLoggedUser());
+
+    QEventLoop loop;
+    QNetworkReply* temp_reply = this->send("GET", net_manager, net_request, "");
+    connect(temp_reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    // wait for end requesting
+    loop.exec();
+
+    QByteArray result = temp_reply->readAll();
+    Log::info("CheckIsAdmin reply: " + temp_reply->readAll());
+    Log::info("Status code: " + temp_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+    temp_reply->deleteLater();
+    QJsonDocument jd = QJsonDocument::fromJson(result);
+    QJsonObject jobj = jd.object();
+
+    if(jobj["role"] != "ROLE_ADMIN") {
+        Log::info("User isn't admin");
+        return false;
+    }
+    else {
+        Log::info("User is admin");
+        return true;
+    }
+}
+
+
+bool Conector::initRequest(QString host, QString port, QString path) {
+    this->net_request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QVariant::fromValue(false));
+    this->net_request.setUrl(QUrl(host + ":" + port + path));
+    this->net_request.setRawHeader("Cookie", QByteArray::fromStdString("JSESSIONID=" + this->getCookie().toStdString() + "; HttpOnly; path=/"));
+
+    return true;
+}
+
+
+QNetworkReply* Conector::send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) {
+    return manager->sendCustomRequest(request, method.toUtf8(), send_data);
 }
 
 
@@ -101,6 +175,7 @@ bool Conector::login(QString username, QString password) {
 
     if(this->tryConnect()) {
         this->setLoggedUser(username);
+        this->checkIsAdmin();
 
         return true;
     }
@@ -110,22 +185,19 @@ bool Conector::login(QString username, QString password) {
 }
 
 
-// TODO check it's simple user or admin
 bool Conector::checkIfEnableLoggedUser() {
-    this->net_request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QVariant::fromValue(false));
-    QString cookie_str = "JSESSIONID=" + this->getCookie() + "; HttpOnly; path=/";
-    net_request.setRawHeader("Cookie", cookie_str.toUtf8());
-    net_request.setUrl(QUrl(this->getConnectHost() + ":" + this->getConnectPort() + "/user"));
+    this->initRequest(this->getConnectHost(), this->getConnectPort(), this->getAccountPathToTestUserConnect());
 
     QEventLoop loop;
-    QNetworkReply* temp_reply = net_manager->get(net_request);
+    QNetworkReply* temp_reply =  this->send("GET", net_manager, net_request, "");
     connect(temp_reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
-    // wait for end
+    // wait for end requesting
     loop.exec();
 
     int status_code = temp_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray().toInt();
     Log::info("Status code: " + QString::number(status_code));
+    temp_reply->deleteLater();
 
     if(status_code == 202) {
         return true;
