@@ -1,5 +1,6 @@
 #include <QFile>
 #include <QMessageBox>
+#include <QStatusBar>
 
 #include "log.hxx"
 #include "application.hxx"
@@ -9,8 +10,6 @@ Application::Application() {
     if(!this->init())
         Log::critical("Application: not create windows");
 
-    // TODO implement me
-    // EXAMPLE => connect(w_start, &StartWindow::XXXXXX, this, &Application::moveToXXXXXX);
     // connects start window
     connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
     connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
@@ -80,6 +79,7 @@ bool Application::closeAllWindowExcept(QString name_window) {
 
 void Application::configureStartWindow() {
     this->w_start->setWindowTitle("Welcome");
+    this->w_start->statusBar()->hide();
 }
 
 
@@ -109,7 +109,14 @@ void Application::configureControlCurrentProfilesWindow() {
 
 
 void Application::justTest() {
-    Log::info("JustTest: login => " + w_auth->getLogin() + ", password => " + w_auth->getPassword());
+    Log::info("JustTest: run account test");
+    net_conector->account.init("http://localhost", "8080", "/create", "/get/", "/update/", "/delete");
+
+    QList<Account> result = net_conector->account.read("root");
+
+    for(auto &x : result) {
+        Log::info(x.toString());
+    }
 }
 
 
@@ -117,6 +124,9 @@ void Application::tryLogin() {
     Log::info("try login");
 
     net_conector->login(w_auth->getLogin(), w_auth->getPassword());
+
+    // TODO test
+    justTest();
 
     if(!net_conector->checkIfEnableLoggedUser()) {
         QMessageBox warning;

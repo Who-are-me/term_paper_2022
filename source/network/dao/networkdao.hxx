@@ -17,7 +17,7 @@ public:
     NetworkDAO() {};
     virtual ~NetworkDAO() {};
 
-    virtual bool setCookie(QString new_cookie);
+    virtual bool setCookie(QString new_cookie) {};
 
 protected:
     QNetworkAccessManager	*manager;
@@ -28,9 +28,10 @@ protected:
     QString 				path_read;
     QString 				path_update;
     QString 				path_remove;
+    // TODO make maybe static cookie for all children classes
     QString 				cookie;
 
-    virtual bool initRequest(QString path);
-    virtual QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data);
+    virtual bool initRequest(QString path) {};
+    virtual QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) {};
 };
 

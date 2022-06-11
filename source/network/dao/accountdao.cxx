@@ -95,7 +95,6 @@ bool AccountDAO::create(const Account new_object) {
 
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
-    // wait for end requesting
     loop.exec();
 
     result = reply->readAll();
@@ -121,7 +120,6 @@ QList<Account> AccountDAO::read(const QString read_of, QString option) {
 
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
-    // wait for end requesting
     loop.exec();
 
     jobj = QJsonDocument::fromJson(reply->readAll()).object();
@@ -177,7 +175,6 @@ bool AccountDAO::update(const QString update_of, const Account updated_object) {
 
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
-    // wait for end requesting
     loop.exec();
 
     result = reply->readAll();
@@ -201,7 +198,6 @@ bool AccountDAO::remove(const QString remove_of) {
 
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
 
-    // wait for end requesting
     loop.exec();
 
     result = reply->readAll();

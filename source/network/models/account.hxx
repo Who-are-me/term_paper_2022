@@ -19,6 +19,7 @@ private:
 
 public:
     Account();
+    QString toString();
 
     const QString &getUsername() const;
     void setUsername(const QString &newUsername);

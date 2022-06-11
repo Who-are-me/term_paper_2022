@@ -176,6 +176,10 @@ bool Conector::login(QString username, QString password) {
     if(this->tryConnect()) {
         this->setLoggedUser(username);
         this->checkIsAdmin();
+        this->account.setCookie(this->getCookie());
+        this->education.setCookie(this->getCookie());
+        this->resume.setCookie(this->getCookie());
+        this->vacancy.setCookie(this->getCookie());
 
         return true;
     }

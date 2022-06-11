@@ -6,6 +6,21 @@ Account::Account() {
 }
 
 
+QString Account::toString() {
+    return "{pip: " + pip +
+            ", city: " + city +
+            ", location: " + location +
+            ", phone: " + phone +
+            ", email: " + email +
+            ", company: " + company +
+            ", description: " + description +
+            ", role: " + role +
+            ", login_name: " + username +
+            ", login_password: " + password +
+            ", enablad: " + (enabled ? "true" : "false") + "}";
+}
+
+
 const QString &Account::getPip() const {
     return pip;
 }
