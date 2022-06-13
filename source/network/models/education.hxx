@@ -18,9 +18,12 @@ private:
     QString email;
     QString company;
     int 	req_education;
+    QString owner;
 
 public:
     Education();
+    Education(QString title, QString description, QString for_time_start, QString for_time_end, QString req_experience, QString option_condition, QString city, QString location, QString phone, QString email, QString company, int req_education, QString owner);
+    QString toString();
 
     int getId() const;
     void setId(int newId);
@@ -60,5 +63,8 @@ public:
 
     int getReq_education() const;
     void setReq_education(int newReq_education);
+
+    const QString &getOwner() const;
+    void setOwner(const QString &newOwner);
 };
 

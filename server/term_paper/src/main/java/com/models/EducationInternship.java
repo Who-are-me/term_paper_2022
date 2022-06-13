@@ -47,6 +47,9 @@ public class EducationInternship {
     @Column
     private String company;
 
+    @Column
+    private String owner;
+
 
     public boolean isNull() {
         if (title == null) {
@@ -179,5 +182,13 @@ public class EducationInternship {
                 ", email='" + email + '\'' +
                 ", company='" + company + '\'' +
                 '}';
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

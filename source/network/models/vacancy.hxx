@@ -16,6 +16,7 @@ private:
     QString phone;
     QString email;
     QString company;
+    QString owner;
 
 public:
     Vacancy();
@@ -52,5 +53,7 @@ public:
 
     const QString &getCompany() const;
     void setCompany(const QString &newCompany);
+    const QString &getOwner() const;
+    void setOwner(const QString &newOwner);
 };
 

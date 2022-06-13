@@ -114,3 +114,13 @@ const QString &Resume::getAbout_myself() const {
 void Resume::setAbout_myself(const QString &newAbout_myself) {
     about_myself = newAbout_myself;
 }
+
+
+const QString &Resume::getOwner() const {
+    return owner;
+}
+
+
+void Resume::setOwner(const QString &newOwner) {
+    owner = newOwner;
+}

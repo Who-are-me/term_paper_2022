@@ -18,7 +18,7 @@ private:
     void init();
     QList<Vacancy> readAll();
     QList<Vacancy> readById(const int id);
-    QList<Vacancy> readWithPagination(const int page, const int item_in_page);
+    QList<Vacancy> readWithPagination(const int page, const int item_in_page, QString username = nullptr);
     bool initRequest(QString path) override;
     QNetworkReply* send(QString method, QNetworkAccessManager *manager, QNetworkRequest &request, QByteArray send_data) override;
 
@@ -28,10 +28,11 @@ public:
     ~VacancyDAO() override;
 
     bool init(QString host, QString port, QString path_create, QString path_read, QString path_update, QString path_remove) override;
+    bool initAdditionalPaths(QString path_read_all, QString path_read_pag, QString path_read_pag_by_username);
     bool setCookie(QString cookie) override;
 
     bool create(const Vacancy new_object) override;
-    QList<Vacancy> read(const int read_of = -1, int option = -1) override;
+    QList<Vacancy> read(const int read_of = -1, int option = -1, QString filter = nullptr) override;
     bool update(const int update_of, const Vacancy updated_object) override;
     bool remove(const int remove_of) override;
 };

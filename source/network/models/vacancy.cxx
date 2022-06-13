@@ -114,3 +114,14 @@ const QString &Vacancy::getCompany() const {
 void Vacancy::setCompany(const QString &newCompany) {
     company = newCompany;
 }
+
+
+const QString &Vacancy::getOwner() const
+{
+    return owner;
+}
+
+void Vacancy::setOwner(const QString &newOwner)
+{
+    owner = newOwner;
+}

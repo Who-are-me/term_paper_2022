@@ -61,7 +61,7 @@ public class Account implements Deserializers {
 
 
     public boolean isNull() {
-        if (pip == null) {
+        if (login_name == null) {
             return true;
         }
         else {

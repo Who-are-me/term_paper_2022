@@ -16,6 +16,7 @@ private:
     QString skype;
     QString qualification;
     QString about_myself;
+    QString owner;
 
 public:
     Resume();
@@ -52,5 +53,8 @@ public:
 
     const QString &getAbout_myself() const;
     void setAbout_myself(const QString &newAbout_myself);
+
+    const QString &getOwner() const;
+    void setOwner(const QString &newOwner);
 };
 

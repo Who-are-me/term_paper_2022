@@ -6,6 +6,41 @@ Education::Education() {
 }
 
 
+Education::Education(QString title, QString description, QString for_time_start, QString for_time_end, QString req_experience, QString option_condition, QString city, QString location, QString phone, QString email, QString company, int req_education, QString owner) {
+    this->title = title;
+    this->description = description;
+    this->for_time_start = for_time_start;
+    this->for_time_end = for_time_end;
+    this->req_experience = req_experience;
+    this->option_condition = option_condition;
+    this->city = city;
+    this->location = location;
+    this->phone = phone;
+    this->email = email;
+    this->company = company;
+    this->req_education = req_education;
+    this->owner = owner;
+}
+
+
+QString Education::toString() {
+    return "{id: " + QString::number(id) +
+            ", title: " + title +
+            ", description: " + description +
+            ", for_time_start: " + for_time_start +
+            ", for_time_end: " + for_time_end +
+            ", req_experience: " + req_experience +
+            ", option_condition: " + option_condition +
+            ", city: " + city +
+            ", location: " + location +
+            ", phone: " + phone +
+            ", email: " + email +
+            ", company: " + company +
+            ", req_education: " + QString::number(req_education) +
+            ", owner: " + owner + "}";
+}
+
+
 int Education::getId() const {
     return id;
 }
@@ -133,4 +168,14 @@ int Education::getReq_education() const {
 
 void Education::setReq_education(int newReq_education) {
     req_education = newReq_education;
+}
+
+
+const QString &Education::getOwner() const {
+    return owner;
+}
+
+
+void Education::setOwner(const QString &newOwner) {
+    owner = newOwner;
 }

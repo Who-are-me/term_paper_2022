@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
 // to-do fix list
-// FIXME fix crashed program then is close
+// FIXED fix crashed program then is close
 // FIXME fix save and load cookie from disk
 // FIXME fix qt style for mac and fix qt style for QTableView
 // ----------------------------------------------------------------------------------------------------

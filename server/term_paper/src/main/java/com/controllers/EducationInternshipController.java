@@ -32,6 +32,7 @@ public class EducationInternshipController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody EducationInternship educationInternship) {
+        System.out.println("edu/create `POST`\nJSON: " + educationInternship.toString());
         repository.save(educationInternship);
     }
 
@@ -40,6 +41,7 @@ public class EducationInternshipController {
     @ResponseBody
     @ResponseStatus(HttpStatus.FOUND)
     public Optional<EducationInternship> getById(@PathVariable("request_data") int requestData) {
+        System.out.println("edu/" + requestData + " `GET`");
         return repository.findById(requestData);
     }
 
@@ -48,7 +50,17 @@ public class EducationInternshipController {
     @ResponseBody
     @ResponseStatus(HttpStatus.FOUND)
     public List<EducationInternship> getPage(@PathVariable("page") int page, @PathVariable("item_of_page") int item_of_page) throws SQLException {
+        System.out.println("edu/p/" + page + "/" + item_of_page);
         return dao.getPage(page, item_of_page);
+    }
+
+
+    @GetMapping(value = "/p/{page}/{item_of_page}/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<EducationInternship> getPageByUsername(@PathVariable("page") int page, @PathVariable("item_of_page") int item_of_page, @PathVariable("username") String username) throws SQLException {
+        System.out.println("edu/p/" + page + "/" + item_of_page + "/" + username);
+        return dao.getPageByUsername(page, item_of_page, username);
     }
 
 
@@ -56,6 +68,7 @@ public class EducationInternshipController {
     @ResponseBody
     @ResponseStatus(HttpStatus.FOUND)
     public Iterable<EducationInternship> getAll() {
+        System.out.println("edu/ `GET`");
         return repository.findAll();
     }
 
@@ -64,6 +77,7 @@ public class EducationInternshipController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public void updateById(@PathVariable("request_data") int requestData, @RequestBody EducationInternship educationInternship) {
+        System.out.println("edu/" + requestData + " `PATCH`");
         EducationInternship edu = repository.findOneById(requestData);
 
         if (edu.getId() != 0) {
@@ -81,6 +95,7 @@ public class EducationInternshipController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable("request_data") int requestData) {
+        System.out.println("edu/" + requestData + " `DELETE`");
         repository.deleteById(requestData);
     }
 }

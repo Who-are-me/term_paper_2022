@@ -109,14 +109,70 @@ void Application::configureControlCurrentProfilesWindow() {
 
 
 void Application::justTest() {
-    Log::info("JustTest: run account test");
-    net_conector->account.init("http://localhost", "8080", "/create", "/get/", "/update/", "/delete");
+    net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
+    net_conector->education.init("http://localhost", "8080", "/edu/create", "/edu/", "/edu/", "/edu/");
+    net_conector->education.initAdditionalPaths("/edu" , "/edu/p/", "/edu/p/");
 
-    QList<Account> result = net_conector->account.read("root");
+    // test account
+//    Account acc("just test", "dovgalivka", "home", "0987654321", "justtest@gmail.com", "company", "description", "ROLE_USER", "justTest2", "justTest2", false);
+//    QList<Account> acc_list;
+//    Log::info("JustTest: run account create test");
+//    net_conector->account.create(acc);
 
-    for(auto &x : result) {
-        Log::info(x.toString());
+//    Log::info("JustTest: run account update test");
+//    acc.setPip("updated!!!");
+//    net_conector->account.update("justTest2", acc);
+
+//    Log::info("JustTest: run account read test");
+//    acc_list = net_conector->account.read("justTest2");
+
+//    for(auto &x : acc_list) {
+//        Log::info(x.toString());
+//    }
+
+//    Log::info("JustTest: run account delete test");
+//    net_conector->account.remove("justTest2");
+
+//    acc_list = net_conector->account.read("justTest");
+
+//    for(auto &x : acc_list) {
+//        Log::info(x.toString());
+//    }
+    // test education
+    Education edu("test update again 13", "desc", "2022-06-06", "2023-06-06", "2", "option", "dovgalivka", "home", "0987654312", "justTest@gmail.com", "school", 2, "justTest");
+    QList<Education> edu_list;
+
+    Log::info("JustTest: run education create test");
+    net_conector->education.create(edu);
+
+    Log::info("JustTest: run education read all test");
+    edu_list = net_conector->education.read();
+
+    for(auto &x : edu_list) {
+        Log::info(x.toString() + "\n");
     }
+
+    Log::info("JustTest: run education read pagination /p/X/X test");
+    // 5 and 6
+    edu_list = net_conector->education.read(2, 2);
+
+    for(auto &x : edu_list) {
+        Log::info(x.toString() + "\n");
+    }
+
+    Log::info("JustTest: run education read pagination /p/X/X/XXXX test");
+    // 3 and 5
+    edu_list = net_conector->education.read(1, 2, "justTest");
+
+    for(auto &x : edu_list) {
+        Log::info(x.toString() + "\n");
+    }
+
+    Log::info("JustTest: run education update test");
+    net_conector->education.update(13, edu);
+
+    Log::info("JustTest: run education delete test");
+    net_conector->education.remove(13);
 }
 
 

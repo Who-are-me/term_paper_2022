@@ -25,6 +25,15 @@ public class AccountDAO implements Dao<Account> {
     public void save(Account account) throws SQLException {
         Statement statement = db.getConnection().createStatement();
 
+        ResultSet resultSetCheck = statement.executeQuery("SELECT count(*) as number FROM accounts WHERE login_name = '" + account.getLogin_name() + "'");
+
+        while (resultSetCheck.next()) {
+            if (resultSetCheck.getInt("number") == 0) {
+                System.out.println("Database [INFO]: User does not exist!");
+                throw new SQLException("Username does exist!");
+            }
+        }
+
         statement.executeUpdate("INSERT INTO accounts " +
                 " (pip, city, location, phone, email, company, description, login_name, login_password, role) " +
                 " VALUES ('" +

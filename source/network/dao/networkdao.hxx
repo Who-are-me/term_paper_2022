@@ -26,6 +26,9 @@ protected:
     QString 				port;
     QString 				path_create;
     QString 				path_read;
+    QString 				path_read_all;
+    QString 				path_read_pag;
+    QString 				path_read_pag_by_username;
     QString 				path_update;
     QString 				path_remove;
     // TODO make maybe static cookie for all children classes

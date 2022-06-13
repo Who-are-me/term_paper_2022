@@ -43,6 +43,9 @@ public class Resume {
     @Column
     private String about_myself;
 
+    @Column
+    private String owner;
+
 
     public boolean isNull() {
         if (pip == null) {
@@ -158,5 +161,13 @@ public class Resume {
                 ", qualifications='" + qualifications + '\'' +
                 ", about_myself='" + about_myself + '\'' +
                 '}';
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

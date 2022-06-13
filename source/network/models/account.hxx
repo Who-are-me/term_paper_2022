@@ -19,6 +19,7 @@ private:
 
 public:
     Account();
+    Account(QString pip, QString city, QString location, QString phone, QString email, QString company, QString description, QString role, QString username, QString password, bool enabled);
     QString toString();
 
     const QString &getUsername() const;

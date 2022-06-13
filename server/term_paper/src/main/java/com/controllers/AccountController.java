@@ -4,11 +4,18 @@ package com.controllers;
 import com.dao.AccountDAO;
 import com.models.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
+// status code decode
+// ok => 200
+// created => 201
+// accepted => 202
+// found => 302
+// not accepted => 403
+// not found => 404
 
 @RestController
 @RequestMapping("/account")
@@ -19,31 +26,62 @@ public class AccountController {
 
     @PostMapping("/create")
     @ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Account account) throws SQLException {
-        this.accountDAO.save(account);
+    public void create(@RequestBody Account account, HttpServletResponse response) throws SQLException {
+        System.out.println("account/create" + "\nJSON: " + account.toString());
+
+        try {
+            this.accountDAO.save(account);
+            response.setStatus(HttpServletResponse.SC_CREATED);
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
 
     @GetMapping(value = "/get/{request_data}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @ResponseStatus(HttpStatus.FOUND)
-    public Account get(@PathVariable("request_data") String requestData) throws SQLException {
-        return accountDAO.get(requestData);
+    public Account get(@PathVariable("request_data") String requestData, HttpServletResponse response) throws SQLException {
+        System.out.println("account/get/" + requestData);
+
+        Account acc = this.accountDAO.get(requestData);
+
+        if(acc.isNull()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new Account();
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_FOUND);
+            return acc;
+        }
     }
 
 
     @PatchMapping("/update/{request_data}")
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("request_data") String requestData, @RequestBody Account account) throws SQLException {
-        accountDAO.update(account, requestData);
+    public void update(@PathVariable("request_data") String requestData, @RequestBody Account account, HttpServletResponse response) throws SQLException {
+        System.out.println("account/update/" + requestData + "\nJSON: " + account.toString());
+
+        try {
+            this.accountDAO.update(account, requestData);
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
 
     @DeleteMapping("/delete/{request_data}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("request_data") String requestData) throws SQLException {
-        accountDAO.delete(requestData);
+    public void delete(@PathVariable("request_data") String requestData, HttpServletResponse response) throws SQLException {
+        System.out.println("account/delete/" + requestData);
+
+        try {
+            this.accountDAO.delete(requestData);
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 }

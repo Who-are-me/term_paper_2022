@@ -3,6 +3,8 @@ package com.dao;
 import com.models.Education;
 import com.models.Vacancy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// TODO make me
+// TODO test me
+@Component
 public class VacancyDAO  implements Dao<Vacancy> {
     private DataBase db;
 
@@ -21,6 +24,8 @@ public class VacancyDAO  implements Dao<Vacancy> {
 
     public VacancyDAO() {}
 
+
+    // TODO test me and formatting me
     // TODO this function getPage isn't rests
     public List<Vacancy> getPage(int page_number, int item_of_page) throws SQLException {
         page_number = (int)Integer.toUnsignedLong(page_number);
@@ -44,12 +49,47 @@ public class VacancyDAO  implements Dao<Vacancy> {
             ei.setPhone(resultSet.getString("phone"));
             ei.setEmail(resultSet.getString("email"));
             ei.setCompany(resultSet.getString("company"));
+            ei.setOwner(resultSet.getString("owner"));
 
             list.add(ei);
         }
 
         return list;
     }
+
+
+    // TODO test me and formatting me
+    // TODO this function getPage isn't rests
+    public List<Vacancy> getPageByUsername(int page_number, int item_of_page, String username) throws SQLException {
+        page_number = (int)Integer.toUnsignedLong(page_number);
+        item_of_page = (int)Integer.toUnsignedLong(item_of_page);
+        Statement statement = db.getConnection().createStatement();
+
+        List<Vacancy> list = new ArrayList<>();
+        Vacancy ei;
+        ResultSet resultSet = statement.executeQuery("WITH vacancy AS (SELECT vacancy.*, ROW_NUMBER() OVER (ORDER BY id) AS 'row' FROM vacancy) SELECT vacancy.* FROM vacancy WHERE owner = '" + username + "' AND row > " + (page_number * item_of_page - item_of_page) + " LIMIT " + item_of_page);
+
+        while (resultSet.next()) {
+            ei = new Vacancy();
+            ei.setId(resultSet.getInt("id"));
+            ei.setTitle(resultSet.getString("title"));
+            ei.setDescription(resultSet.getString("description"));
+            ei.setSalary(resultSet.getInt("salary"));
+            ei.setEducation(Education.values()[resultSet.getInt("education")]);
+            ei.setExperience(resultSet.getInt("experience"));
+            ei.setCity(resultSet.getString("city"));
+            ei.setLocation(resultSet.getString("location"));
+            ei.setPhone(resultSet.getString("phone"));
+            ei.setEmail(resultSet.getString("email"));
+            ei.setCompany(resultSet.getString("company"));
+            ei.setOwner(resultSet.getString("owner"));
+
+            list.add(ei);
+        }
+
+        return list;
+    }
+
 
     @Override
     public void save(Vacancy data) throws SQLException {

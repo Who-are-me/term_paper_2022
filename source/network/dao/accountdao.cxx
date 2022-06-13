@@ -30,6 +30,9 @@ void AccountDAO::init() {
 
 
 bool AccountDAO::initRequest(QString path) {
+    Log::info("AccountDAO::initRequest URL => " + this->host + ":" + this->port + path);
+    Log::info("AccountDAO::initRequest cookie => " + this->cookie);
+
     this->request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QVariant::fromValue(false));
     this->request.setUrl(QUrl(this->host + ":" + this->port + path));
     this->request.setRawHeader("Cookie", QByteArray::fromStdString("JSESSIONID=" + this->cookie.toStdString() + "; HttpOnly; path=/"));
@@ -85,6 +88,7 @@ bool AccountDAO::create(const Account new_object) {
     jobj["login_name"] = new_object.getUsername();
     jobj["login_password"] = new_object.getPassword();
     jobj["role"] = new_object.getRole();
+    jobj["enabled"] = new_object.getEnabled();
 
     QJsonDocument jdoc(jobj);
     json = jdoc.toJson();
@@ -98,8 +102,8 @@ bool AccountDAO::create(const Account new_object) {
     loop.exec();
 
     result = reply->readAll();
-    Log::info("Account::create reply: " + result);
-    Log::info("Account::create status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+    Log::info("AccountDAO::create reply: " + result);
+    Log::info("AccountDAO::create status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
     reply->deleteLater();
 
     return true;
@@ -107,7 +111,7 @@ bool AccountDAO::create(const Account new_object) {
 
 
 // TODO test me, check status code
-QList<Account> AccountDAO::read(const QString read_of, QString option) {
+QList<Account> AccountDAO::read(const QString read_of, QString option, QString filter) {
     QList<Account> 	return_list;
     Account 		temp_object;
     QJsonObject		jobj;
@@ -138,8 +142,8 @@ QList<Account> AccountDAO::read(const QString read_of, QString option) {
     return_list.append(temp_object);
 
     result = reply->readAll();
-    Log::info("Account::read reply: " + result);
-    Log::info("Account::read status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+    Log::info("AccountDAO::read reply: " + result);
+    Log::info("AccountDAO::read status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
 
     reply->deleteLater();
 
@@ -178,8 +182,8 @@ bool AccountDAO::update(const QString update_of, const Account updated_object) {
     loop.exec();
 
     result = reply->readAll();
-    Log::info("Account::update reply: " + result);
-    Log::info("Account::update status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+    Log::info("AccountDAO::update reply: " + result);
+    Log::info("AccountDAO::update status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
 
     reply->deleteLater();
 

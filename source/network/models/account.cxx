@@ -6,6 +6,21 @@ Account::Account() {
 }
 
 
+Account::Account(QString pip, QString city, QString location, QString phone, QString email, QString company, QString description, QString role, QString username, QString password, bool enabled) {
+    this->pip = pip;
+    this->city = city;
+    this->location = location;
+    this->phone = phone;
+    this->email = email;
+    this->company = company;
+    this->description = description;
+    this->role = role;
+    this->username = username;
+    this->password = password;
+    this->enabled = enabled;
+}
+
+
 QString Account::toString() {
     return "{pip: " + pip +
             ", city: " + city +

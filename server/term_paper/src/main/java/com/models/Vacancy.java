@@ -43,6 +43,9 @@ public class Vacancy {
     @Column
     private String company;
 
+    @Column
+    private String owner;
+
 
     public boolean isNull() {
         if (title == null) {
@@ -158,5 +161,13 @@ public class Vacancy {
                 ", email='" + email + '\'' +
                 ", company='" + company + '\'' +
                 '}';
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
