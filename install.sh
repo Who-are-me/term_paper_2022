@@ -4,7 +4,7 @@ CPU_COUNT=`nproc --all`
 PATH_INSTALLING="/usr/local/bin"
 PATH_INSTALLING_ICON="/usr/local/share/icons"
 PATH_INSTALLING_DESKTOP="/usr/share/applications"
-NAME_PROGRAM="TermPaper"
+NAME_PROGRAM="Workerin"
 
 mkdir build
 

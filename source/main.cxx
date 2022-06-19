@@ -35,6 +35,11 @@ int main(int argc, char *argv[]) {
 // FIXED fix crashed program then is close
 // FIXME fix save and load cookie from disk
 // FIXME fix qt style for mac and fix qt style for QTableView
+// TODO remake this windows =>
+// 		source/windows/exposeitem/exposeitemwindow.cxx
+//    	source/windows/removeitem/removeitemwindow.cxx
+//    	source/windows/updateitem/updateitemwindow.cxx
+//    	source/windows/createitem/createitemwindow.cxx
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------

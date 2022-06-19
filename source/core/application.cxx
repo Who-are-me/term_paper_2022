@@ -10,16 +10,6 @@ Application::Application() {
     if(!this->init())
         Log::critical("Application: not create windows");
 
-    // connects start window
-    connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
-    connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
-    // connects auth window
-    connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
-    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
-    connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
-    // connects register window
-    connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
-
     Log::info("Appication: was successful created");
 }
 
@@ -43,6 +33,16 @@ bool Application::init() {
     w_register = new RegisterWindow();
     w_allprofiles = new ControlAllProfilesWindow();
     w_currentprofiles = new ControlCurrentProfilesWindow();
+
+    // connects start window
+    connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
+    connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
+    // connects auth window
+    connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
+    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
+    connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
+    // connects register window
+    connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
 
     return true;
 }
@@ -78,33 +78,44 @@ bool Application::closeAllWindowExcept(QString name_window) {
 
 
 void Application::configureStartWindow() {
-    this->w_start->setWindowTitle("Welcome");
+//    this->w_start->setWindowTitle("Welcome");
+    this->w_start->setWindowTitle("Ласкаво просимо");
     this->w_start->statusBar()->hide();
+
+    this->w_start->setMaximumHeight(300);
+    this->w_start->setMinimumHeight(300);
+    this->w_start->setMaximumWidth(380);
+    this->w_start->setMinimumWidth(380);
 }
 
 
 void Application::configureAuthWindow() {
-    this->w_auth->setWindowTitle("Authorization");
+//    this->w_auth->setWindowTitle("Authorization");
+    this->w_auth->setWindowTitle("Форма авторизації");
 }
 
 
 void Application::configureFilterWindow() {
-    this->w_filter->setWindowTitle("Dashboard");
+//    this->w_filter->setWindowTitle("Dashboard");
+    this->w_filter->setWindowTitle("Панель пошуку");
 }
 
 
 void Application::configureRegisterWindow() {
-    this->w_register->setWindowTitle("Register form");
+//    this->w_register->setWindowTitle("Register form");
+    this->w_register->setWindowTitle("Форма регістрації");
 }
 
 
 void Application::configureControlAllProfilesWindow() {
-    this->w_allprofiles->setWindowTitle("Admin panel");
+//    this->w_allprofiles->setWindowTitle("Admin panel");
+    this->w_allprofiles->setWindowTitle("Панель адміністратора");
 }
 
 
 void Application::configureControlCurrentProfilesWindow() {
-    this->w_currentprofiles->setWindowTitle("User panel");
+//    this->w_currentprofiles->setWindowTitle("User panel");
+    this->w_currentprofiles->setWindowTitle("Панель користувача");
 }
 
 

@@ -3,7 +3,7 @@
 PATH_INSTALLING="/usr/local/bin"
 PATH_INSTALLING_ICON="/usr/local/share/icons"
 PATH_INSTALLING_DESKTOP="/usr/share/applications"
-NAME_PROGRAM="TermPaper"
+NAME_PROGRAM="Workerin"
 
 rm ${PATH_INSTALLING}/${NAME_PROGRAM}
 rm ${PATH_INSTALLING_ICON}/${NAME_PROGRAM}.png

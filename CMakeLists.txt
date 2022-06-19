@@ -56,10 +56,10 @@ set(PROJECT_SOURCES
     source/windows/filter/filterwindow.cxx
     source/windows/controlcurrentprofiles/controlcurrentprofileswindow.cxx
     source/windows/controlallprofiles/controlallprofileswindow.cxx
-    source/windows/exposeitem/exposeitemwindow.cxx
-    source/windows/removeitem/removeitemwindow.cxx
-    source/windows/updateitem/updateitemwindow.cxx
-    source/windows/createitem/createitemwindow.cxx
+#    source/windows/exposeitem/exposeitemwindow.cxx
+#    source/windows/removeitem/removeitemwindow.cxx
+#    source/windows/updateitem/updateitemwindow.cxx
+#    source/windows/createitem/createitemwindow.cxx
     source/windows/authorization/register/registerwindow.cxx
     # HEADERS ############################################################
     # core
@@ -88,10 +88,10 @@ set(PROJECT_SOURCES
     source/windows/filter/filterwindow.hxx
     source/windows/controlcurrentprofiles/controlcurrentprofileswindow.hxx
     source/windows/controlallprofiles/controlallprofileswindow.hxx
-    source/windows/exposeitem/exposeitemwindow.hxx
-    source/windows/removeitem/removeitemwindow.hxx
-    source/windows/updateitem/updateitemwindow.hxx
-    source/windows/createitem/createitemwindow.hxx
+#    source/windows/exposeitem/exposeitemwindow.hxx
+#    source/windows/removeitem/removeitemwindow.hxx
+#    source/windows/updateitem/updateitemwindow.hxx
+#    source/windows/createitem/createitemwindow.hxx
     source/windows/authorization/register/registerwindow.hxx
     # UI FILES ############################################################
     source/windows/start/startwindow.ui
@@ -101,10 +101,10 @@ set(PROJECT_SOURCES
     source/windows/filter/filterwindow.ui
     source/windows/controlcurrentprofiles/controlcurrentprofileswindow.ui
     source/windows/controlallprofiles/controlallprofileswindow.ui
-    source/windows/exposeitem/exposeitemwindow.ui
-    source/windows/removeitem/removeitemwindow.ui
-    source/windows/updateitem/updateitemwindow.ui
-    source/windows/createitem/createitemwindow.ui
+#    source/windows/exposeitem/exposeitemwindow.ui
+#    source/windows/removeitem/removeitemwindow.ui
+#    source/windows/updateitem/updateitemwindow.ui
+#    source/windows/createitem/createitemwindow.ui
     source/windows/authorization/register/registerwindow.ui
     # RESOURCE #############################################################
     resource.qrc
