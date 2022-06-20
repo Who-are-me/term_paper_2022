@@ -22,10 +22,26 @@ Application::~Application() {
     delete w_register;
     delete w_allprofiles;
     delete w_currentprofiles;
+
     delete w_account_create;
     delete w_account_read;
     delete w_account_update;
     delete w_account_delete;
+
+    delete w_education_create;
+    delete w_education_read;
+    delete w_education_update;
+    delete w_education_delete;
+
+    delete w_resume_create;
+    delete w_resume_read;
+    delete w_resume_update;
+    delete w_resume_delete;
+
+    delete w_vacancy_create;
+    delete w_vacancy_read;
+    delete w_vacancy_update;
+    delete w_vacancy_delete;
 }
 
 
@@ -37,10 +53,26 @@ bool Application::init() {
     w_register = new RegisterWindow();
     w_allprofiles = new ControlAllProfilesWindow();
     w_currentprofiles = new ControlCurrentProfilesWindow();
+
     w_account_create = new AccountCreateWindow();
     w_account_read = new AccountReadWindow();
     w_account_update = new AccountUpdateWindow();
     w_account_delete = new AccountDeleteWindow();
+
+    w_education_create = new EducationCreateWindow();
+    w_education_read = new EducationReadWindow();
+    w_education_update = new EducationUpdateWindow();
+    w_education_delete = new EducationDeleteWindow();
+
+    w_resume_create = new ResumeCreateWindow();
+    w_resume_read = new ResumeReadWindow();
+    w_resume_update = new ResumeUpdateWindow();
+    w_resume_delete = new ResumeDeleteWindow();
+
+    w_vacancy_create = new VacancyCreateWindow();
+    w_vacancy_read = new VacancyReadWindow();
+    w_vacancy_update = new VacancyUpdateWindow();
+    w_vacancy_delete = new VacancyDeleteWindow();
 
     // connects start window
     connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
@@ -56,6 +88,11 @@ bool Application::init() {
     connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::showAccountReadWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::showAccountUpdateWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::showAccountDeleteWindow);
+
+    connect(w_allprofiles, &ControlAllProfilesWindow::createVacancy, this, &Application::showVacancyCreateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::readVacancy, this, &Application::showVacancyReadWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::updateVacancy, this, &Application::showVacancyUpdateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::deleteVacancy, this, &Application::showVacancyDeleteWindow);
 
     return true;
 }
@@ -155,6 +192,66 @@ void Application::configureAccountUpdateWindow() {
 
 void Application::configureAccountDeleteWindow() {
     this->w_account_delete->setWindowTitle("Видалення користувача");
+}
+
+void Application::configureEducationCreateWindow()
+{
+
+}
+
+void Application::configureEducationReadWindow()
+{
+
+}
+
+void Application::configureEducationUpdateWindow()
+{
+
+}
+
+void Application::configureEducationDeleteWindow()
+{
+
+}
+
+void Application::configureResumeCreateWindow()
+{
+
+}
+
+void Application::configureResumeReadWindow()
+{
+
+}
+
+void Application::configureResumeUpdateWindow()
+{
+
+}
+
+void Application::configureResumeDeleteWindow()
+{
+
+}
+
+
+void Application::configureVacancyCreateWindow() {
+    w_vacancy_create->setWindowTitle("Форма створення вакансії");
+}
+
+
+void Application::configureVacancyReadWindow() {
+    w_vacancy_read->setWindowTitle("Дані вакансії");
+}
+
+
+void Application::configureVacancyUpdateWindow() {
+    w_vacancy_update->setWindowTitle("Оновлення даних вакансії");
+}
+
+
+void Application::configureVacancyDeleteWindow() {
+    w_vacancy_delete->setWindowTitle("Видалення вакансії");
 }
 
 
@@ -323,6 +420,70 @@ void Application::showAccountUpdateWindow() {
 void Application::showAccountDeleteWindow() {
     configureAccountDeleteWindow();
     w_account_delete->exec();
+}
+
+void Application::showEducationCreateWindow()
+{
+
+}
+
+void Application::showEducationReadWindow()
+{
+
+}
+
+void Application::showEducationUpdateWindow()
+{
+
+}
+
+void Application::showEducationDeleteWindow()
+{
+
+}
+
+void Application::showResumeCreateWindow()
+{
+
+}
+
+void Application::showResumeReadWindow()
+{
+
+}
+
+void Application::showResumeUpdateWindow()
+{
+
+}
+
+void Application::showResumeDeleteWindow()
+{
+
+}
+
+
+void Application::showVacancyCreateWindow() {
+    this->configureVacancyCreateWindow();
+    this->w_vacancy_create->exec();
+}
+
+
+void Application::showVacancyReadWindow() {
+    this->configureVacancyReadWindow();
+    this->w_vacancy_read->show();
+}
+
+
+void Application::showVacancyUpdateWindow() {
+    this->configureVacancyUpdateWindow();
+    this->w_vacancy_update->exec();
+}
+
+
+void Application::showVacancyDeleteWindow() {
+    this->configureVacancyDeleteWindow();
+    this->w_vacancy_delete->exec();
 }
 
 

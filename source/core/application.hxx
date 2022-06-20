@@ -11,10 +11,26 @@
 #include "authorization/register/registerwindow.hxx"
 #include "controlallprofiles/controlallprofileswindow.hxx"
 #include "controlcurrentprofiles/controlcurrentprofileswindow.hxx"
+
 #include "model/account/accountcreatewindow.hxx"
 #include "model/account/accountreadwindow.hxx"
 #include "model/account/accountupdatewindow.hxx"
 #include "model/account/accountdeletewindow.hxx"
+
+#include "model/education/educationcreatewindow.hxx"
+#include "model/education/educationreadwindow.hxx"
+#include "model/education/educationupdatewindow.hxx"
+#include "model/education/educationdeletewindow.hxx"
+
+#include "model/resume/resumecreatewindow.hxx"
+#include "model/resume/resumereadwindow.hxx"
+#include "model/resume/resumeupdatewindow.hxx"
+#include "model/resume/resumedeletewindow.hxx"
+
+#include "model/vacancy/vacancycreatewindow.hxx"
+#include "model/vacancy/vacancyreadwindow.hxx"
+#include "model/vacancy/vacancyupdatewindow.hxx"
+#include "model/vacancy/vacancydeletewindow.hxx"
 
 
 class Application : public QObject {
@@ -37,10 +53,26 @@ private:
     RegisterWindow					*w_register;
     ControlAllProfilesWindow		*w_allprofiles;
     ControlCurrentProfilesWindow	*w_currentprofiles;
+
     AccountCreateWindow				*w_account_create;
     AccountReadWindow				*w_account_read;
     AccountUpdateWindow				*w_account_update;
     AccountDeleteWindow				*w_account_delete;
+
+    EducationCreateWindow			*w_education_create;
+    EducationReadWindow				*w_education_read;
+    EducationUpdateWindow			*w_education_update;
+    EducationDeleteWindow			*w_education_delete;
+
+    ResumeCreateWindow				*w_resume_create;
+    ResumeReadWindow				*w_resume_read;
+    ResumeUpdateWindow				*w_resume_update;
+    ResumeDeleteWindow				*w_resume_delete;
+
+    VacancyCreateWindow				*w_vacancy_create;
+    VacancyReadWindow				*w_vacancy_read;
+    VacancyUpdateWindow				*w_vacancy_update;
+    VacancyDeleteWindow				*w_vacancy_delete;
 
     bool init();
     bool closeAllWindowExcept(QString name_window);
@@ -51,10 +83,26 @@ private:
     void configureRegisterWindow();
     void configureControlAllProfilesWindow();
     void configureControlCurrentProfilesWindow();
+
     void configureAccountCreateWindow();
     void configureAccountReadWindow();
     void configureAccountUpdateWindow();
     void configureAccountDeleteWindow();
+
+    void configureEducationCreateWindow();
+    void configureEducationReadWindow();
+    void configureEducationUpdateWindow();
+    void configureEducationDeleteWindow();
+
+    void configureResumeCreateWindow();
+    void configureResumeReadWindow();
+    void configureResumeUpdateWindow();
+    void configureResumeDeleteWindow();
+
+    void configureVacancyCreateWindow();
+    void configureVacancyReadWindow();
+    void configureVacancyUpdateWindow();
+    void configureVacancyDeleteWindow();
 
 private slots:
     // it's test slot
@@ -75,5 +123,20 @@ private slots:
     void showAccountReadWindow();
     void showAccountUpdateWindow();
     void showAccountDeleteWindow();
+
+    void showEducationCreateWindow();
+    void showEducationReadWindow();
+    void showEducationUpdateWindow();
+    void showEducationDeleteWindow();
+
+    void showResumeCreateWindow();
+    void showResumeReadWindow();
+    void showResumeUpdateWindow();
+    void showResumeDeleteWindow();
+
+    void showVacancyCreateWindow();
+    void showVacancyReadWindow();
+    void showVacancyUpdateWindow();
+    void showVacancyDeleteWindow();
 };
 

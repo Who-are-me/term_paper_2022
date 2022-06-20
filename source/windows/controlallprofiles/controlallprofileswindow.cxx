@@ -51,3 +51,23 @@ void ControlAllProfilesWindow::on_btn_update_account_released() {
 void ControlAllProfilesWindow::on_btn_delete_account_released() {
     emit deleteAccount();
 }
+
+
+void ControlAllProfilesWindow::on_btn_create_record_released() {
+    emit createVacancy();
+}
+
+
+void ControlAllProfilesWindow::on_btn_read_record_released() {
+    emit readVacancy();
+}
+
+
+void ControlAllProfilesWindow::on_btn_update_record_released() {
+    emit updateVacancy();
+}
+
+
+void ControlAllProfilesWindow::on_btn_delete_record_released() {
+    emit deleteVacancy();
+}

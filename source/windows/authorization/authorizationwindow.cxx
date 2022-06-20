@@ -22,7 +22,7 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent) :
     ui->label_2->setText("");
 
     ui->le_login->setPlaceholderText("Логін");
-    ui->le_password->setPlaceholderText("Паро**");
+    ui->le_password->setPlaceholderText("Пароль");
 
     ui->le_password->setEchoMode(QLineEdit::Password);
 
