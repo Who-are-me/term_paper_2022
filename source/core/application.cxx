@@ -39,7 +39,7 @@ bool Application::init() {
     connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
     // connects auth window
     connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
-    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
+//    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
     connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
     // connects register window
     connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
@@ -98,6 +98,8 @@ void Application::configureAuthWindow() {
 void Application::configureFilterWindow() {
 //    this->w_filter->setWindowTitle("Dashboard");
     this->w_filter->setWindowTitle("Панель пошуку");
+
+    this->w_filter->statusBar()->hide();
 }
 
 
@@ -110,12 +112,16 @@ void Application::configureRegisterWindow() {
 void Application::configureControlAllProfilesWindow() {
 //    this->w_allprofiles->setWindowTitle("Admin panel");
     this->w_allprofiles->setWindowTitle("Панель адміністратора");
+
+    this->w_allprofiles->statusBar()->hide();
 }
 
 
 void Application::configureControlCurrentProfilesWindow() {
 //    this->w_currentprofiles->setWindowTitle("User panel");
     this->w_currentprofiles->setWindowTitle("Панель користувача");
+
+    this->w_currentprofiles->statusBar()->hide();
 }
 
 
@@ -193,12 +199,13 @@ void Application::tryLogin() {
     net_conector->login(w_auth->getLogin(), w_auth->getPassword());
 
     // TODO test
-    justTest();
+//    justTest();
 
     if(!net_conector->checkIfEnableLoggedUser()) {
         QMessageBox warning;
-        warning.setText("Wrong password or login name, please check this. 'Program will be pause for two seconds'");
-        warning.exec();
+//        warning.setText("Wrong password or login name, please check this. 'Program will be pause for two seconds'");
+//        warning.exec();
+        warning.critical(nullptr, "Authorization error", "Wrong password or login name, please check this. 'Program will be pause for two seconds'");
 
         QObject().thread()->usleep(1000 * 1000 * 2);
 

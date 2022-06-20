@@ -33,9 +33,10 @@ int main(int argc, char *argv[]) {
 // ----------------------------------------------------------------------------------------------------
 // to-do fix list
 // FIXED fix crashed program then is close
+// FIXME fix crash app when no have conect to server
 // FIXME fix save and load cookie from disk
 // FIXME fix qt style for mac and fix qt style for QTableView
-// TODO remake this windows =>
+// TODO remove this windows =>
 // 		source/windows/exposeitem/exposeitemwindow.cxx
 //    	source/windows/removeitem/removeitemwindow.cxx
 //    	source/windows/updateitem/updateitemwindow.cxx

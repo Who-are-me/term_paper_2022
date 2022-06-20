@@ -1,14 +1,13 @@
-#ifndef FILTERWINDOW_HXX
-#define FILTERWINDOW_HXX
+#pragma once
+
 
 #include <QMainWindow>
 
-namespace Ui {
-class FilterWindow;
-}
 
-class FilterWindow : public QMainWindow
-{
+namespace Ui { class FilterWindow; }
+
+
+class FilterWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -19,4 +18,3 @@ private:
     Ui::FilterWindow *ui;
 };
 
-#endif // FILTERWINDOW_HXX

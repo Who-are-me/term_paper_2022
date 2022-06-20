@@ -3,5 +3,14 @@
         <file alias="down_arrow.png">resource/images/down_arrow.png</file>
         <file alias="handles.png">resource/images/handles.png</file>
         <file alias="name_program.png">resource/images/name_program.png</file>
+        <file alias="user_invisible.svg">resource/images/im-invisible-user.svg</file>
+        <file alias="user_busy_away.svg">resource/images/im-user-away.svg</file>
+        <file alias="user_busy.svg">resource/images/im-user-busy.svg</file>
+        <file alias="user_offline.svg">resource/images/im-user-offline.svg</file>
+        <file alias="user_offline_2.svg">resource/images/im-user-offline2.svg</file>
+        <file alias="user_online.svg">resource/images/im-user-online.svg</file>
+        <file alias="user.svg">resource/images/im-user.svg</file>
+        <file alias="password_icon.png">resource/images/password_icon.png</file>
+        <file alias="user_icon.png">resource/images/user_icon.png</file>
     </qresource>
 </RCC>

@@ -1,25 +1,161 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>FilterWindow</class>
- <widget name="FilterWindow" class="QMainWindow">
+ <widget class="QMainWindow" name="FilterWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
+    <width>392</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget name="menubar" class="QMenuBar"/>
-  <widget name="centralwidget" class="QWidget"/>
-  <widget name="statusbar" class="QStatusBar"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="3" column="1">
+     <widget class="QPushButton" name="btn_back">
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPushButton" name="btn_search">
+      <property name="text">
+       <string>Filter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="3" colspan="4">
+     <widget class="QTabWidget" name="tab_table">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_education">
+       <attribute name="title">
+        <string>Стажування</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QListView" name="lv_education"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Setting search</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="2" column="0">
+            <widget class="QLineEdit" name="le_req_exp"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLineEdit" name="le_city"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="le_location"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="le_option_condition"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="le_email"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLineEdit" name="le_title"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="le_description"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLineEdit" name="le_start"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="le_end"/>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLineEdit" name="le_phone"/>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLineEdit" name="le_company"/>
+           </item>
+           <item row="6" column="1">
+            <widget class="QComboBox" name="cb_education"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_resume">
+       <attribute name="title">
+        <string>Резюме</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QListView" name="lv_resume"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_vacancy">
+       <attribute name="title">
+        <string>Вакансії</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QListView" name="lv_vacancy"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>392</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

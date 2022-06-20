@@ -28,12 +28,12 @@ private:
 
 signals:
     void pushLogin();
-    void showRegister();
+//    void showRegister();
     void backScreen();
 
 private slots:
     void on_btn_login_released();
-    void on_btn_register_released();
+//    void on_btn_register_released();
     void on_btn_back_released();
 };
 
