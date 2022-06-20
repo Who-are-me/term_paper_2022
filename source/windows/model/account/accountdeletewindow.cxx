@@ -6,9 +6,13 @@ AccountDeleteWindow::AccountDeleteWindow(QWidget *parent) :
     ui(new Ui::AccountDeleteWindow)
 {
     ui->setupUi(this);
+
+    ui->l_text->setText("Ви дійсно хочете видалити акаунт?");
+    ui->l_login->setText("12345678");
+//    ui->l_login->setText("> LOGIN <");
 }
 
-AccountDeleteWindow::~AccountDeleteWindow()
-{
+
+AccountDeleteWindow::~AccountDeleteWindow() {
     delete ui;
 }

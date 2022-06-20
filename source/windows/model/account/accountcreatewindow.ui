@@ -1,42 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>AccountCreateWindow</class>
- <widget name="AccountCreateWindow" class="QDialog">
+ <widget class="QDialog" name="AccountCreateWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget name="buttonBox" class="QDialogButtonBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0" rowspan="2" colspan="2">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Please input Your data for Your account.</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="le_location"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="le_pip"/>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="l_login">
+        <property name="text">
+         <string>Login (mast be unique)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="le_email"/>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="le_password"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="l_company">
+        <property name="text">
+         <string>Company</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="le_login"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="l_description">
+        <property name="text">
+         <string>Description your self</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="le_company"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="le_phone"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="l_location">
+        <property name="text">
+         <string>Location</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="l_city">
+        <property name="text">
+         <string>City</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="l_pip">
+        <property name="text">
+         <string>Pip</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="l_phone">
+        <property name="text">
+         <string>Phone</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="le_city"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="l_email">
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="l_password">
+        <property name="text">
+         <string>Password (mast be 8 characters)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0" colspan="2">
+       <widget class="QDialogButtonBox" name="bb">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="standardButtons">
+         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QTextEdit" name="te_description">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>bb</sender>
    <signal>accepted()</signal>
    <receiver>AccountCreateWindow</receiver>
    <slot>accept()</slot>
@@ -52,7 +151,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>bb</sender>
    <signal>rejected()</signal>
    <receiver>AccountCreateWindow</receiver>
    <slot>reject()</slot>

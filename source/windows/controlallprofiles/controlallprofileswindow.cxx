@@ -31,3 +31,23 @@ ControlAllProfilesWindow::ControlAllProfilesWindow(QWidget *parent) :
 ControlAllProfilesWindow::~ControlAllProfilesWindow() {
     delete ui;
 }
+
+
+void ControlAllProfilesWindow::on_btn_create_account_released() {
+    emit createAccount();
+}
+
+
+void ControlAllProfilesWindow::on_btn_read_account_released() {
+    emit readAccount();
+}
+
+
+void ControlAllProfilesWindow::on_btn_update_account_released() {
+    emit updateAccount();
+}
+
+
+void ControlAllProfilesWindow::on_btn_delete_account_released() {
+    emit deleteAccount();
+}

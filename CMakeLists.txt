@@ -51,11 +51,26 @@ set(PROJECT_SOURCES
 # windows
     source/windows/start/startwindow.cxx
     source/windows/authorization/authorizationwindow.cxx
-    source/windows/owerviewuser/owerviewuserwindow.cxx
-    source/windows/owerviewadmin/owerviewadminwindow.cxx
+#    source/windows/owerviewuser/owerviewuserwindow.cxx
+#    source/windows/owerviewadmin/owerviewadminwindow.cxx
     source/windows/filter/filterwindow.cxx
     source/windows/controlcurrentprofiles/controlcurrentprofileswindow.cxx
     source/windows/controlallprofiles/controlallprofileswindow.cxx
+
+    source/windows/model/account/accountcreatewindow.cxx
+    source/windows/model/account/accountreadwindow.cxx
+    source/windows/model/account/accountupdatewindow.cxx
+    source/windows/model/account/accountdeletewindow.cxx
+
+    source/windows/model/education/educationcreatewindow.cxx
+    source/windows/model/education/educationreadwindow.cxx
+    source/windows/model/education/educationupdatewindow.cxx
+    source/windows/model/education/educationdeletewindow.cxx
+
+    source/windows/model/resume/resumecreatewindow.cxx
+    source/windows/model/resume/resumereadwindow.cxx
+    source/windows/model/resume/resumeupdatewindow.cxx
+    source/windows/model/resume/resumedeletewindow.cxx
 
     source/windows/model/vacancy/vacancycreatewindow.cxx
     source/windows/model/vacancy/vacancyreadwindow.cxx
@@ -88,11 +103,26 @@ set(PROJECT_SOURCES
 # windows
     source/windows/start/startwindow.hxx
     source/windows/authorization/authorizationwindow.hxx
-    source/windows/owerviewuser/owerviewuserwindow.hxx
-    source/windows/owerviewadmin/owerviewadminwindow.hxx
+#    source/windows/owerviewuser/owerviewuserwindow.hxx
+#    source/windows/owerviewadmin/owerviewadminwindow.hxx
     source/windows/filter/filterwindow.hxx
     source/windows/controlcurrentprofiles/controlcurrentprofileswindow.hxx
     source/windows/controlallprofiles/controlallprofileswindow.hxx
+
+    source/windows/model/account/accountcreatewindow.hxx
+    source/windows/model/account/accountreadwindow.hxx
+    source/windows/model/account/accountupdatewindow.hxx
+    source/windows/model/account/accountdeletewindow.hxx
+
+    source/windows/model/education/educationcreatewindow.hxx
+    source/windows/model/education/educationreadwindow.hxx
+    source/windows/model/education/educationupdatewindow.hxx
+    source/windows/model/education/educationdeletewindow.hxx
+
+    source/windows/model/resume/resumecreatewindow.hxx
+    source/windows/model/resume/resumereadwindow.hxx
+    source/windows/model/resume/resumeupdatewindow.hxx
+    source/windows/model/resume/resumedeletewindow.hxx
 
     source/windows/model/vacancy/vacancycreatewindow.hxx
     source/windows/model/vacancy/vacancyreadwindow.hxx
@@ -106,11 +136,26 @@ set(PROJECT_SOURCES
 # UI FILES ############################################################
     source/windows/start/startwindow.ui
     source/windows/authorization/authorizationwindow.ui
-    source/windows/owerviewuser/owerviewuserwindow.ui
-    source/windows/owerviewadmin/owerviewadminwindow.ui
+#    source/windows/owerviewuser/owerviewuserwindow.ui
+#    source/windows/owerviewadmin/owerviewadminwindow.ui
     source/windows/filter/filterwindow.ui
     source/windows/controlcurrentprofiles/controlcurrentprofileswindow.ui
     source/windows/controlallprofiles/controlallprofileswindow.ui
+
+    source/windows/model/account/accountcreatewindow.ui
+    source/windows/model/account/accountreadwindow.ui
+    source/windows/model/account/accountupdatewindow.ui
+    source/windows/model/account/accountdeletewindow.ui
+
+    source/windows/model/education/educationcreatewindow.ui
+    source/windows/model/education/educationreadwindow.ui
+    source/windows/model/education/educationupdatewindow.ui
+    source/windows/model/education/educationdeletewindow.ui
+
+    source/windows/model/resume/resumecreatewindow.ui
+    source/windows/model/resume/resumereadwindow.ui
+    source/windows/model/resume/resumeupdatewindow.ui
+    source/windows/model/resume/resumedeletewindow.ui
 
     source/windows/model/vacancy/vacancycreatewindow.ui
     source/windows/model/vacancy/vacancyreadwindow.ui

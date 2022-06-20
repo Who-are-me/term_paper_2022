@@ -11,6 +11,10 @@
 #include "authorization/register/registerwindow.hxx"
 #include "controlallprofiles/controlallprofileswindow.hxx"
 #include "controlcurrentprofiles/controlcurrentprofileswindow.hxx"
+#include "model/account/accountcreatewindow.hxx"
+#include "model/account/accountreadwindow.hxx"
+#include "model/account/accountupdatewindow.hxx"
+#include "model/account/accountdeletewindow.hxx"
 
 
 class Application : public QObject {
@@ -33,6 +37,10 @@ private:
     RegisterWindow					*w_register;
     ControlAllProfilesWindow		*w_allprofiles;
     ControlCurrentProfilesWindow	*w_currentprofiles;
+    AccountCreateWindow				*w_account_create;
+    AccountReadWindow				*w_account_read;
+    AccountUpdateWindow				*w_account_update;
+    AccountDeleteWindow				*w_account_delete;
 
     bool init();
     bool closeAllWindowExcept(QString name_window);
@@ -43,6 +51,10 @@ private:
     void configureRegisterWindow();
     void configureControlAllProfilesWindow();
     void configureControlCurrentProfilesWindow();
+    void configureAccountCreateWindow();
+    void configureAccountReadWindow();
+    void configureAccountUpdateWindow();
+    void configureAccountDeleteWindow();
 
 private slots:
     // it's test slot
@@ -57,5 +69,11 @@ private slots:
     void moveToRegisterWindow();
     void moveToControlAllProfilesWindow();
     void moveToControlCurrentProfilesWindow();
+
+    // show another window
+    void showAccountCreateWindow();
+    void showAccountReadWindow();
+    void showAccountUpdateWindow();
+    void showAccountDeleteWindow();
 };
 

@@ -22,6 +22,10 @@ Application::~Application() {
     delete w_register;
     delete w_allprofiles;
     delete w_currentprofiles;
+    delete w_account_create;
+    delete w_account_read;
+    delete w_account_update;
+    delete w_account_delete;
 }
 
 
@@ -33,16 +37,25 @@ bool Application::init() {
     w_register = new RegisterWindow();
     w_allprofiles = new ControlAllProfilesWindow();
     w_currentprofiles = new ControlCurrentProfilesWindow();
+    w_account_create = new AccountCreateWindow();
+    w_account_read = new AccountReadWindow();
+    w_account_update = new AccountUpdateWindow();
+    w_account_delete = new AccountDeleteWindow();
 
     // connects start window
     connect(w_start, &StartWindow::showAuth, this, &Application::moveToAuthWindow);
     connect(w_start, &StartWindow::showFilter, this, &Application::moveToFilterWindow);
     // connects auth window
     connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
-//    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
     connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
+//    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
     // connects register window
     connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
+    // connects admin panel window
+    connect(w_allprofiles, &ControlAllProfilesWindow::createAccount, this, &Application::showAccountCreateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::showAccountReadWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::showAccountUpdateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::showAccountDeleteWindow);
 
     return true;
 }
@@ -122,6 +135,26 @@ void Application::configureControlCurrentProfilesWindow() {
     this->w_currentprofiles->setWindowTitle("Панель користувача");
 
     this->w_currentprofiles->statusBar()->hide();
+}
+
+
+void Application::configureAccountCreateWindow() {
+    this->w_account_create->setWindowTitle("Створення користувача");
+}
+
+
+void Application::configureAccountReadWindow() {
+    this->w_account_read->setWindowTitle("Дані користувача");
+}
+
+
+void Application::configureAccountUpdateWindow() {
+    this->w_account_update->setWindowTitle("Оновлення даних користувача");
+}
+
+
+void Application::configureAccountDeleteWindow() {
+    this->w_account_delete->setWindowTitle("Видалення користувача");
 }
 
 
@@ -266,6 +299,30 @@ void Application::moveToControlCurrentProfilesWindow() {
 
     configureControlCurrentProfilesWindow();
     w_currentprofiles->show();
+}
+
+
+void Application::showAccountCreateWindow() {
+    configureAccountCreateWindow();
+    w_account_create->exec();
+}
+
+
+void Application::showAccountReadWindow() {
+    configureAccountReadWindow();
+    w_account_read->show();
+}
+
+
+void Application::showAccountUpdateWindow() {
+    configureAccountUpdateWindow();
+    w_account_update->exec();
+}
+
+
+void Application::showAccountDeleteWindow() {
+    configureAccountDeleteWindow();
+    w_account_delete->exec();
 }
 
 
