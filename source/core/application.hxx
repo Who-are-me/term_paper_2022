@@ -138,5 +138,10 @@ private slots:
     void showVacancyReadWindow();
     void showVacancyUpdateWindow();
     void showVacancyDeleteWindow();
+
+    void accountCreate();
+    void accountRead();
+    void accountUpdate();
+    void accountUpdateData();
 };
 

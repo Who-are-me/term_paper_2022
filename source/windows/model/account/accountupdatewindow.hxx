@@ -1,11 +1,13 @@
-#ifndef ACCOUNTUPDATEWINDOW_HXX
-#define ACCOUNTUPDATEWINDOW_HXX
+#pragma once
 
 #include <QDialog>
 
-namespace Ui {
-class AccountUpdateWindow;
-}
+#include "log.hxx"
+#include "models/account.hxx"
+
+
+namespace Ui { class AccountUpdateWindow; }
+
 
 class AccountUpdateWindow : public QDialog
 {
@@ -15,8 +17,20 @@ public:
     explicit AccountUpdateWindow(QWidget *parent = nullptr);
     ~AccountUpdateWindow();
 
+    void setObject(Account new_account);
+    void update();
+    Account getObject();
+
 private:
     Ui::AccountUpdateWindow *ui;
+    Account m_account;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
-#endif // ACCOUNTUPDATEWINDOW_HXX

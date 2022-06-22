@@ -85,14 +85,22 @@ bool Application::init() {
     connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
     // connects admin panel window
     connect(w_allprofiles, &ControlAllProfilesWindow::createAccount, this, &Application::showAccountCreateWindow);
-    connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::showAccountReadWindow);
-    connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::showAccountUpdateWindow);
+//    connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::showAccountReadWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::accountRead);
+//    connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::showAccountUpdateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::accountUpdate);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::showAccountDeleteWindow);
 
     connect(w_allprofiles, &ControlAllProfilesWindow::createVacancy, this, &Application::showVacancyCreateWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::readVacancy, this, &Application::showVacancyReadWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::updateVacancy, this, &Application::showVacancyUpdateWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteVacancy, this, &Application::showVacancyDeleteWindow);
+
+    connect(w_account_create, &AccountCreateWindow::pushOk, this, &Application::accountCreate);
+    connect(w_account_update, &AccountUpdateWindow::pushOk, this, &Application::accountUpdateData);
+
+    // init path to servis page
+    net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
 
     return true;
 }
@@ -387,6 +395,7 @@ void Application::moveToControlAllProfilesWindow() {
     this->closeAllWindowExcept("w_allprofiles");
 
     configureControlAllProfilesWindow();
+    w_allprofiles->updateTables(net_conector->account.read());
     w_allprofiles->show();
 }
 
@@ -484,6 +493,48 @@ void Application::showVacancyUpdateWindow() {
 void Application::showVacancyDeleteWindow() {
     this->configureVacancyDeleteWindow();
     this->w_vacancy_delete->exec();
+}
+
+
+void Application::accountCreate() {
+    Account account = w_account_create->getObject();
+    QMessageBox warning;
+
+    if(this->net_conector->account.create(account)) {
+        warning.information(nullptr, "Successful", "Акаунт був створений!");
+        w_allprofiles->updateAccountTables(this->net_conector->account.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Акаунт НЕ бав створений!");
+    }
+}
+
+
+void Application::accountRead() {
+    w_account_read->setObject(this->net_conector->account.read(w_allprofiles->getCurrentLogin()).first());
+    w_account_read->update();
+    showAccountReadWindow();
+}
+
+
+void Application::accountUpdate() {
+    w_account_update->setObject(this->net_conector->account.read(w_allprofiles->getCurrentLogin()).first());
+    w_account_update->update();
+    showAccountUpdateWindow();
+}
+
+
+void Application::accountUpdateData() {
+    Account update_account = w_account_update->getObject();
+    QMessageBox warning;
+
+    if(this->net_conector->account.update(w_allprofiles->getCurrentLogin(), update_account)) {
+        warning.information(nullptr, "Successful", "Акаунт був оновлений!");
+        w_allprofiles->updateAccountTables(this->net_conector->account.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Акаунт НЕ бав оновлений!");
+    }
 }
 
 

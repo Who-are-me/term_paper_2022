@@ -1,11 +1,13 @@
-#ifndef ACCOUNTREADWINDOW_HXX
-#define ACCOUNTREADWINDOW_HXX
+#pragma once
 
 #include <QDialog>
 
-namespace Ui {
-class AccountReadWindow;
-}
+#include "log.hxx"
+#include "models/account.hxx"
+
+
+namespace Ui { class AccountReadWindow; }
+
 
 class AccountReadWindow : public QDialog
 {
@@ -15,8 +17,11 @@ public:
     explicit AccountReadWindow(QWidget *parent = nullptr);
     ~AccountReadWindow();
 
+    void setObject(Account new_account);
+    void update();
+
 private:
     Ui::AccountReadWindow *ui;
+    Account m_account;
 };
 
-#endif // ACCOUNTREADWINDOW_HXX

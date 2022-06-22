@@ -31,9 +31,28 @@ AccountReadWindow::AccountReadWindow(QWidget *parent) :
     ui->l_password->hide();
 
     ui->groupBox->setTitle("Дані акаунта");
+
+    update();
 }
 
 
 AccountReadWindow::~AccountReadWindow() {
     delete ui;
+}
+
+
+void AccountReadWindow::setObject(Account new_account) {
+    this->m_account = new_account;
+}
+
+
+void AccountReadWindow::update() {
+    ui->le_pip->setText(m_account.getPip());
+    ui->le_city->setText(m_account.getCity());
+    ui->le_location->setText(m_account.getLocation());
+    ui->le_phone->setText(m_account.getPhone());
+    ui->le_email->setText(m_account.getEmail());
+    ui->le_company->setText(m_account.getCompany());
+    ui->te_description->setText(m_account.getDescription());
+    ui->le_login->setText(m_account.getUsername());
 }

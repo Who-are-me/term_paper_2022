@@ -46,6 +46,51 @@ QNetworkReply *AccountDAO::send(QString method, QNetworkAccessManager *manager, 
 }
 
 
+QList<Account> AccountDAO::readAll() {
+    QList<Account> 	return_list;
+    Account 		temp_object;
+    QJsonObject		jobj;
+    QEventLoop 		loop;
+    QNetworkReply* 	reply;
+    QByteArray 		result;
+    QJsonArray		jarr;
+
+    this->initRequest(this->path_read);
+    reply = this->send("GET", this->manager, this->request, "");
+
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    loop.exec();
+
+    jarr = QJsonDocument::fromJson(reply->readAll()).array();
+
+    foreach(const QJsonValue &value, jarr) {
+        jobj = value.toObject();
+
+        temp_object.setPip(jobj["pip"].toString());
+        temp_object.setCity(jobj["city"].toString());
+        temp_object.setLocation(jobj["location"].toString());
+        temp_object.setPhone(jobj["phone"].toString());
+        temp_object.setEmail(jobj["email"].toString());
+        temp_object.setCompany(jobj["company"].toString());
+        temp_object.setDescription(jobj["description"].toString());
+        temp_object.setUsername(jobj["login_name"].toString());
+        temp_object.setPassword(jobj["login_password"].toString());
+        temp_object.setRole(jobj["role"].toString());
+
+        return_list.append(temp_object);
+    }
+
+    result = reply->readAll();
+    Log::info("AccountDAO::read reply: " + result);
+    Log::info("AccountDAO::read status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
+
+    reply->deleteLater();
+
+    return return_list;
+}
+
+
 AccountDAO::~AccountDAO() {
     delete manager;
 }
@@ -106,12 +151,21 @@ bool AccountDAO::create(const Account new_object) {
     Log::info("AccountDAO::create status code: " + reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray());
     reply->deleteLater();
 
-    return true;
+    if(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toByteArray().toInt() == 404) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 
 // TODO test me, check status code
 QList<Account> AccountDAO::read(const QString read_of, QString option, QString filter) {
+    if(read_of.isEmpty()) {
+        return this->readAll();
+    }
+
     QList<Account> 	return_list;
     Account 		temp_object;
     QJsonObject		jobj;
