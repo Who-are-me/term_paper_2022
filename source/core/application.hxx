@@ -112,6 +112,7 @@ private slots:
 
     // move to next windows
     void moveToStartWindow();
+    void moveLogoutToStartWindow();
     void moveToAuthWindow();
     void moveToFilterWindow();
     void moveToRegisterWindow();

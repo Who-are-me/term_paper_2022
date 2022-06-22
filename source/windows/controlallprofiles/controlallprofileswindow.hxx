@@ -55,6 +55,7 @@ private slots:
     void on_lv_vacancy_doubleClicked();
 
     void on_btn_to_main_menu_released();
+    void on_btn_logout_released();
 
 signals:
     void updateTableAccount();
@@ -83,5 +84,6 @@ signals:
     void deleteVacancy();
 
     void backScreen();
+    void logout();
 };
 

@@ -157,11 +157,33 @@ QList<Vacancy> VacancyDAO::readWithPagination(const int page, const int item_in_
     foreach(const QJsonValue &value, jarr) {
         jobj = value.toObject();
 
+        QString edu = jobj["education"].toString();
+        int e = 0;
+
+        if(edu == "BASIC") {
+            e = 1;
+        }
+        else if(edu == "JUNIOR_SPECIALIST") {
+            e = 2;
+        }
+        else if(edu == "HIGHER_EDUCATION") {
+            e = 3;
+        }
+        else if(edu == "SEVERAL_HIGHER_EDUCATION") {
+            e = 4;
+        }
+        else if(edu == "CANDIDATE_OF_SCIENCES") {
+            e = 5;
+        }
+        else if(edu == "STUDYING") {
+            e = 6;
+        }
+
         temp_object.setId(jobj["id"].toInt());
         temp_object.setTitle(jobj["title"].toString());
         temp_object.setDescription(jobj["description"].toString());
         temp_object.setSalary(jobj["salary"].toInt());
-        temp_object.setEducation(jobj["education"].toInt());
+        temp_object.setEducation(e);
         temp_object.setExperience(jobj["experience"].toInt());
         temp_object.setCity(jobj["city"].toString());
         temp_object.setLocation(jobj["location"].toString());
@@ -259,13 +281,33 @@ QList<Vacancy> VacancyDAO::read(const int read_of, int option, QString filter) {
 
     jobj = QJsonDocument::fromJson(reply->readAll()).object();
 
-    qDebug() << "Edao: " << jobj["education"].toInt();
+    QString edu = jobj["education"].toString();
+    int e = 0;
+
+    if(edu == "BASIC") {
+        e = 1;
+    }
+    else if(edu == "JUNIOR_SPECIALIST") {
+        e = 2;
+    }
+    else if(edu == "HIGHER_EDUCATION") {
+        e = 3;
+    }
+    else if(edu == "SEVERAL_HIGHER_EDUCATION") {
+        e = 4;
+    }
+    else if(edu == "CANDIDATE_OF_SCIENCES") {
+        e = 5;
+    }
+    else if(edu == "STUDYING") {
+        e = 6;
+    }
 
     temp_object.setId(jobj["id"].toInt());
     temp_object.setTitle(jobj["title"].toString());
     temp_object.setDescription(jobj["description"].toString());
     temp_object.setSalary(jobj["salary"].toInt());
-    temp_object.setEducation(jobj["education"].toInt());
+    temp_object.setEducation(e);
     temp_object.setExperience(jobj["experience"].toInt());
     temp_object.setCity(jobj["city"].toString());
     temp_object.setLocation(jobj["location"].toString());

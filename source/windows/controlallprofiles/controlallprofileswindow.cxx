@@ -32,9 +32,6 @@ ControlAllProfilesWindow::ControlAllProfilesWindow(QWidget *parent) :
     e_model = new QStandardItemModel(1, 11, this);
     r_model = new QStandardItemModel(1, 9, this);
     v_model = new QStandardItemModel(0, 12, this);
-//    ui->lv_account->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked);
-
-//    initModels();
 }
 
 
@@ -169,18 +166,17 @@ void ControlAllProfilesWindow::updateVacancyTables(QList<Vacancy> v_list) {
 
 QString ControlAllProfilesWindow::getCurrentLogin() {
     Log::info(a_model->data(a_model->index(ui->lv_account->currentIndex().row(), 8)).toString());
-    qDebug() << "CurrentLogin: " << a_model->data(a_model->index(ui->lv_account->currentIndex().row(), 8)).toString();
     return a_model->data(a_model->index(ui->lv_account->currentIndex().row(), 8)).toString();
 }
 
 
 int ControlAllProfilesWindow::getCurrentVacancyId() {
     Log::info(v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toString());
-    qDebug() << "CurrentVacancyId: " << ui->lv_vacancy->currentIndex().row();
     return v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toInt();
 }
 
 
+// TODO maybe remove it
 void ControlAllProfilesWindow::initModels() {
     // account
     a_model->setHeaderData(0,Qt::Horizontal,  tr("Піп"));
@@ -297,6 +293,11 @@ void ControlAllProfilesWindow::on_lv_vacancy_doubleClicked() {
 
 void ControlAllProfilesWindow::on_btn_to_main_menu_released() {
     emit backScreen();
+}
+
+
+void ControlAllProfilesWindow::on_btn_logout_released() {
+    emit logout();
 }
 
 

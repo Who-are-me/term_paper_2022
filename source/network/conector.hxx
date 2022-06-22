@@ -47,6 +47,8 @@ public:
 
     bool login(QString username, QString password);
     bool checkIfEnableLoggedUser();
+    void deleteCookie();
+    bool isLogged();
 
     // host
     const QString &getConnectHost() const;

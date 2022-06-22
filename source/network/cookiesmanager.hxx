@@ -17,6 +17,7 @@ protected:
     bool tryConnect();
     static void setCommand(const QString &newCommand);
     QString getCookie();
+    void clearCookie();
 
 private:
     inline static QString 	cookies;

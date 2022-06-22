@@ -36,7 +36,6 @@ VacancyReadWindow::~VacancyReadWindow() {
 
 void VacancyReadWindow::setObject(Vacancy new_vacancy) {
     this->m_vacancy = new_vacancy;
-    qDebug() << "e: " << new_vacancy.getEducation();
 }
 
 

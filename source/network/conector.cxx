@@ -12,7 +12,7 @@ Conector::Conector() {
     setAccountPathToTestUserConnect("/user");
 
     net_manager = new QNetworkAccessManager();
-
+    this->is_logged = false;
 //    this->account.init("", "", "", "", "");
 
     // TODO maybe remove this
@@ -179,6 +179,7 @@ bool Conector::login(QString username, QString password) {
         this->education.setCookie(this->getCookie());
         this->resume.setCookie(this->getCookie());
         this->vacancy.setCookie(this->getCookie());
+        this->is_logged = true;
 
         if(this->checkIsAdmin()) {
             is_admin = true;
@@ -215,6 +216,17 @@ bool Conector::checkIfEnableLoggedUser() {
     else {
         return false;
     }
+}
+
+
+void Conector::deleteCookie() {
+    this->clearCookie();
+    this->is_logged = false;
+}
+
+
+bool Conector::isLogged() {
+    return this->is_logged;
 }
 
 

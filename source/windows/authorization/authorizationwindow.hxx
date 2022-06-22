@@ -19,21 +19,17 @@ public:
 
     QString getLogin();
     QString getPassword();
+    void clearInput();
 
 private:
     Ui::AuthorizationWindow         *ui;
-//    ControlAllProfilesWindow        *w_control_all_profiles;
-//    ControlCurrentProfilesWindow    *w_control_current_profiles;
-//    RegisterWindow	                *w_register;
 
 signals:
     void pushLogin();
-//    void showRegister();
     void backScreen();
 
 private slots:
     void on_btn_login_released();
-//    void on_btn_register_released();
     void on_btn_back_released();
 };
 

@@ -42,8 +42,6 @@ void VacancyUpdateWindow::setObject(Vacancy new_vacancy) {
 
 
 void VacancyUpdateWindow::update() {
-    qDebug() << "S: " << m_vacancy.getSalary();
-
     ui->le_title->setText(m_vacancy.getTitle());
     ui->te_description->setText(m_vacancy.getDescription());
     ui->le_salary->setText(QString::number(m_vacancy.getSalary()));

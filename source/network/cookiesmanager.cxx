@@ -186,6 +186,13 @@ QString CookiesManager::getCookie() {
 }
 
 
+void CookiesManager::clearCookie() {
+    Log::info("CookiesManager::clearCookie");
+    this->cookies = "";
+    this->exists_cookies = false;
+}
+
+
 
 
 

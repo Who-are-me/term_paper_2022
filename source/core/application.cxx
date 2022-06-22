@@ -98,6 +98,7 @@ bool Application::init() {
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteVacancy, this, &Application::showVacancyDeleteWindow);
 
     connect(w_allprofiles, &ControlAllProfilesWindow::backScreen, this, &Application::moveToStartWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::logout, this, &Application::moveLogoutToStartWindow);
 
     connect(w_account_create, &AccountCreateWindow::pushOk, this, &Application::accountCreate);
     connect(w_account_update, &AccountUpdateWindow::pushOk, this, &Application::accountUpdateData);
@@ -150,7 +151,6 @@ bool Application::closeAllWindowExcept(QString name_window) {
 
 
 void Application::configureStartWindow() {
-//    this->w_start->setWindowTitle("Welcome");
     this->w_start->setWindowTitle("Ласкаво просимо");
     this->w_start->statusBar()->hide();
 
@@ -162,13 +162,11 @@ void Application::configureStartWindow() {
 
 
 void Application::configureAuthWindow() {
-//    this->w_auth->setWindowTitle("Authorization");
     this->w_auth->setWindowTitle("Форма авторизації");
 }
 
 
 void Application::configureFilterWindow() {
-//    this->w_filter->setWindowTitle("Dashboard");
     this->w_filter->setWindowTitle("Панель пошуку");
 
     this->w_filter->statusBar()->hide();
@@ -176,13 +174,11 @@ void Application::configureFilterWindow() {
 
 
 void Application::configureRegisterWindow() {
-//    this->w_register->setWindowTitle("Register form");
     this->w_register->setWindowTitle("Форма регістрації");
 }
 
 
 void Application::configureControlAllProfilesWindow() {
-//    this->w_allprofiles->setWindowTitle("Admin panel");
     this->w_allprofiles->setWindowTitle("Панель адміністратора");
 
     this->w_allprofiles->statusBar()->hide();
@@ -190,7 +186,6 @@ void Application::configureControlAllProfilesWindow() {
 
 
 void Application::configureControlCurrentProfilesWindow() {
-//    this->w_currentprofiles->setWindowTitle("User panel");
     this->w_currentprofiles->setWindowTitle("Панель користувача");
 
     this->w_currentprofiles->statusBar()->hide();
@@ -215,7 +210,6 @@ void Application::configureAccountUpdateWindow() {
 void Application::configureAccountDeleteWindow() {
     this->w_account_delete->setWindowTitle("Видалення користувача");
     w_account_delete->setLogin(w_allprofiles->getCurrentLogin());
-    qDebug() << "Login: " << w_allprofiles->getCurrentLogin();
     w_account_delete->update();
 }
 
@@ -278,7 +272,6 @@ void Application::configureVacancyUpdateWindow() {
 void Application::configureVacancyDeleteWindow() {
     w_vacancy_delete->setWindowTitle("Видалення вакансії");
     w_vacancy_delete->setVacancyId(w_allprofiles->getCurrentVacancyId());
-    qDebug() << "ID: " << w_allprofiles->getCurrentVacancyId();
     w_vacancy_delete->update();
 }
 
@@ -361,8 +354,6 @@ void Application::tryLogin() {
 
     if(!net_conector->checkIfEnableLoggedUser()) {
         QMessageBox warning;
-//        warning.setText("Wrong password or login name, please check this. 'Program will be pause for two seconds'");
-//        warning.exec();
         warning.critical(nullptr, "Authorization error", "Wrong password or login name, please check this. 'Program will be pause for two seconds'");
 
         QObject().thread()->usleep(1000 * 1000 * 2);
@@ -387,11 +378,32 @@ void Application::moveToStartWindow() {
 }
 
 
+void Application::moveLogoutToStartWindow() {
+    this->closeAllWindowExcept("w_start");
+    this->net_conector->deleteCookie();
+
+    w_auth->clearInput();
+
+    this->configureStartWindow();
+    w_start->show();
+}
+
+
 void Application::moveToAuthWindow() {
     this->closeAllWindowExcept("w_auth");
 
-    configureAuthWindow();
-    w_auth->show();
+    if(this->net_conector->isLogged()) {
+        if(net_conector->getIsAdmin()) {
+            moveToControlAllProfilesWindow();
+        }
+        else {
+            moveToControlCurrentProfilesWindow();
+        }
+    }
+    else {
+        configureAuthWindow();
+        w_auth->show();
+    }
 }
 
 

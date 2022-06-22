@@ -49,19 +49,17 @@ QString AuthorizationWindow::getPassword() {
 }
 
 
+void AuthorizationWindow::clearInput() {
+    ui->le_login->setText("");
+    ui->le_password->setText("");
+}
+
+
 void AuthorizationWindow::on_btn_login_released() {
-    // TODO make authorization
     emit pushLogin();
 }
 
 
-//void AuthorizationWindow::on_btn_register_released() {
-//    // TODO make registration
-//    emit showRegister();
-//}
-
-
 void AuthorizationWindow::on_btn_back_released() {
-    // TODO make me
     emit backScreen();
 }
