@@ -1,11 +1,13 @@
-#ifndef VACANCYCREATEWINDOW_HXX
-#define VACANCYCREATEWINDOW_HXX
+#pragma once
+
 
 #include <QDialog>
 
-namespace Ui {
-class VacancyCreateWindow;
-}
+#include "models/vacancy.hxx"
+
+
+namespace Ui { class VacancyCreateWindow; }
+
 
 class VacancyCreateWindow : public QDialog
 {
@@ -15,8 +17,17 @@ public:
     explicit VacancyCreateWindow(QWidget *parent = nullptr);
     ~VacancyCreateWindow();
 
+    Vacancy getObject();
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
 private:
     Ui::VacancyCreateWindow *ui;
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
-#endif // VACANCYCREATEWINDOW_HXX

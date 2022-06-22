@@ -93,7 +93,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab_account">
        <attribute name="title">
@@ -111,7 +111,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
-         <widget class="QListView" name="lv_education"/>
+         <widget class="QTableView" name="lv_education"/>
         </item>
        </layout>
       </widget>
@@ -121,7 +121,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <widget class="QListView" name="lv_resume"/>
+         <widget class="QTableView" name="lv_resume"/>
         </item>
        </layout>
       </widget>
@@ -131,7 +131,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
-         <widget class="QListView" name="lv_vacancy"/>
+         <widget class="QTableView" name="lv_vacancy"/>
         </item>
        </layout>
       </widget>

@@ -14,21 +14,41 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
+   <item row="1" column="2">
+    <widget class="QPushButton" name="btn_cancel">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="btn_ok">
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Форма створення вакансії</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QTextEdit" name="te_description">
-        <property name="minimumSize">
-         <size>
-          <width>48</width>
-          <height>0</height>
-         </size>
-        </property>
-       </widget>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="le_salary"/>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="l_experience">
@@ -37,29 +57,11 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="l_salary">
-        <property name="text">
-         <string>Зарплата</string>
-        </property>
-       </widget>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="le_title"/>
       </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="l_company">
-        <property name="text">
-         <string>Компанія</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="le_salary"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="l_education">
-        <property name="text">
-         <string>Освіта</string>
-        </property>
-       </widget>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="le_experience"/>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="l_location">
@@ -75,49 +77,10 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="l_phone">
-        <property name="text">
-         <string>Телефон</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="le_city"/>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="le_location"/>
-      </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="le_company"/>
-      </item>
       <item row="5" column="0">
        <widget class="QLabel" name="l_city">
         <property name="text">
          <string>Місто</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="l_title">
-        <property name="text">
-         <string>Заголовок</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="le_phone"/>
-      </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="le_email"/>
-      </item>
-      <item row="13" column="0" colspan="2">
-       <widget class="QDialogButtonBox" name="bb">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
         </property>
        </widget>
       </item>
@@ -128,14 +91,68 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="le_title"/>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="le_phone"/>
       </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="le_experience"/>
+      <item row="9" column="0">
+       <widget class="QLabel" name="l_company">
+        <property name="text">
+         <string>Компанія</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="le_city"/>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="l_phone">
+        <property name="text">
+         <string>Телефон</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="le_location"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="l_education">
+        <property name="text">
+         <string>Освіта</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="l_salary">
+        <property name="text">
+         <string>Зарплата</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTextEdit" name="te_description">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="l_title">
+        <property name="text">
+         <string>Заголовок</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="1">
        <widget class="QComboBox" name="cb_education"/>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLineEdit" name="le_email"/>
+      </item>
+      <item row="9" column="1">
+       <widget class="QLineEdit" name="le_company"/>
       </item>
      </layout>
     </widget>

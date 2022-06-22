@@ -1,11 +1,12 @@
-#ifndef VACANCYREADWINDOW_HXX
-#define VACANCYREADWINDOW_HXX
+#pragma once
 
 #include <QDialog>
 
-namespace Ui {
-class VacancyReadWindow;
-}
+#include "models/vacancy.hxx"
+
+
+namespace Ui { class VacancyReadWindow; }
+
 
 class VacancyReadWindow : public QDialog
 {
@@ -15,8 +16,11 @@ public:
     explicit VacancyReadWindow(QWidget *parent = nullptr);
     ~VacancyReadWindow();
 
+    void setObject(Vacancy new_vacancy);
+    void update();
+
 private:
     Ui::VacancyReadWindow *ui;
+    Vacancy m_vacancy;
 };
 
-#endif // VACANCYREADWINDOW_HXX

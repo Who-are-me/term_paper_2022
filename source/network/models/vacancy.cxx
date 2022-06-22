@@ -36,12 +36,12 @@ void Vacancy::setDescription(const QString &newDescription) {
 }
 
 
-const QString &Vacancy::getSalary() const {
+const int &Vacancy::getSalary() const {
     return salary;
 }
 
 
-void Vacancy::setSalary(const QString &newSalary) {
+void Vacancy::setSalary(const int &newSalary) {
     salary = newSalary;
 }
 

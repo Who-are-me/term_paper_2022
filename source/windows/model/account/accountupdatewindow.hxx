@@ -18,8 +18,8 @@ public:
     ~AccountUpdateWindow();
 
     void setObject(Account new_account);
-    void update();
     Account getObject();
+    void update();
 
 private:
     Ui::AccountUpdateWindow *ui;

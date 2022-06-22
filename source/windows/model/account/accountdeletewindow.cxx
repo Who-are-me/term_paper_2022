@@ -1,6 +1,7 @@
 #include "accountdeletewindow.hxx"
 #include "ui_accountdeletewindow.h"
 
+
 AccountDeleteWindow::AccountDeleteWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AccountDeleteWindow)
@@ -15,4 +16,26 @@ AccountDeleteWindow::AccountDeleteWindow(QWidget *parent) :
 
 AccountDeleteWindow::~AccountDeleteWindow() {
     delete ui;
+}
+
+
+void AccountDeleteWindow::setLogin(QString new_login) {
+    this->login = new_login;
+}
+
+
+void AccountDeleteWindow::update() {
+    ui->l_login->setText(this->login);
+}
+
+
+void AccountDeleteWindow::on_btn_ok_released() {
+    emit pushOk();
+    this->close();
+}
+
+
+void AccountDeleteWindow::on_btn_cancel_released() {
+    emit pushCancel();
+    this->close();
 }

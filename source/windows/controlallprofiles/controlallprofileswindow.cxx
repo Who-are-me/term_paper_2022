@@ -28,138 +28,183 @@ ControlAllProfilesWindow::ControlAllProfilesWindow(QWidget *parent) :
     ui->btn_update_record->setText("Оновити");
     ui->btn_delete_record->setText("Видалити");
 
-    model = new QStandardItemModel(1, 9, this);
-//    model_item = new QStandardItem();
-//    account_list = new QList<Account>();
-
-
-
-
-
-//    QStringListModel *model = new QStringListModel();
-
-//    QStringList list;
-//    list << "one" << "two" << "tree";
-
-//QStandardItemModel *models = new QStandardItemModel(3, 7);
-//models->setHeaderData(0,Qt::Horizontal,  tr("id"));
-//int row = 0, column = 0;
-//QStandardItem *item = new QStandardItem(QString("row %0, column %1").arg(row).arg(column));
-//models->setItem(7, column, item);
-//ui->lv_account->setModel(models);
-
-
-////    ui->lv_account->setModel(model);
-//    model->setHeaderData(0,Qt::Horizontal,  tr("id"));
-//    model->setHeaderData(1,Qt::Horizontal,  tr("city"));
-//    model->setHeaderData(2,Qt::Horizontal,  tr("position"));
-//    model->setHeaderData(3,Qt::Horizontal,  tr("number"));
-//    model->setHeaderData(4,Qt::Horizontal,  tr("experiense"));
-//    model->setHeaderData(5,Qt::Horizontal,  tr("salary"));
-//    model->setHeaderData(6,Qt::Horizontal,  tr("information"));
-//    model->setHeaderData(7,Qt::Horizontal,  tr("account"));
-//    model->setStringList(list);
-
-    // set editable
+    a_model = new QStandardItemModel(1, 9, this);
+    e_model = new QStandardItemModel(1, 11, this);
+    r_model = new QStandardItemModel(1, 9, this);
+    v_model = new QStandardItemModel(0, 12, this);
 //    ui->lv_account->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked);
 
-//    updateTables();
+//    initModels();
 }
 
 
 ControlAllProfilesWindow::~ControlAllProfilesWindow() {
     delete ui;
-    delete model;
-//    delete model_item;
-//    delete account_list;
+    delete a_model;
+    delete e_model;
+    delete r_model;
+    delete v_model;
 }
 
 
-//void ControlAllProfilesWindow::setAccountList(QList<Account> *list) {
-//    Log::info("===> " + list->first().getUsername());
-//    this->account_list = list;
-//}
-
-
-//void ControlAllProfilesWindow::setEducationList(QList<Education> *list) {
-//    this->education_list = list;
-//}
-
-
-//void ControlAllProfilesWindow::setResumeList(QList<Resume> *list) {
-//    this->resume_list = list;
-//}
-
-
-//void ControlAllProfilesWindow::setVacancyList(QList<Vacancy> *list) {
-//    this->vacancy_list = list;
-//}
-
-
-void ControlAllProfilesWindow::updateTables(QList<Account> a_list) {
+void ControlAllProfilesWindow::updateTables(QList<Account> a_list, QList<Education> e_list, QList<Resume> r_list, QList<Vacancy> v_list) {
     ui->lv_account->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->lv_education->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->lv_resume->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->lv_vacancy->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     updateAccountTables(a_list);
-    updateEducationTables();
-    updateResumeTables();
-    updateVacancyTables();
+    updateEducationTables(e_list);
+    updateResumeTables(r_list);
+    updateVacancyTables(v_list);
 }
 
 
 void ControlAllProfilesWindow::updateAccountTables(QList<Account> a_list) {
     emit updateTableAccount();
 
-    model->setHeaderData(0,Qt::Horizontal,  tr("Піп"));
-    model->setHeaderData(1,Qt::Horizontal,  tr("Місто"));
-    model->setHeaderData(2,Qt::Horizontal,  tr("Локація"));
-    model->setHeaderData(3,Qt::Horizontal,  tr("Телефон"));
-    model->setHeaderData(4,Qt::Horizontal,  tr("Е-пошта"));
-    model->setHeaderData(5,Qt::Horizontal,  tr("Компанія"));
-    model->setHeaderData(6,Qt::Horizontal,  tr("Опис"));
-    model->setHeaderData(7,Qt::Horizontal,  tr("Роль"));
-    model->setHeaderData(8,Qt::Horizontal,  tr("Логін"));
+    a_model->removeRows(0, a_model->rowCount());
+
+    a_model->setHeaderData(0,Qt::Horizontal,  tr("Піп"));
+    a_model->setHeaderData(1,Qt::Horizontal,  tr("Місто"));
+    a_model->setHeaderData(2,Qt::Horizontal,  tr("Локація"));
+    a_model->setHeaderData(3,Qt::Horizontal,  tr("Телефон"));
+    a_model->setHeaderData(4,Qt::Horizontal,  tr("Е-пошта"));
+    a_model->setHeaderData(5,Qt::Horizontal,  tr("Компанія"));
+    a_model->setHeaderData(6,Qt::Horizontal,  tr("Опис"));
+    a_model->setHeaderData(7,Qt::Horizontal,  tr("Роль"));
+    a_model->setHeaderData(8,Qt::Horizontal,  tr("Логін"));
 
     int index = 0;
 
-
     foreach(const Account &acc, a_list) {
-        model->setItem(index, 0, new QStandardItem(acc.getPip()));
-        model->setItem(index, 1, new QStandardItem(acc.getCity()));
-        model->setItem(index, 2, new QStandardItem(acc.getLocation()));
-        model->setItem(index, 3, new QStandardItem(acc.getPhone()));
-        model->setItem(index, 4, new QStandardItem(acc.getEmail()));
-        model->setItem(index, 5, new QStandardItem(acc.getCompany()));
-        model->setItem(index, 6, new QStandardItem(acc.getDescription()));
-        model->setItem(index, 7, new QStandardItem(acc.getRole()));
-        model->setItem(index, 8, new QStandardItem(acc.getUsername()));
+        a_model->setItem(index, 0, new QStandardItem(acc.getPip()));
+        a_model->setItem(index, 1, new QStandardItem(acc.getCity()));
+        a_model->setItem(index, 2, new QStandardItem(acc.getLocation()));
+        a_model->setItem(index, 3, new QStandardItem(acc.getPhone()));
+        a_model->setItem(index, 4, new QStandardItem(acc.getEmail()));
+        a_model->setItem(index, 5, new QStandardItem(acc.getCompany()));
+        a_model->setItem(index, 6, new QStandardItem(acc.getDescription()));
+        a_model->setItem(index, 7, new QStandardItem(acc.getRole()));
+        a_model->setItem(index, 8, new QStandardItem(acc.getUsername()));
         ++index;
     }
 
-    ui->lv_account->setModel(model);
+    ui->lv_account->setModel(a_model);
 }
 
 
-void ControlAllProfilesWindow::updateEducationTables() {
-
-}
-
-
-void ControlAllProfilesWindow::updateResumeTables() {
+void ControlAllProfilesWindow::updateEducationTables(QList<Education> e_list) {
 
 }
 
 
-void ControlAllProfilesWindow::updateVacancyTables() {
+void ControlAllProfilesWindow::updateResumeTables(QList<Resume> e_list) {
 
+}
+
+
+void ControlAllProfilesWindow::updateVacancyTables(QList<Vacancy> v_list) {
+    emit updateTableVacancy();
+
+    v_model->removeRows(0, v_model->rowCount());
+
+    v_model->setHeaderData(0,Qt::Horizontal,  tr("ID"));
+    v_model->setHeaderData(1,Qt::Horizontal,  tr("Заголовок"));
+    v_model->setHeaderData(2,Qt::Horizontal,  tr("Опис"));
+    v_model->setHeaderData(3,Qt::Horizontal,  tr("Зарплата"));
+    v_model->setHeaderData(4,Qt::Horizontal,  tr("Освіта"));
+    v_model->setHeaderData(5,Qt::Horizontal,  tr("Досвід"));
+    v_model->setHeaderData(6,Qt::Horizontal,  tr("Місто"));
+    v_model->setHeaderData(7,Qt::Horizontal,  tr("Локація"));
+    v_model->setHeaderData(8,Qt::Horizontal,  tr("Телефон"));
+    v_model->setHeaderData(9,Qt::Horizontal,  tr("Е-пошта"));
+    v_model->setHeaderData(10,Qt::Horizontal, tr("Компанія"));
+    v_model->setHeaderData(11,Qt::Horizontal, tr("Власник"));
+
+    int index = 0;
+
+    foreach(const Vacancy &vac, v_list) {
+        QString education_type = "None";
+
+        if(vac.getEducation() == 1) {
+            education_type = "Basic";
+        }
+        else if(vac.getEducation() == 2) {
+            education_type = "Junior specialist";
+        }
+        else if(vac.getEducation() == 3) {
+            education_type = "Higher education";
+        }
+        else if(vac.getEducation() == 4) {
+            education_type = "Several higher education";
+        }
+        else if(vac.getEducation() == 5) {
+            education_type = "Candidate of sciences";
+        }
+        else if(vac.getEducation() == 6) {
+            education_type = "Stydying";
+        }
+
+        v_model->setItem(index, 0, new QStandardItem(QString::number(vac.getId())));
+        v_model->setItem(index, 1, new QStandardItem(vac.getTitle()));
+        v_model->setItem(index, 2, new QStandardItem(vac.getDescription()));
+        v_model->setItem(index, 3, new QStandardItem(QString::number(vac.getSalary())));
+        v_model->setItem(index, 4, new QStandardItem(education_type));
+        v_model->setItem(index, 5, new QStandardItem(QString::number(vac.getExperience())));
+        v_model->setItem(index, 6, new QStandardItem(vac.getCity()));
+        v_model->setItem(index, 7, new QStandardItem(vac.getLocation()));
+        v_model->setItem(index, 8, new QStandardItem(vac.getPhone()));
+        v_model->setItem(index, 9, new QStandardItem(vac.getEmail()));
+        v_model->setItem(index, 10, new QStandardItem(vac.getCompany()));
+        v_model->setItem(index, 11, new QStandardItem(vac.getOwner()));
+        ++index;
+    }
+
+    ui->lv_vacancy->setModel(v_model);
+
+    ui->lv_vacancy->setColumnHidden(0, true);
 }
 
 
 QString ControlAllProfilesWindow::getCurrentLogin() {
-    Log::info(model->data(model->index(ui->lv_account->currentIndex().row(), 8)).toString());
-    return model->data(model->index(ui->lv_account->currentIndex().row(), 8)).toString();
+    Log::info(a_model->data(a_model->index(ui->lv_account->currentIndex().row(), 8)).toString());
+    qDebug() << "CurrentLogin: " << a_model->data(a_model->index(ui->lv_account->currentIndex().row(), 8)).toString();
+    return a_model->data(a_model->index(ui->lv_account->currentIndex().row(), 8)).toString();
+}
+
+
+int ControlAllProfilesWindow::getCurrentVacancyId() {
+    Log::info(v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toString());
+    qDebug() << "CurrentVacancyId: " << ui->lv_vacancy->currentIndex().row();
+    return v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toInt();
+}
+
+
+void ControlAllProfilesWindow::initModels() {
+    // account
+    a_model->setHeaderData(0,Qt::Horizontal,  tr("Піп"));
+    a_model->setHeaderData(1,Qt::Horizontal,  tr("Місто"));
+    a_model->setHeaderData(2,Qt::Horizontal,  tr("Локація"));
+    a_model->setHeaderData(3,Qt::Horizontal,  tr("Телефон"));
+    a_model->setHeaderData(4,Qt::Horizontal,  tr("Е-пошта"));
+    a_model->setHeaderData(5,Qt::Horizontal,  tr("Компанія"));
+    a_model->setHeaderData(6,Qt::Horizontal,  tr("Опис"));
+    a_model->setHeaderData(7,Qt::Horizontal,  tr("Роль"));
+    a_model->setHeaderData(8,Qt::Horizontal,  tr("Логін"));
+    // vacancy
+    v_model->setHeaderData(0,Qt::Horizontal,  tr("ID"));
+    v_model->setHeaderData(1,Qt::Horizontal,  tr("Заголовок"));
+    v_model->setHeaderData(2,Qt::Horizontal,  tr("Опис"));
+    v_model->setHeaderData(3,Qt::Horizontal,  tr("Зарплата"));
+    v_model->setHeaderData(4,Qt::Horizontal,  tr("Освіта"));
+    v_model->setHeaderData(5,Qt::Horizontal,  tr("Досвід"));
+    v_model->setHeaderData(6,Qt::Horizontal,  tr("Місто"));
+    v_model->setHeaderData(7,Qt::Horizontal,  tr("Локація"));
+    v_model->setHeaderData(8,Qt::Horizontal,  tr("Телефон"));
+    v_model->setHeaderData(9,Qt::Horizontal,  tr("Е-пошта"));
+    v_model->setHeaderData(10,Qt::Horizontal, tr("Компанія"));
+    v_model->setHeaderData(11,Qt::Horizontal, tr("Власник"));
 }
 
 
@@ -184,28 +229,74 @@ void ControlAllProfilesWindow::on_btn_delete_account_released() {
 
 
 void ControlAllProfilesWindow::on_btn_create_record_released() {
-    emit createVacancy();
+    if(ui->tab_table->currentIndex() == 1) {
+        emit createEducation();
+    }
+    else if(ui->tab_table->currentIndex() == 2) {
+        emit createResume();
+    }
+    else if(ui->tab_table->currentIndex() == 3) {
+        emit createVacancy();
+    }
 }
 
 
 void ControlAllProfilesWindow::on_btn_read_record_released() {
-    emit readVacancy();
+    if(ui->tab_table->currentIndex() == 1) {
+        emit readEducation();
+    }
+    else if(ui->tab_table->currentIndex() == 2) {
+        emit readResume();
+    }
+    else if(ui->tab_table->currentIndex() == 3) {
+        emit readVacancy();
+    }
 }
 
 
 void ControlAllProfilesWindow::on_btn_update_record_released() {
-    emit updateVacancy();
+    if(ui->tab_table->currentIndex() == 1) {
+        emit updateEducation();
+    }
+    else if(ui->tab_table->currentIndex() == 2) {
+        emit updateResume();
+    }
+    else if(ui->tab_table->currentIndex() == 3) {
+        emit updateVacancy();
+    }
 }
 
 
 void ControlAllProfilesWindow::on_btn_delete_record_released() {
-    emit deleteVacancy();
+    if(ui->tab_table->currentIndex() == 1) {
+        emit deleteEducation();
+    }
+    else if(ui->tab_table->currentIndex() == 2) {
+        emit deleteResume();
+    }
+    else if(ui->tab_table->currentIndex() == 3) {
+        emit deleteVacancy();
+    }
 }
 
 
 void ControlAllProfilesWindow::on_lv_account_doubleClicked() {
     // TODO read account
     Log::info(QString::number(ui->lv_account->currentIndex().row()));
+    Log::info(QString::number(ui->lv_account->currentIndex().column()));
+    getCurrentLogin();
+}
+
+
+void ControlAllProfilesWindow::on_lv_vacancy_doubleClicked() {
+    // TODO read vacancy
+    Log::info(QString::number(ui->lv_vacancy->currentIndex().row()));
+    Log::info(v_model->data(v_model->index(0, 0)).toString());
+}
+
+
+void ControlAllProfilesWindow::on_btn_to_main_menu_released() {
+    emit backScreen();
 }
 
 

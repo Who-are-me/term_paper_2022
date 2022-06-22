@@ -1,11 +1,10 @@
-#ifndef ACCOUNTDELETEWINDOW_HXX
-#define ACCOUNTDELETEWINDOW_HXX
+#pragma once
 
 #include <QDialog>
 
-namespace Ui {
-class AccountDeleteWindow;
-}
+
+namespace Ui { class AccountDeleteWindow; }
+
 
 class AccountDeleteWindow : public QDialog
 {
@@ -15,8 +14,19 @@ public:
     explicit AccountDeleteWindow(QWidget *parent = nullptr);
     ~AccountDeleteWindow();
 
+    void setLogin(QString new_login);
+    void update();
+
 private:
     Ui::AccountDeleteWindow *ui;
+    QString login;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
-#endif // ACCOUNTDELETEWINDOW_HXX

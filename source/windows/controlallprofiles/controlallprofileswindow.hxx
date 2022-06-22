@@ -21,27 +21,24 @@ public:
     ControlAllProfilesWindow(QWidget *parent = nullptr);
     ~ControlAllProfilesWindow();
 
-//    void setAccountList(QList<Account> *list);
-//    void setEducationList(QList<Education> *list);
-//    void setResumeList(QList<Resume> *list);
-//    void setVacancyList(QList<Vacancy> *list);
-
     // TODO more tables
-    void updateTables(QList<Account> a_list);
+    void updateTables(QList<Account> a_list, QList<Education> e_list, QList<Resume> r_list, QList<Vacancy> v_list);
     void updateAccountTables(QList<Account> a_list);
-    void updateEducationTables();
-    void updateResumeTables();
-    void updateVacancyTables();
+    void updateEducationTables(QList<Education> e_list);
+    void updateResumeTables(QList<Resume> r_list);
+    void updateVacancyTables(QList<Vacancy> v_list);
+
     QString getCurrentLogin();
+    int getCurrentVacancyId();
 
 private:
     Ui::ControlAllProfilesWindow 	*ui;
-    QStandardItemModel 				*model;
-//    QStandardItem 					*model_item;
-//    QList<Account> 					*account_list;
-//    QList<Education> 				*education_list;
-//    QList<Resume> 					*resume_list;
-//    QList<Vacancy> 					*vacancy_list;
+    QStandardItemModel 				*a_model;
+    QStandardItemModel 				*e_model;
+    QStandardItemModel 				*r_model;
+    QStandardItemModel 				*v_model;
+
+    void initModels();
 
 private slots:
     void on_btn_create_account_released();
@@ -55,6 +52,9 @@ private slots:
     void on_btn_delete_record_released();
 
     void on_lv_account_doubleClicked();
+    void on_lv_vacancy_doubleClicked();
+
+    void on_btn_to_main_menu_released();
 
 signals:
     void updateTableAccount();
@@ -67,9 +67,21 @@ signals:
     void updateAccount();
     void deleteAccount();
 
+    void createEducation();
+    void readEducation();
+    void updateEducation();
+    void deleteEducation();
+
+    void createResume();
+    void readResume();
+    void updateResume();
+    void deleteResume();
+
     void createVacancy();
     void readVacancy();
     void updateVacancy();
     void deleteVacancy();
+
+    void backScreen();
 };
 

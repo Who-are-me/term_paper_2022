@@ -8,7 +8,7 @@ private:
     int		id;
     QString title;
     QString description;
-    QString salary;
+    int 	salary;
     int		education;
     int		experience;
     QString city;
@@ -30,8 +30,8 @@ public:
     const QString &getDescription() const;
     void setDescription(const QString &newDescription);
 
-    const QString &getSalary() const;
-    void setSalary(const QString &newSalary);
+    const int &getSalary() const;
+    void setSalary(const int &newSalary);
 
     int getEducation() const;
     void setEducation(int newEducation);

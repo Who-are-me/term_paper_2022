@@ -1,11 +1,10 @@
-#ifndef VACANCYDELETEWINDOW_HXX
-#define VACANCYDELETEWINDOW_HXX
+#pragma once
 
 #include <QDialog>
 
-namespace Ui {
-class VacancyDeleteWindow;
-}
+
+namespace Ui { class VacancyDeleteWindow; }
+
 
 class VacancyDeleteWindow : public QDialog
 {
@@ -15,8 +14,19 @@ public:
     explicit VacancyDeleteWindow(QWidget *parent = nullptr);
     ~VacancyDeleteWindow();
 
+    void setVacancyId(int new_id);
+    void update();
+
 private:
     Ui::VacancyDeleteWindow *ui;
+    int id;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
-#endif // VACANCYDELETEWINDOW_HXX

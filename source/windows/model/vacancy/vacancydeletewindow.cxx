@@ -16,3 +16,25 @@ VacancyDeleteWindow::VacancyDeleteWindow(QWidget *parent) :
 VacancyDeleteWindow::~VacancyDeleteWindow() {
     delete ui;
 }
+
+
+void VacancyDeleteWindow::setVacancyId(int new_id) {
+    this->id = new_id;
+}
+
+
+void VacancyDeleteWindow::update() {
+    ui->l_login->setText(QString::number(this->id));
+}
+
+
+void VacancyDeleteWindow::on_btn_ok_released() {
+    emit pushOk();
+    this->close();
+}
+
+
+void VacancyDeleteWindow::on_btn_cancel_released() {
+    emit pushCancel();
+    this->close();
+}

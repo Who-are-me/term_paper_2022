@@ -143,5 +143,12 @@ private slots:
     void accountRead();
     void accountUpdate();
     void accountUpdateData();
+    void accountDelete();
+
+    void vacancyCreate();
+    void vacancyRead();
+    void vacancyUpdate();
+    void vacancyUpdateData();
+    void vacancyDelete();
 };
 

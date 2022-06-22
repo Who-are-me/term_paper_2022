@@ -90,17 +90,31 @@ bool Application::init() {
 //    connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::showAccountUpdateWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::accountUpdate);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::showAccountDeleteWindow);
+//    connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::accountDelete);
 
     connect(w_allprofiles, &ControlAllProfilesWindow::createVacancy, this, &Application::showVacancyCreateWindow);
-    connect(w_allprofiles, &ControlAllProfilesWindow::readVacancy, this, &Application::showVacancyReadWindow);
-    connect(w_allprofiles, &ControlAllProfilesWindow::updateVacancy, this, &Application::showVacancyUpdateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::readVacancy, this, &Application::vacancyRead);
+    connect(w_allprofiles, &ControlAllProfilesWindow::updateVacancy, this, &Application::vacancyUpdate);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteVacancy, this, &Application::showVacancyDeleteWindow);
+
+    connect(w_allprofiles, &ControlAllProfilesWindow::backScreen, this, &Application::moveToStartWindow);
 
     connect(w_account_create, &AccountCreateWindow::pushOk, this, &Application::accountCreate);
     connect(w_account_update, &AccountUpdateWindow::pushOk, this, &Application::accountUpdateData);
+    connect(w_account_delete, &AccountDeleteWindow::pushOk, this, &Application::accountDelete);
 
-    // init path to servis page
+    connect(w_vacancy_create, &VacancyCreateWindow::pushOk, this, &Application::vacancyCreate);
+    connect(w_vacancy_update, &VacancyUpdateWindow::pushOk, this, &Application::vacancyUpdateData);
+    connect(w_vacancy_delete, &VacancyDeleteWindow::pushOk, this, &Application::vacancyDelete);
+
+    // init path to servise page
     net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
+    net_conector->education.init("http://localhost", "8080", "/edu/create", "/edu/", "/edu/", "/edu/");
+    net_conector->education.initAdditionalPaths("/edu" , "/edu/p/", "/edu/p/");
+    net_conector->resume.init("http://localhost", "8080", "/resume/create", "/resume/", "/resume/", "/resume/");
+    net_conector->resume.initAdditionalPaths("/resume" , "/resume/p/", "/resume/p/");
+    net_conector->vacancy.init("http://localhost", "8080", "/vacancy/create", "/vacancy/", "/vacancy/", "/vacancy/");
+    net_conector->vacancy.initAdditionalPaths("/vacancy" , "/vacancy/p/", "/vacancy/p/");
 
     return true;
 }
@@ -200,6 +214,9 @@ void Application::configureAccountUpdateWindow() {
 
 void Application::configureAccountDeleteWindow() {
     this->w_account_delete->setWindowTitle("Видалення користувача");
+    w_account_delete->setLogin(w_allprofiles->getCurrentLogin());
+    qDebug() << "Login: " << w_allprofiles->getCurrentLogin();
+    w_account_delete->update();
 }
 
 void Application::configureEducationCreateWindow()
@@ -260,6 +277,9 @@ void Application::configureVacancyUpdateWindow() {
 
 void Application::configureVacancyDeleteWindow() {
     w_vacancy_delete->setWindowTitle("Видалення вакансії");
+    w_vacancy_delete->setVacancyId(w_allprofiles->getCurrentVacancyId());
+    qDebug() << "ID: " << w_allprofiles->getCurrentVacancyId();
+    w_vacancy_delete->update();
 }
 
 
@@ -395,7 +415,11 @@ void Application::moveToControlAllProfilesWindow() {
     this->closeAllWindowExcept("w_allprofiles");
 
     configureControlAllProfilesWindow();
-    w_allprofiles->updateTables(net_conector->account.read());
+    w_allprofiles->updateTables(
+                this->net_conector->account.read(),
+                this->net_conector->education.read(),
+                this->net_conector->resume.read(),
+                this->net_conector->vacancy.read());
     w_allprofiles->show();
 }
 
@@ -535,6 +559,62 @@ void Application::accountUpdateData() {
     else {
         warning.critical(nullptr, "Failed", "Акаунт НЕ бав оновлений!");
     }
+}
+
+
+void Application::accountDelete() {
+    this->net_conector->account.remove(w_allprofiles->getCurrentLogin());
+    w_allprofiles->updateAccountTables(this->net_conector->account.read());
+}
+
+
+void Application::vacancyCreate() {
+    Vacancy vacancy = w_vacancy_create->getObject();
+    QMessageBox warning;
+
+    vacancy.setOwner(this->net_conector->getLoggedUser());
+
+    if(this->net_conector->vacancy.create(vacancy)) {
+        warning.information(nullptr, "Successful", "Вакансія була створена!");
+        w_allprofiles->updateVacancyTables(this->net_conector->vacancy.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Вакансія НЕ була створена!");
+    }
+}
+
+
+void Application::vacancyRead() {
+    w_vacancy_read->setObject(this->net_conector->vacancy.read(w_allprofiles->getCurrentVacancyId()).first());
+    w_vacancy_read->update();
+    showVacancyReadWindow();
+}
+
+
+void Application::vacancyUpdate() {
+    w_vacancy_update->setObject(this->net_conector->vacancy.read(w_allprofiles->getCurrentVacancyId()).first());
+    w_vacancy_update->update();
+    showVacancyUpdateWindow();
+}
+
+
+void Application::vacancyUpdateData() {
+    Vacancy update_vacancy = w_vacancy_update->getObject();
+    QMessageBox warning;
+
+    if(this->net_conector->vacancy.update(w_allprofiles->getCurrentVacancyId(), update_vacancy)) {
+        warning.information(nullptr, "Successful", "Вакансія була оновлена!");
+        w_allprofiles->updateVacancyTables(this->net_conector->vacancy.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Вакансія НЕ була оновлена!");
+    }
+}
+
+
+void Application::vacancyDelete() {
+    this->net_conector->vacancy.remove(w_allprofiles->getCurrentVacancyId());
+    w_allprofiles->updateVacancyTables(this->net_conector->vacancy.read());
 }
 
 

@@ -68,6 +68,7 @@ Account AccountUpdateWindow::getObject() {
 
 void AccountUpdateWindow::on_btn_ok_released() {
     emit pushOk();
+    this->close();
 }
 
 
