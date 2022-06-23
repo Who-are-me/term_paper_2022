@@ -127,7 +127,7 @@ bool CookiesManager::loadFromDisk() {
     QTextStream in(&file);
 
     while(!in.atEnd()) {
-        data.append(in.readLine().toStdString());
+//        data.append(in.readLine().toStdString());
     }
 
     file.close();

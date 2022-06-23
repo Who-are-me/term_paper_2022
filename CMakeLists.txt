@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(PROJECT_NAME TermPaper)
+set(PROJECT_NAME Workerin)
 
 project(${PROJECT_NAME} VERSION 0.1 LANGUAGES CXX)
 
@@ -25,6 +25,7 @@ message("Qt version: \t\t${QT_VERSION_MAJOR}")
 message("End indormation:\n")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS 	Widgets Network)
+#find_package(QT NAMES Qt5 REQUIRED COMPONENTS   Widgets Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 	Widgets Network)
 
 set(PROJECT_SOURCES
@@ -191,11 +192,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC source/windows)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/include)
 
 
-set(INSTALL_DESTDIR "/home/forever/Templates/App")
+#set(INSTALL_DESTDIR "/home/forever/Templates/App")
 
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION "${INSTALL_DESTDIR}"
-    BUNDLE DESTINATION "${INSTALL_DESTDIR}"
-    LIBRARY DESTINATION "${INSTALL_DESTDIR}"
-)
+#install(TARGETS ${PROJECT_NAME}
+#    RUNTIME DESTINATION "${INSTALL_DESTDIR}"
+#    BUNDLE DESTINATION "${INSTALL_DESTDIR}"
+#    LIBRARY DESTINATION "${INSTALL_DESTDIR}"
+#)
 

@@ -18,11 +18,11 @@ echo "Start compilation"
 
 make -j ${CPU_COUNT}
 
-if [ ! -f ./bin/${NAME_PROGRAM} ]
-then
-    echo "The program will not be compilation!"
-    exit 1
-fi
+# if [ ! -f ./bin/${NAME_PROGRAM} ]
+# then
+#     echo "The program will not be compilation!"
+#     exit 1
+# fi
 
 echo "Installing..."
 
