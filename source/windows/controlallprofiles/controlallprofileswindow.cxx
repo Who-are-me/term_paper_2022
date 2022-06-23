@@ -32,6 +32,8 @@ ControlAllProfilesWindow::ControlAllProfilesWindow(QWidget *parent) :
     e_model = new QStandardItemModel(0, 14, this);
     r_model = new QStandardItemModel(0, 12, this);
     v_model = new QStandardItemModel(0, 12, this);
+
+    is_admin = true;
 }
 
 
@@ -116,7 +118,11 @@ void ControlAllProfilesWindow::updateEducationTables(QList<Education> e_list) {
     foreach(const Education &vac, e_list) {
         QString education_type = "None";
 
-//        qDebug() << vac.getReq_education();
+        if(!is_admin) {
+            if(vac.getOwner() != username) {
+                continue;
+            }
+        }
 
         if(vac.getReq_education() == 1) {
             education_type = "Basic";
@@ -181,6 +187,12 @@ void ControlAllProfilesWindow::updateResumeTables(QList<Resume> r_list) {
     int index = 0;
 
     foreach(const Resume &vac, r_list) {
+        if(!is_admin) {
+            if(vac.getOwner() != username) {
+                continue;
+            }
+        }
+
         r_model->setItem(index, 0, new QStandardItem(QString::number(vac.getId())));
         r_model->setItem(index, 1, new QStandardItem(vac.getPip()));
         r_model->setItem(index, 2, new QStandardItem(vac.getSoft_skills()));
@@ -223,6 +235,12 @@ void ControlAllProfilesWindow::updateVacancyTables(QList<Vacancy> v_list) {
     int index = 0;
 
     foreach(const Vacancy &vac, v_list) {
+        if(!is_admin) {
+            if(vac.getOwner() != username) {
+                continue;
+            }
+        }
+
         QString education_type = "None";
 
         if(vac.getEducation() == 1) {
@@ -274,6 +292,26 @@ QString ControlAllProfilesWindow::getCurrentLogin() {
 int ControlAllProfilesWindow::getCurrentVacancyId() {
     Log::info(v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toString());
     return v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toInt();
+}
+
+
+void ControlAllProfilesWindow::noAdmin() {
+    ui->btn_create_account->setEnabled(false);
+    ui->btn_read_account->setEnabled(false);
+    ui->btn_update_account->setEnabled(false);
+    ui->btn_delete_account->setEnabled(false);
+    ui->tab_table->setTabEnabled(0, false);
+    is_admin = false;
+}
+
+
+const QString &ControlAllProfilesWindow::getUsername() const {
+    return username;
+}
+
+
+void ControlAllProfilesWindow::setUsername(const QString &newUsername) {
+    username = newUsername;
 }
 
 

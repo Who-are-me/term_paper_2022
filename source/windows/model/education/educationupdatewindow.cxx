@@ -63,6 +63,9 @@ Education EducationUpdateWindow::getObject() {
     else if(ed == "Studying") {
         e = 6;
     }
+    else {
+        e = 0;
+    }
 
     Education edu;
     edu.setTitle(ui->le_title->text());

@@ -116,7 +116,7 @@ private slots:
     void moveToAuthWindow();
     void moveToFilterWindow();
     void moveToRegisterWindow();
-    void moveToControlAllProfilesWindow();
+    void moveToControlAllProfilesWindow(bool is_admin);
     void moveToControlCurrentProfilesWindow();
 
     // show another window
@@ -163,5 +163,11 @@ private slots:
     void vacancyUpdate();
     void vacancyUpdateData();
     void vacancyDelete();
+
+    void filterUpdate();
+
+    void showEducation();
+    void showResume();
+    void showVacancy();
 };
 

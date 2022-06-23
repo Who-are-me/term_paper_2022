@@ -309,6 +309,9 @@ QList<Education> EducationDAO::read(const int read_of, int option, QString filte
     else if(edu == "STUDYING") {
         e = 6;
     }
+    else {
+        e = 0;
+    }
 
     temp_object.setId(jobj["id"].toInt());
     temp_object.setTitle(jobj["title"].toString());

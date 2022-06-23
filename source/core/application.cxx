@@ -115,9 +115,15 @@ bool Application::init() {
     connect(w_vacancy_update, &VacancyUpdateWindow::pushOk, this, &Application::vacancyUpdateData);
     connect(w_vacancy_delete, &VacancyDeleteWindow::pushOk, this, &Application::vacancyDelete);
 
-
     connect(w_allprofiles, &ControlAllProfilesWindow::backScreen, this, &Application::moveToStartWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::logout, this, &Application::moveLogoutToStartWindow);
+
+    connect(w_filter, &FilterWindow::pushBack, this, &Application::moveToStartWindow);
+    connect(w_filter, &FilterWindow::pushSearch, this, &Application::filterUpdate);
+
+    connect(w_filter, &FilterWindow::showEducation, this, &Application::showEducation);
+    connect(w_filter, &FilterWindow::showResume, this, &Application::showResume);
+    connect(w_filter, &FilterWindow::showVacancy, this, &Application::showVacancy);
 
     // init path to servise page
     net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
@@ -191,7 +197,8 @@ void Application::configureRegisterWindow() {
 
 
 void Application::configureControlAllProfilesWindow() {
-    this->w_allprofiles->setWindowTitle("Панель адміністратора");
+//    this->w_allprofiles->setWindowTitle("Панель адміністратора");
+    this->w_allprofiles->setWindowTitle("Панель керування");
 
     this->w_allprofiles->statusBar()->hide();
 }
@@ -382,10 +389,11 @@ void Application::tryLogin() {
     }
 
     if(net_conector->getIsAdmin()) {
-        moveToControlAllProfilesWindow();
+        moveToControlAllProfilesWindow(net_conector->getIsAdmin());
     }
     else {
-        moveToControlCurrentProfilesWindow();
+        moveToControlAllProfilesWindow(net_conector->getIsAdmin());
+//        moveToControlCurrentProfilesWindow();
     }
 }
 
@@ -415,7 +423,7 @@ void Application::moveToAuthWindow() {
 
     if(this->net_conector->isLogged()) {
         if(net_conector->getIsAdmin()) {
-            moveToControlAllProfilesWindow();
+            moveToControlAllProfilesWindow(net_conector->getIsAdmin());
         }
         else {
             moveToControlCurrentProfilesWindow();
@@ -431,7 +439,12 @@ void Application::moveToAuthWindow() {
 void Application::moveToFilterWindow() {
     this->closeAllWindowExcept("w_filter");
 
+    net_conector->login("justTest", "justTest");
+
     configureFilterWindow();
+    w_filter->updateTables(this->net_conector->education.read(),
+                           this->net_conector->resume.read(),
+                           this->net_conector->vacancy.read());
     w_filter->show();
 }
 
@@ -444,7 +457,13 @@ void Application::moveToRegisterWindow() {
 }
 
 
-void Application::moveToControlAllProfilesWindow() {
+void Application::moveToControlAllProfilesWindow(bool is_admin) {
+    if(!is_admin) {
+        w_allprofiles->noAdmin();
+    }
+
+    w_allprofiles->setUsername(net_conector->getLoggedUser());
+
     this->closeAllWindowExcept("w_allprofiles");
 
     configureControlAllProfilesWindow();
@@ -764,6 +783,34 @@ void Application::vacancyUpdateData() {
 void Application::vacancyDelete() {
     this->net_conector->vacancy.remove(w_allprofiles->getCurrentVacancyId());
     w_allprofiles->updateVacancyTables(this->net_conector->vacancy.read());
+}
+
+
+void Application::filterUpdate() {
+    w_filter->updateTables(this->net_conector->education.read(),
+                           this->net_conector->resume.read(),
+                           this->net_conector->vacancy.read());
+}
+
+
+void Application::showEducation() {
+    w_education_read->setObject(this->net_conector->education.read(w_filter->getCurrentEducationId()).first());
+    w_education_read->update();
+    showEducationReadWindow();
+}
+
+
+void Application::showResume() {
+    w_resume_read->setObject(this->net_conector->resume.read(w_filter->getCurrentResumeId()).first());
+    w_resume_read->update();
+    showResumeReadWindow();
+}
+
+
+void Application::showVacancy() {
+    w_vacancy_read->setObject(this->net_conector->vacancy.read(w_filter->getCurrentVacancyId()).first());
+    w_vacancy_read->update();
+    showVacancyReadWindow();
 }
 
 // ---------------------------------------------------------------------------------------------------

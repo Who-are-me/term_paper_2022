@@ -33,12 +33,19 @@ public:
     int getCurrentResumeId();
     int getCurrentVacancyId();
 
+    void noAdmin();
+
+    const QString &getUsername() const;
+    void setUsername(const QString &newUsername);
+
 private:
     Ui::ControlAllProfilesWindow 	*ui;
     QStandardItemModel 				*a_model;
     QStandardItemModel 				*e_model;
     QStandardItemModel 				*r_model;
     QStandardItemModel 				*v_model;
+    bool							is_admin;
+    QString 						username;
 
     void initModels();
 
