@@ -8,6 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 // status code decode
 // ok => 200
@@ -49,6 +52,23 @@ public class AccountController {
         if(acc.isNull()) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new Account();
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_FOUND);
+            return acc;
+        }
+    }
+
+    @GetMapping(value = "/get/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Account> getAll(HttpServletResponse response) throws SQLException {
+        System.out.println("account/get/");
+
+        List<Account> acc = this.accountDAO.getAll();
+
+        if(acc.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ArrayList<>();
         }
         else {
             response.setStatus(HttpServletResponse.SC_FOUND);

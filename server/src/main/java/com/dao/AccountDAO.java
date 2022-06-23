@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -28,7 +30,7 @@ public class AccountDAO implements Dao<Account> {
         ResultSet resultSetCheck = statement.executeQuery("SELECT count(*) as number FROM accounts WHERE login_name = '" + account.getLogin_name() + "'");
 
         while (resultSetCheck.next()) {
-            if (resultSetCheck.getInt("number") == 0) {
+            if (resultSetCheck.getInt("number") != 0) {
                 System.out.println("Database [INFO]: User does not exist!");
                 throw new SQLException("Username does exist!");
             }
@@ -96,6 +98,46 @@ public class AccountDAO implements Dao<Account> {
         }
 
         return account;
+    }
+
+
+    public List<Account> getAll() throws SQLException {
+        Statement statement = db.getConnection().createStatement();
+
+        List<Account> accounts = new ArrayList<>();
+        Account account = new Account();
+
+        ResultSet resultSetCheck = statement.executeQuery("SELECT count(*) as number FROM accounts");
+
+        while (resultSetCheck.next()) {
+            if (resultSetCheck.getInt("number") == 0) {
+                System.out.println("Database [INFO]: User does not exist!");
+                return accounts;
+            }
+        }
+
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM accounts");
+
+        while (resultSet.next()) {
+            account = new Account();
+            account.setData(
+                    resultSet.getInt("id"),
+                    resultSet.getString("pip"),
+                    resultSet.getString("city"),
+                    resultSet.getString("location"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("email"),
+                    resultSet.getString("company"),
+                    resultSet.getString("description"),
+                    resultSet.getString("login_name"),
+                    resultSet.getString("login_password"),
+                    resultSet.getString("role")
+            );
+
+            accounts.add(account);
+        }
+
+        return accounts;
     }
 
 

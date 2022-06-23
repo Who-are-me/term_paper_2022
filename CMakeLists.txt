@@ -191,5 +191,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC source/windows)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_autogen/include)
 
 
+set(INSTALL_DESTDIR "/home/forever/Templates/App")
 
+install(TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION "${INSTALL_DESTDIR}"
+    BUNDLE DESTINATION "${INSTALL_DESTDIR}"
+    LIBRARY DESTINATION "${INSTALL_DESTDIR}"
+)
 
