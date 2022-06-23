@@ -270,7 +270,7 @@ bool ResumeDAO::update(const int update_of, const Resume updated_object) {
     jobj["phone"] = updated_object.getPhone();
     jobj["email"] = updated_object.getEmail();
     jobj["skype"] = updated_object.getSkype();
-    jobj["qualification"] = updated_object.getQualification();
+    jobj["qualifications"] = updated_object.getQualification();
     jobj["about_myself"] = updated_object.getAbout_myself();
     jobj["owner"] = updated_object.getOwner();
 

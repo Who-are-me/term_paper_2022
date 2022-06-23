@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "models/resume.hxx"
+
 namespace Ui {
 class ResumeReadWindow;
 }
@@ -15,8 +17,13 @@ public:
     explicit ResumeReadWindow(QWidget *parent = nullptr);
     ~ResumeReadWindow();
 
+    void setObject(Resume new_vacancy);
+    Resume getObject();
+    void update();
+
 private:
     Ui::ResumeReadWindow *ui;
+    Resume m_resume;
 };
 
 #endif // RESUMEREADWINDOW_HXX

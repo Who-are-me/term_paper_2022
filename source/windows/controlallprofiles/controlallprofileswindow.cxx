@@ -283,6 +283,12 @@ int ControlAllProfilesWindow::getCurrentEducationId() {
 }
 
 
+int ControlAllProfilesWindow::getCurrentResumeId() {
+    Log::info(r_model->data(r_model->index(ui->lv_resume->currentIndex().row(), 0)).toString());
+    return r_model->data(r_model->index(ui->lv_resume->currentIndex().row(), 0)).toInt();
+}
+
+
 // TODO maybe remove it
 void ControlAllProfilesWindow::initModels() {
     // account

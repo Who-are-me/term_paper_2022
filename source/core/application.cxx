@@ -267,6 +267,8 @@ void Application::configureResumeUpdateWindow() {
 
 void Application::configureResumeDeleteWindow() {
     w_resume_delete->setWindowTitle("Видалення резюме");
+    w_resume_delete->setResumeId(w_allprofiles->getCurrentResumeId());
+    w_resume_delete->update();
 }
 
 // ---------------------------------------------------------------------------------------------------
@@ -681,22 +683,36 @@ void Application::resumeCreate() {
 
 
 void Application::resumeRead() {
-
+    w_resume_read->setObject(this->net_conector->resume.read(w_allprofiles->getCurrentResumeId()).first());
+    w_resume_read->update();
+    showResumeReadWindow();
 }
 
 
 void Application::resumeUpdate() {
-
+    w_resume_update->setObject(this->net_conector->resume.read(w_allprofiles->getCurrentResumeId()).first());
+    w_resume_update->update();
+    showResumeUpdateWindow();
 }
 
 
 void Application::resumeUpdateData() {
+    Resume res = w_resume_update->getObject();
+    QMessageBox warning;
 
+    if(this->net_conector->resume.update(w_allprofiles->getCurrentResumeId(), res)) {
+        warning.information(nullptr, "Successful", "Резюме було оновлено!");
+        w_allprofiles->updateResumeTables(this->net_conector->resume.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Резюме НЕ було оновлено!");
+    }
 }
 
 
 void Application::resumeDelete() {
-
+    this->net_conector->resume.remove(w_allprofiles->getCurrentResumeId());
+    w_allprofiles->updateResumeTables(this->net_conector->resume.read());
 }
 
 // ---------------------------------------------------------------------------------------------------

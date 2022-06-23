@@ -6,78 +6,154 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>398</width>
-    <height>145</height>
+    <width>525</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="0">
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Форма оновлення резюме</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="11" column="0">
+       <widget class="QLabel" name="l_company">
+        <property name="text">
+         <string>Клаліфікація</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="l_city">
+        <property name="text">
+         <string>Хоббі</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLineEdit" name="le_hobbies"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="l_salary">
+        <property name="text">
+         <string>Комунікативні навики</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="2">
+       <widget class="QTextEdit" name="te_about_myself">
+        <property name="minimumSize">
+         <size>
+          <width>48</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="l_email">
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="l_education">
+        <property name="text">
+         <string>Професійні навики</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="le_pip"/>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLineEdit" name="le_language"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="le_soft_skills"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="l_experience">
+        <property name="text">
+         <string>Знання мов</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
+       <widget class="QLabel" name="l_description">
+        <property name="text">
+         <string>Про себе</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="l_phone">
+        <property name="text">
+         <string>Телефон</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="l_location">
+        <property name="text">
+         <string>Skype</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="l_title">
+        <property name="text">
+         <string>Піп</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="le_hard_skills"/>
+      </item>
+      <item row="6" column="2">
+       <widget class="QLineEdit" name="le_phone"/>
+      </item>
+      <item row="7" column="2">
+       <widget class="QLineEdit" name="le_email"/>
+      </item>
+      <item row="8" column="2">
+       <widget class="QLineEdit" name="le_skype"/>
+      </item>
+      <item row="11" column="2">
+       <widget class="QLineEdit" name="le_qualification"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>223</width>
+       <width>350</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="btn_cancel">
-     <property name="text">
-      <string>Cancel</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>42</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="1">
+   <item row="1" column="1">
     <widget class="QPushButton" name="btn_ok">
      <property name="text">
       <string>Ok</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="2">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="1" column="2">
-    <widget class="QLabel" name="l_login">
+    <widget class="QPushButton" name="btn_cancel">
      <property name="text">
-      <string>login</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="l_text">
-     <property name="text">
-      <string>Are you realy want delete this?</string>
+      <string>Cancel</string>
      </property>
     </widget>
    </item>

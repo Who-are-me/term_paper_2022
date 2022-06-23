@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "models/resume.hxx"
+
 namespace Ui {
 class ResumeUpdateWindow;
 }
@@ -15,8 +17,13 @@ public:
     explicit ResumeUpdateWindow(QWidget *parent = nullptr);
     ~ResumeUpdateWindow();
 
+    void setObject(Resume new_object);
+    Resume getObject();
+    void update();
+
 private:
     Ui::ResumeUpdateWindow *ui;
+    Resume m_resume;
 
 private slots:
     void on_btn_ok_released();

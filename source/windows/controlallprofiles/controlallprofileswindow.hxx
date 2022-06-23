@@ -29,8 +29,9 @@ public:
     void updateVacancyTables(QList<Vacancy> v_list);
 
     QString getCurrentLogin();
-    int getCurrentVacancyId();
     int getCurrentEducationId();
+    int getCurrentResumeId();
+    int getCurrentVacancyId();
 
 private:
     Ui::ControlAllProfilesWindow 	*ui;
