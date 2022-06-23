@@ -1,11 +1,12 @@
-#ifndef EDUCATIONREADWINDOW_HXX
-#define EDUCATIONREADWINDOW_HXX
+#pragma once
 
 #include <QDialog>
 
-namespace Ui {
-class EducationReadWindow;
-}
+#include "models/education.hxx"
+
+
+namespace Ui { class EducationReadWindow; }
+
 
 class EducationReadWindow : public QDialog
 {
@@ -15,8 +16,11 @@ public:
     explicit EducationReadWindow(QWidget *parent = nullptr);
     ~EducationReadWindow();
 
+    void setObject(Education new_vacancy);
+    void update();
+
 private:
     Ui::EducationReadWindow *ui;
+    Education m_education;
 };
 
-#endif // EDUCATIONREADWINDOW_HXX

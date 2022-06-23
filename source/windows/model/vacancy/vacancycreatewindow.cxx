@@ -77,6 +77,7 @@ Vacancy VacancyCreateWindow::getObject() {
 
 void VacancyCreateWindow::on_btn_ok_released() {
     emit pushOk();
+    this->close();
 }
 
 

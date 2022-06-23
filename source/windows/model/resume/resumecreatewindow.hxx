@@ -1,11 +1,13 @@
-#ifndef RESUMECREATEWINDOW_HXX
-#define RESUMECREATEWINDOW_HXX
+#pragma once
+
 
 #include <QDialog>
 
-namespace Ui {
-class ResumeCreateWindow;
-}
+#include "models/resume.hxx"
+
+
+namespace Ui { class ResumeCreateWindow; }
+
 
 class ResumeCreateWindow : public QDialog
 {
@@ -15,8 +17,17 @@ public:
     explicit ResumeCreateWindow(QWidget *parent = nullptr);
     ~ResumeCreateWindow();
 
+    Resume getObject();
+
 private:
     Ui::ResumeCreateWindow *ui;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
-#endif // RESUMECREATEWINDOW_HXX

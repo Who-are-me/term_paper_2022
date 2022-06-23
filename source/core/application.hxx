@@ -146,6 +146,18 @@ private slots:
     void accountUpdateData();
     void accountDelete();
 
+    void educationCreate();
+    void educationRead();
+    void educationUpdate();
+    void educationUpdateData();
+    void educationDelete();
+
+    void resumeCreate();
+    void resumeRead();
+    void resumeUpdate();
+    void resumeUpdateData();
+    void resumeDelete();
+
     void vacancyCreate();
     void vacancyRead();
     void vacancyUpdate();

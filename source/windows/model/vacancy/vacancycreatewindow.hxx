@@ -19,12 +19,12 @@ public:
 
     Vacancy getObject();
 
+private:
+    Ui::VacancyCreateWindow *ui;
+
 private slots:
     void on_btn_ok_released();
     void on_btn_cancel_released();
-
-private:
-    Ui::VacancyCreateWindow *ui;
 
 signals:
     void pushOk();

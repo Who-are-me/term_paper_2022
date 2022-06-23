@@ -17,6 +17,14 @@ public:
 
 private:
     Ui::ResumeUpdateWindow *ui;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
 #endif // RESUMEUPDATEWINDOW_HXX

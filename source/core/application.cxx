@@ -80,33 +80,44 @@ bool Application::init() {
     // connects auth window
     connect(w_auth, &AuthorizationWindow::backScreen, this, &Application::moveToStartWindow);
     connect(w_auth, &AuthorizationWindow::pushLogin, this, &Application::tryLogin);
-//    connect(w_auth, &AuthorizationWindow::showRegister, this, &Application::moveToRegisterWindow);
     // connects register window
     connect(w_register, &RegisterWindow::backScreen, this, &Application::moveToAuthWindow);
     // connects admin panel window
     connect(w_allprofiles, &ControlAllProfilesWindow::createAccount, this, &Application::showAccountCreateWindow);
-//    connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::showAccountReadWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::readAccount, this, &Application::accountRead);
-//    connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::showAccountUpdateWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::updateAccount, this, &Application::accountUpdate);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::showAccountDeleteWindow);
-//    connect(w_allprofiles, &ControlAllProfilesWindow::deleteAccount, this, &Application::accountDelete);
+    connect(w_account_create, &AccountCreateWindow::pushOk, this, &Application::accountCreate);
+    connect(w_account_update, &AccountUpdateWindow::pushOk, this, &Application::accountUpdateData);
+    connect(w_account_delete, &AccountDeleteWindow::pushOk, this, &Application::accountDelete);
+
+    connect(w_allprofiles, &ControlAllProfilesWindow::createEducation, this, &Application::showEducationCreateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::readEducation, this, &Application::educationRead);
+    connect(w_allprofiles, &ControlAllProfilesWindow::updateEducation, this, &Application::educationUpdate);
+    connect(w_allprofiles, &ControlAllProfilesWindow::deleteEducation, this, &Application::showEducationDeleteWindow);
+    connect(w_education_create, &EducationCreateWindow::pushOk, this, &Application::educationCreate);
+    connect(w_education_update, &EducationUpdateWindow::pushOk, this, &Application::educationUpdateData);
+    connect(w_education_delete, &EducationDeleteWindow::pushOk, this, &Application::educationDelete);
+
+    connect(w_allprofiles, &ControlAllProfilesWindow::createResume, this, &Application::showResumeCreateWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::readResume, this, &Application::resumeRead);
+    connect(w_allprofiles, &ControlAllProfilesWindow::updateResume, this, &Application::resumeUpdate);
+    connect(w_allprofiles, &ControlAllProfilesWindow::deleteResume, this, &Application::showResumeDeleteWindow);
+    connect(w_resume_create, &ResumeCreateWindow::pushOk, this, &Application::resumeCreate);
+    connect(w_resume_update, &ResumeUpdateWindow::pushOk, this, &Application::resumeUpdateData);
+    connect(w_resume_delete, &ResumeDeleteWindow::pushOk, this, &Application::resumeDelete);
 
     connect(w_allprofiles, &ControlAllProfilesWindow::createVacancy, this, &Application::showVacancyCreateWindow);
     connect(w_allprofiles, &ControlAllProfilesWindow::readVacancy, this, &Application::vacancyRead);
     connect(w_allprofiles, &ControlAllProfilesWindow::updateVacancy, this, &Application::vacancyUpdate);
     connect(w_allprofiles, &ControlAllProfilesWindow::deleteVacancy, this, &Application::showVacancyDeleteWindow);
-
-    connect(w_allprofiles, &ControlAllProfilesWindow::backScreen, this, &Application::moveToStartWindow);
-    connect(w_allprofiles, &ControlAllProfilesWindow::logout, this, &Application::moveLogoutToStartWindow);
-
-    connect(w_account_create, &AccountCreateWindow::pushOk, this, &Application::accountCreate);
-    connect(w_account_update, &AccountUpdateWindow::pushOk, this, &Application::accountUpdateData);
-    connect(w_account_delete, &AccountDeleteWindow::pushOk, this, &Application::accountDelete);
-
     connect(w_vacancy_create, &VacancyCreateWindow::pushOk, this, &Application::vacancyCreate);
     connect(w_vacancy_update, &VacancyUpdateWindow::pushOk, this, &Application::vacancyUpdateData);
     connect(w_vacancy_delete, &VacancyDeleteWindow::pushOk, this, &Application::vacancyDelete);
+
+
+    connect(w_allprofiles, &ControlAllProfilesWindow::backScreen, this, &Application::moveToStartWindow);
+    connect(w_allprofiles, &ControlAllProfilesWindow::logout, this, &Application::moveLogoutToStartWindow);
 
     // init path to servise page
     net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
@@ -160,6 +171,7 @@ void Application::configureStartWindow() {
     this->w_start->setMinimumWidth(380);
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::configureAuthWindow() {
     this->w_auth->setWindowTitle("Форма авторизації");
@@ -191,6 +203,7 @@ void Application::configureControlCurrentProfilesWindow() {
     this->w_currentprofiles->statusBar()->hide();
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::configureAccountCreateWindow() {
     this->w_account_create->setWindowTitle("Створення користувача");
@@ -213,46 +226,50 @@ void Application::configureAccountDeleteWindow() {
     w_account_delete->update();
 }
 
-void Application::configureEducationCreateWindow()
-{
+// ---------------------------------------------------------------------------------------------------
 
+void Application::configureEducationCreateWindow() {
+    w_education_create->setWindowTitle("Створення оголошення по стажуванні");
 }
 
-void Application::configureEducationReadWindow()
-{
 
+void Application::configureEducationReadWindow() {
+    w_education_read->setWindowTitle("Дані стажування");
 }
 
-void Application::configureEducationUpdateWindow()
-{
-
+void Application::configureEducationUpdateWindow() {
+    w_education_update->setWindowTitle("Оноалення даних стажування");
 }
 
-void Application::configureEducationDeleteWindow()
-{
 
+void Application::configureEducationDeleteWindow() {
+    w_education_delete->setWindowTitle("Видалення стажування");
+    w_education_delete->setEducationId(w_allprofiles->getCurrentEducationId());
+    w_education_delete->update();
 }
 
-void Application::configureResumeCreateWindow()
-{
+// ---------------------------------------------------------------------------------------------------
 
+void Application::configureResumeCreateWindow() {
+    w_resume_create->setWindowTitle("Створення резюме");
 }
 
-void Application::configureResumeReadWindow()
-{
 
+void Application::configureResumeReadWindow() {
+    w_resume_read->setWindowTitle("Дані резюме");
 }
 
-void Application::configureResumeUpdateWindow()
-{
 
+void Application::configureResumeUpdateWindow() {
+    w_resume_update->setWindowTitle("Оновлення даних резюме");
 }
 
-void Application::configureResumeDeleteWindow()
-{
 
+void Application::configureResumeDeleteWindow() {
+    w_resume_delete->setWindowTitle("Видалення резюме");
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::configureVacancyCreateWindow() {
     w_vacancy_create->setWindowTitle("Форма створення вакансії");
@@ -275,13 +292,14 @@ void Application::configureVacancyDeleteWindow() {
     w_vacancy_delete->update();
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::justTest() {
-    net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
-    net_conector->education.init("http://localhost", "8080", "/edu/create", "/edu/", "/edu/", "/edu/");
-    net_conector->education.initAdditionalPaths("/edu" , "/edu/p/", "/edu/p/");
+//    net_conector->account.init("http://localhost", "8080", "/account/create", "/account/get/", "/account/update/", "/account/delete/");
+//    net_conector->education.init("http://localhost", "8080", "/edu/create", "/edu/", "/edu/", "/edu/");
+//    net_conector->education.initAdditionalPaths("/edu" , "/edu/p/", "/edu/p/");
 
-    // test account
+//    // test account
 //    Account acc("just test", "dovgalivka", "home", "0987654321", "justtest@gmail.com", "company", "description", "ROLE_USER", "justTest2", "justTest2", false);
 //    QList<Account> acc_list;
 //    Log::info("JustTest: run account create test");
@@ -306,41 +324,41 @@ void Application::justTest() {
 //    for(auto &x : acc_list) {
 //        Log::info(x.toString());
 //    }
-    // test education
-    Education edu("test update again 13", "desc", "2022-06-06", "2023-06-06", "2", "option", "dovgalivka", "home", "0987654312", "justTest@gmail.com", "school", 2, "justTest");
-    QList<Education> edu_list;
+//    // test education
+//    Education edu("test update again 13", "desc", "2022-06-06", "2023-06-06", "2", "option", "dovgalivka", "home", "0987654312", "justTest@gmail.com", "school", 2, "justTest");
+////    QList<Education> edu_list;
 
-    Log::info("JustTest: run education create test");
-    net_conector->education.create(edu);
+//    Log::info("JustTest: run education create test");
+//    net_conector->education.create(edu);
 
-    Log::info("JustTest: run education read all test");
-    edu_list = net_conector->education.read();
+//    Log::info("JustTest: run education read all test");
+//    edu_list = net_conector->education.read();
 
-    for(auto &x : edu_list) {
-        Log::info(x.toString() + "\n");
-    }
+//    for(auto &x : edu_list) {
+//        Log::info(x.toString() + "\n");
+//    }
 
-    Log::info("JustTest: run education read pagination /p/X/X test");
-    // 5 and 6
-    edu_list = net_conector->education.read(2, 2);
+//    Log::info("JustTest: run education read pagination /p/X/X test");
+//    // 5 and 6
+//    edu_list = net_conector->education.read(2, 2);
 
-    for(auto &x : edu_list) {
-        Log::info(x.toString() + "\n");
-    }
+//    for(auto &x : edu_list) {
+//        Log::info(x.toString() + "\n");
+//    }
 
-    Log::info("JustTest: run education read pagination /p/X/X/XXXX test");
-    // 3 and 5
-    edu_list = net_conector->education.read(1, 2, "justTest");
+//    Log::info("JustTest: run education read pagination /p/X/X/XXXX test");
+//    // 3 and 5
+//    edu_list = net_conector->education.read(1, 2, "justTest");
 
-    for(auto &x : edu_list) {
-        Log::info(x.toString() + "\n");
-    }
+//    for(auto &x : edu_list) {
+//        Log::info(x.toString() + "\n");
+//    }
 
-    Log::info("JustTest: run education update test");
-    net_conector->education.update(13, edu);
+//    Log::info("JustTest: run education update test");
+//    net_conector->education.update(13, edu);
 
-    Log::info("JustTest: run education delete test");
-    net_conector->education.remove(13);
+//    Log::info("JustTest: run education delete test");
+//    net_conector->education.remove(13);
 }
 
 
@@ -369,6 +387,7 @@ void Application::tryLogin() {
     }
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::moveToStartWindow() {
     this->closeAllWindowExcept("w_start");
@@ -443,6 +462,7 @@ void Application::moveToControlCurrentProfilesWindow() {
     w_currentprofiles->show();
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::showAccountCreateWindow() {
     configureAccountCreateWindow();
@@ -467,46 +487,57 @@ void Application::showAccountDeleteWindow() {
     w_account_delete->exec();
 }
 
-void Application::showEducationCreateWindow()
-{
+// ---------------------------------------------------------------------------------------------------
 
+void Application::showEducationCreateWindow() {
+    configureEducationCreateWindow();
+    w_education_create->exec();
 }
 
-void Application::showEducationReadWindow()
-{
 
+void Application::showEducationReadWindow() {
+    configureEducationReadWindow();
+    w_education_read->show();
 }
 
-void Application::showEducationUpdateWindow()
-{
 
+void Application::showEducationUpdateWindow() {
+    configureEducationUpdateWindow();
+    w_education_update->exec();
 }
 
-void Application::showEducationDeleteWindow()
-{
 
+void Application::showEducationDeleteWindow() {
+    configureEducationDeleteWindow();
+    w_education_delete->exec();
 }
 
-void Application::showResumeCreateWindow()
-{
+// ---------------------------------------------------------------------------------------------------
 
+void Application::showResumeCreateWindow() {
+    configureResumeCreateWindow();
+    w_resume_create->exec();
 }
 
-void Application::showResumeReadWindow()
-{
 
+void Application::showResumeReadWindow() {
+    configureResumeReadWindow();
+    w_resume_read->show();
 }
 
-void Application::showResumeUpdateWindow()
-{
 
+void Application::showResumeUpdateWindow() {
+    configureResumeUpdateWindow();
+    w_resume_update->exec();
 }
 
-void Application::showResumeDeleteWindow()
-{
 
+void Application::showResumeDeleteWindow() {
+    configureResumeDeleteWindow();
+    w_resume_delete->exec();
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::showVacancyCreateWindow() {
     this->configureVacancyCreateWindow();
@@ -531,6 +562,7 @@ void Application::showVacancyDeleteWindow() {
     this->w_vacancy_delete->exec();
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 void Application::accountCreate() {
     Account account = w_account_create->getObject();
@@ -579,6 +611,95 @@ void Application::accountDelete() {
     w_allprofiles->updateAccountTables(this->net_conector->account.read());
 }
 
+// ---------------------------------------------------------------------------------------------------
+
+void Application::educationCreate() {
+    Education edu = w_education_create->getObject();
+    QMessageBox warning;
+
+    edu.setOwner(this->net_conector->getLoggedUser());
+
+    if(this->net_conector->education.create(edu)) {
+        warning.information(nullptr, "Successful", "Оголошення по стажуванні було створено!");
+        w_allprofiles->updateEducationTables(this->net_conector->education.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Оголошення по стажуванні НЕ було створено!");
+    }
+}
+
+
+void Application::educationRead() {
+    w_education_read->setObject(this->net_conector->education.read(w_allprofiles->getCurrentEducationId()).first());
+    w_education_read->update();
+    showEducationReadWindow();
+}
+
+
+void Application::educationUpdate() {
+    w_education_update->setObject(this->net_conector->education.read(w_allprofiles->getCurrentEducationId()).first());
+    w_education_update->update();
+    showEducationUpdateWindow();
+}
+
+
+void Application::educationUpdateData() {
+    Education edu = w_education_update->getObject();
+    QMessageBox warning;
+
+    if(this->net_conector->education.update(w_allprofiles->getCurrentEducationId(), edu)) {
+        warning.information(nullptr, "Successful", "Стажування було оновлено!");
+        w_allprofiles->updateEducationTables(this->net_conector->education.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Стажування НЕ було оновлено!");
+    }
+}
+
+
+void Application::educationDelete() {
+    this->net_conector->education.remove(w_allprofiles->getCurrentEducationId());
+    w_allprofiles->updateEducationTables(this->net_conector->education.read());
+}
+
+// ---------------------------------------------------------------------------------------------------
+
+void Application::resumeCreate() {
+    Resume res = w_resume_create->getObject();
+    QMessageBox warning;
+
+    res.setOwner(this->net_conector->getLoggedUser());
+
+    if(this->net_conector->resume.create(res)) {
+        warning.information(nullptr, "Successful", "Резюме було створено!");
+        w_allprofiles->updateResumeTables(this->net_conector->resume.read());
+    }
+    else {
+        warning.critical(nullptr, "Failed", "Резюмеі НЕ було створено!");
+    }
+}
+
+
+void Application::resumeRead() {
+
+}
+
+
+void Application::resumeUpdate() {
+
+}
+
+
+void Application::resumeUpdateData() {
+
+}
+
+
+void Application::resumeDelete() {
+
+}
+
+// ---------------------------------------------------------------------------------------------------
 
 void Application::vacancyCreate() {
     Vacancy vacancy = w_vacancy_create->getObject();
@@ -629,6 +750,7 @@ void Application::vacancyDelete() {
     w_allprofiles->updateVacancyTables(this->net_conector->vacancy.read());
 }
 
+// ---------------------------------------------------------------------------------------------------
 
 bool Application::run() {
     moveToStartWindow();

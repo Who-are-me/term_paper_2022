@@ -1,11 +1,13 @@
-#ifndef EDUCATIONCREATEWINDOW_HXX
-#define EDUCATIONCREATEWINDOW_HXX
+#pragma once
+
 
 #include <QDialog>
 
-namespace Ui {
-class EducationCreateWindow;
-}
+#include "models/education.hxx"
+
+
+namespace Ui { class EducationCreateWindow; }
+
 
 class EducationCreateWindow : public QDialog
 {
@@ -15,8 +17,17 @@ public:
     explicit EducationCreateWindow(QWidget *parent = nullptr);
     ~EducationCreateWindow();
 
+    Education getObject();
+
 private:
     Ui::EducationCreateWindow *ui;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
-#endif // EDUCATIONCREATEWINDOW_HXX

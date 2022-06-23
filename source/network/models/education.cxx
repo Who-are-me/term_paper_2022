@@ -6,7 +6,7 @@ Education::Education() {
 }
 
 
-Education::Education(QString title, QString description, QString for_time_start, QString for_time_end, QString req_experience, QString option_condition, QString city, QString location, QString phone, QString email, QString company, int req_education, QString owner) {
+Education::Education(QString title, QString description, QString for_time_start, QString for_time_end, int req_experience, QString option_condition, QString city, QString location, QString phone, QString email, QString company, int req_education, QString owner) {
     this->title = title;
     this->description = description;
     this->for_time_start = for_time_start;
@@ -29,7 +29,7 @@ QString Education::toString() {
             ", description: " + description +
             ", for_time_start: " + for_time_start +
             ", for_time_end: " + for_time_end +
-            ", req_experience: " + req_experience +
+            ", req_experience: " + QString::number(req_experience) +
             ", option_condition: " + option_condition +
             ", city: " + city +
             ", location: " + location +
@@ -91,12 +91,12 @@ void Education::setFor_time_end(const QString &newFor_time_end) {
 }
 
 
-const QString &Education::getReq_experience() const {
+const int &Education::getReq_experience() const {
     return req_experience;
 }
 
 
-void Education::setReq_experience(const QString &newReq_experience) {
+void Education::setReq_experience(const int &newReq_experience) {
     req_experience = newReq_experience;
 }
 

@@ -28,9 +28,9 @@ ControlAllProfilesWindow::ControlAllProfilesWindow(QWidget *parent) :
     ui->btn_update_record->setText("Оновити");
     ui->btn_delete_record->setText("Видалити");
 
-    a_model = new QStandardItemModel(1, 9, this);
-    e_model = new QStandardItemModel(1, 11, this);
-    r_model = new QStandardItemModel(1, 9, this);
+    a_model = new QStandardItemModel(0, 9, this);
+    e_model = new QStandardItemModel(0, 14, this);
+    r_model = new QStandardItemModel(0, 12, this);
     v_model = new QStandardItemModel(0, 12, this);
 }
 
@@ -92,12 +92,113 @@ void ControlAllProfilesWindow::updateAccountTables(QList<Account> a_list) {
 
 
 void ControlAllProfilesWindow::updateEducationTables(QList<Education> e_list) {
+    emit updateTableEducation();
 
+    e_model->removeRows(0, e_model->rowCount());
+
+    e_model->setHeaderData(0,Qt::Horizontal,  tr("ID"));
+    e_model->setHeaderData(1,Qt::Horizontal,  tr("Заголовок"));
+    e_model->setHeaderData(2,Qt::Horizontal,  tr("Опис"));
+    e_model->setHeaderData(3,Qt::Horizontal,  tr("Початок у"));
+    e_model->setHeaderData(4,Qt::Horizontal,  tr("Кінець у"));
+    e_model->setHeaderData(5,Qt::Horizontal,  tr("Потрібний досвід"));
+    e_model->setHeaderData(6,Qt::Horizontal,  tr("Додаткові умови"));
+    e_model->setHeaderData(7,Qt::Horizontal,  tr("Місто"));
+    e_model->setHeaderData(8,Qt::Horizontal,  tr("Локація"));
+    e_model->setHeaderData(9,Qt::Horizontal,  tr("Телефон"));
+    e_model->setHeaderData(10,Qt::Horizontal, tr("Е-пошта"));
+    e_model->setHeaderData(11,Qt::Horizontal, tr("Компанія"));
+    e_model->setHeaderData(12,Qt::Horizontal, tr("Потрібна освіта"));
+    e_model->setHeaderData(13,Qt::Horizontal, tr("Власник"));
+
+    int index = 0;
+
+    foreach(const Education &vac, e_list) {
+        QString education_type = "None";
+
+//        qDebug() << vac.getReq_education();
+
+        if(vac.getReq_education() == 1) {
+            education_type = "Basic";
+        }
+        else if(vac.getReq_education() == 2) {
+            education_type = "Junior specialist";
+        }
+        else if(vac.getReq_education() == 3) {
+            education_type = "Higher education";
+        }
+        else if(vac.getReq_education() == 4) {
+            education_type = "Several higher education";
+        }
+        else if(vac.getReq_education() == 5) {
+            education_type = "Candidate of sciences";
+        }
+        else if(vac.getReq_education() == 6) {
+            education_type = "Stydying";
+        }
+
+        e_model->setItem(index, 0, new QStandardItem(QString::number(vac.getId())));
+        e_model->setItem(index, 1, new QStandardItem(vac.getTitle()));
+        e_model->setItem(index, 2, new QStandardItem(vac.getDescription()));
+        e_model->setItem(index, 3, new QStandardItem(vac.getFor_time_start()));
+        e_model->setItem(index, 4, new QStandardItem(vac.getFor_time_end()));
+        e_model->setItem(index, 5, new QStandardItem(QString::number(vac.getReq_experience())));
+        e_model->setItem(index, 6, new QStandardItem(vac.getOption_condition()));
+        e_model->setItem(index, 7, new QStandardItem(vac.getCity()));
+        e_model->setItem(index, 8, new QStandardItem(vac.getLocation()));
+        e_model->setItem(index, 9, new QStandardItem(vac.getPhone()));
+        e_model->setItem(index, 10,new QStandardItem(vac.getEmail()));
+        e_model->setItem(index, 11,new QStandardItem(vac.getCompany()));
+        e_model->setItem(index, 12,new QStandardItem(education_type));
+        e_model->setItem(index, 13,new QStandardItem(vac.getOwner()));
+        ++index;
+    }
+
+    ui->lv_education ->setModel(e_model);
+
+    ui->lv_education->setColumnHidden(0, true);
 }
 
 
-void ControlAllProfilesWindow::updateResumeTables(QList<Resume> e_list) {
+void ControlAllProfilesWindow::updateResumeTables(QList<Resume> r_list) {
+    emit updateTableResume();
 
+    r_model->removeRows(0, r_model->rowCount());
+
+    r_model->setHeaderData(0,Qt::Horizontal,  tr("ID"));
+    r_model->setHeaderData(1,Qt::Horizontal,  tr("Піп"));
+    r_model->setHeaderData(2,Qt::Horizontal,  tr("Комунікативні навики"));
+    r_model->setHeaderData(3,Qt::Horizontal,  tr("Професійні навики"));
+    r_model->setHeaderData(4,Qt::Horizontal,  tr("Знання мов"));
+    r_model->setHeaderData(5,Qt::Horizontal,  tr("Хоббі"));
+    r_model->setHeaderData(6,Qt::Horizontal,  tr("Телефон"));
+    r_model->setHeaderData(7,Qt::Horizontal,  tr("Е-пошта"));
+    r_model->setHeaderData(8,Qt::Horizontal,  tr("Skype"));
+    r_model->setHeaderData(9,Qt::Horizontal,  tr("Клаліфікація"));
+    r_model->setHeaderData(10,Qt::Horizontal, tr("Про себе"));
+    r_model->setHeaderData(11,Qt::Horizontal, tr("Власник"));
+
+    int index = 0;
+
+    foreach(const Resume &vac, r_list) {
+        r_model->setItem(index, 0, new QStandardItem(QString::number(vac.getId())));
+        r_model->setItem(index, 1, new QStandardItem(vac.getPip()));
+        r_model->setItem(index, 2, new QStandardItem(vac.getSoft_skills()));
+        r_model->setItem(index, 3, new QStandardItem(vac.getHard_skills()));
+        r_model->setItem(index, 4, new QStandardItem(vac.getLanguage()));
+        r_model->setItem(index, 5, new QStandardItem(vac.getHobbies()));
+        r_model->setItem(index, 6, new QStandardItem(vac.getPhone()));
+        r_model->setItem(index, 7, new QStandardItem(vac.getEmail()));
+        r_model->setItem(index, 8, new QStandardItem(vac.getSkype()));
+        r_model->setItem(index, 9, new QStandardItem(vac.getQualification()));
+        r_model->setItem(index, 10,new QStandardItem(vac.getAbout_myself()));
+        r_model->setItem(index, 11,new QStandardItem(vac.getOwner()));
+        ++index;
+    }
+
+    ui->lv_resume ->setModel(r_model);
+
+    ui->lv_resume->setColumnHidden(0, true);
 }
 
 
@@ -173,6 +274,12 @@ QString ControlAllProfilesWindow::getCurrentLogin() {
 int ControlAllProfilesWindow::getCurrentVacancyId() {
     Log::info(v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toString());
     return v_model->data(v_model->index(ui->lv_vacancy->currentIndex().row(), 0)).toInt();
+}
+
+
+int ControlAllProfilesWindow::getCurrentEducationId() {
+    Log::info(e_model->data(e_model->index(ui->lv_education->currentIndex().row(), 0)).toString());
+    return e_model->data(e_model->index(ui->lv_education->currentIndex().row(), 0)).toInt();
 }
 
 

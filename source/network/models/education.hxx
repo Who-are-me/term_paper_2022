@@ -10,7 +10,7 @@ private:
     QString description;
     QString for_time_start;
     QString for_time_end;
-    QString req_experience;
+    int 	req_experience;
     QString option_condition;
     QString city;
     QString location;
@@ -22,7 +22,7 @@ private:
 
 public:
     Education();
-    Education(QString title, QString description, QString for_time_start, QString for_time_end, QString req_experience, QString option_condition, QString city, QString location, QString phone, QString email, QString company, int req_education, QString owner);
+    Education(QString title, QString description, QString for_time_start, QString for_time_end, int req_experience, QString option_condition, QString city, QString location, QString phone, QString email, QString company, int req_education, QString owner);
     QString toString();
 
     int getId() const;
@@ -40,8 +40,8 @@ public:
     const QString &getFor_time_end() const;
     void setFor_time_end(const QString &newFor_time_end);
 
-    const QString &getReq_experience() const;
-    void setReq_experience(const QString &newReq_experience);
+    const int &getReq_experience() const;
+    void setReq_experience(const int &newReq_experience);
 
     const QString &getOption_condition() const;
     void setOption_condition(const QString &newOption_condition);

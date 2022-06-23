@@ -86,7 +86,7 @@ QList<Resume> ResumeDAO::readAll() {
         temp_object.setPhone(jobj["phone"].toString());
         temp_object.setEmail(jobj["email"].toString());
         temp_object.setSkype(jobj["skype"].toString());
-        temp_object.setQualification(jobj["qualification"].toString());
+        temp_object.setQualification(jobj["qualifications"].toString());
         temp_object.setAbout_myself(jobj["about_myself"].toString());
         temp_object.setOwner(jobj["owner"].toString());
 
@@ -142,7 +142,7 @@ QList<Resume> ResumeDAO::readWithPagination(const int page, const int item_in_pa
         temp_object.setPhone(jobj["phone"].toString());
         temp_object.setEmail(jobj["email"].toString());
         temp_object.setSkype(jobj["skype"].toString());
-        temp_object.setQualification(jobj["qualification"].toString());
+        temp_object.setQualification(jobj["qualifications"].toString());
         temp_object.setAbout_myself(jobj["about_myself"].toString());
         temp_object.setOwner(jobj["owner"].toString());
 
@@ -188,7 +188,7 @@ bool ResumeDAO::create(const Resume new_object) {
     jobj["phone"] = new_object.getPhone();
     jobj["email"] = new_object.getEmail();
     jobj["skype"] = new_object.getSkype();
-    jobj["qualification"] = new_object.getQualification();
+    jobj["qualifications"] = new_object.getQualification();
     jobj["about_myself"] = new_object.getAbout_myself();
     jobj["owner"] = new_object.getOwner();
 
@@ -242,7 +242,7 @@ QList<Resume> ResumeDAO::read(const int read_of, int option, QString filter) {
     temp_object.setPhone(jobj["phone"].toString());
     temp_object.setEmail(jobj["email"].toString());
     temp_object.setSkype(jobj["skype"].toString());
-    temp_object.setQualification(jobj["qualification"].toString());
+    temp_object.setQualification(jobj["qualifications"].toString());
     temp_object.setAbout_myself(jobj["about_myself"].toString());
     temp_object.setOwner(jobj["owner"].toString());
 

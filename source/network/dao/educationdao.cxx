@@ -78,19 +78,41 @@ QList<Education> EducationDAO::readAll() {
     foreach(const QJsonValue &value, jarr) {
         jobj = value.toObject();
 
+        QString edu = jobj["req_education"].toString();
+        int e = 0;
+
+        if(edu == "BASIC") {
+            e = 1;
+        }
+        else if(edu == "JUNIOR_SPECIALIST") {
+            e = 2;
+        }
+        else if(edu == "HIGHER_EDUCATION") {
+            e = 3;
+        }
+        else if(edu == "SEVERAL_HIGHER_EDUCATION") {
+            e = 4;
+        }
+        else if(edu == "CANDIDATE_OF_SCIENCES") {
+            e = 5;
+        }
+        else if(edu == "STUDYING") {
+            e = 6;
+        }
+
         temp_object.setId(jobj["id"].toInt());
         temp_object.setTitle(jobj["title"].toString());
         temp_object.setDescription(jobj["description"].toString());
         temp_object.setFor_time_start(jobj["for_time_start"].toString());
         temp_object.setFor_time_end(jobj["for_time_end"].toString());
-        temp_object.setReq_experience(jobj["req_experience"].toString());
+        temp_object.setReq_experience(jobj["req_experience"].toInt());
         temp_object.setOption_condition(jobj["option_condition"].toString());
         temp_object.setCity(jobj["city"].toString());
         temp_object.setLocation(jobj["location"].toString());
         temp_object.setPhone(jobj["phone"].toString());
         temp_object.setEmail(jobj["email"].toString());
         temp_object.setCompany(jobj["company"].toString());
-        temp_object.setReq_education(jobj["req_education"].toInt());
+        temp_object.setReq_education(e);
         temp_object.setOwner(jobj["owner"].toString());
 
         return_list.append(temp_object);
@@ -138,19 +160,41 @@ QList<Education> EducationDAO::readWithPagination(const int page, const int item
     foreach(const QJsonValue &value, jarr) {
         jobj = value.toObject();
 
+        QString edu = jobj["req_education"].toString();
+        int e = 0;
+
+        if(edu == "BASIC") {
+            e = 1;
+        }
+        else if(edu == "JUNIOR_SPECIALIST") {
+            e = 2;
+        }
+        else if(edu == "HIGHER_EDUCATION") {
+            e = 3;
+        }
+        else if(edu == "SEVERAL_HIGHER_EDUCATION") {
+            e = 4;
+        }
+        else if(edu == "CANDIDATE_OF_SCIENCES") {
+            e = 5;
+        }
+        else if(edu == "STUDYING") {
+            e = 6;
+        }
+
         temp_object.setId(jobj["id"].toInt());
         temp_object.setTitle(jobj["title"].toString());
         temp_object.setDescription(jobj["description"].toString());
         temp_object.setFor_time_start(jobj["for_time_start"].toString());
         temp_object.setFor_time_end(jobj["for_time_end"].toString());
-        temp_object.setReq_experience(jobj["req_experience"].toString());
+        temp_object.setReq_experience(jobj["req_experience"].toInt());
         temp_object.setOption_condition(jobj["option_condition"].toString());
         temp_object.setCity(jobj["city"].toString());
         temp_object.setLocation(jobj["location"].toString());
         temp_object.setPhone(jobj["phone"].toString());
         temp_object.setEmail(jobj["email"].toString());
         temp_object.setCompany(jobj["company"].toString());
-        temp_object.setReq_education(jobj["req_education"].toInt());
+        temp_object.setReq_education(e);
         temp_object.setOwner(jobj["owner"].toString());
 
         return_list.append(temp_object);
@@ -244,19 +288,41 @@ QList<Education> EducationDAO::read(const int read_of, int option, QString filte
 
     jobj = QJsonDocument::fromJson(reply->readAll()).object();
 
+    QString edu = jobj["req_education"].toString();
+    int e = 0;
+
+    if(edu == "BASIC") {
+        e = 1;
+    }
+    else if(edu == "JUNIOR_SPECIALIST") {
+        e = 2;
+    }
+    else if(edu == "HIGHER_EDUCATION") {
+        e = 3;
+    }
+    else if(edu == "SEVERAL_HIGHER_EDUCATION") {
+        e = 4;
+    }
+    else if(edu == "CANDIDATE_OF_SCIENCES") {
+        e = 5;
+    }
+    else if(edu == "STUDYING") {
+        e = 6;
+    }
+
     temp_object.setId(jobj["id"].toInt());
     temp_object.setTitle(jobj["title"].toString());
     temp_object.setDescription(jobj["description"].toString());
     temp_object.setFor_time_start(jobj["for_time_start"].toString());
     temp_object.setFor_time_end(jobj["for_time_end"].toString());
-    temp_object.setReq_experience(jobj["req_experience"].toString());
+    temp_object.setReq_experience(jobj["req_experience"].toInt());
     temp_object.setOption_condition(jobj["option_condition"].toString());
     temp_object.setCity(jobj["city"].toString());
     temp_object.setLocation(jobj["location"].toString());
     temp_object.setPhone(jobj["phone"].toString());
     temp_object.setEmail(jobj["email"].toString());
     temp_object.setCompany(jobj["company"].toString());
-    temp_object.setReq_education(jobj["req_education"].toInt());
+    temp_object.setReq_education(e);
     temp_object.setOwner(jobj["owner"].toString());
 
     return_list.append(temp_object);

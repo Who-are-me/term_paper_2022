@@ -116,7 +116,7 @@
        <widget class="QLineEdit" name="le_hard_skills"/>
       </item>
       <item row="6" column="2">
-       <widget class="QLineEdit" name="le_phone_2"/>
+       <widget class="QLineEdit" name="le_phone"/>
       </item>
       <item row="7" column="2">
        <widget class="QLineEdit" name="le_email"/>

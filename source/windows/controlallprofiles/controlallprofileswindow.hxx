@@ -30,6 +30,7 @@ public:
 
     QString getCurrentLogin();
     int getCurrentVacancyId();
+    int getCurrentEducationId();
 
 private:
     Ui::ControlAllProfilesWindow 	*ui;

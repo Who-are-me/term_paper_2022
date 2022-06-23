@@ -15,8 +15,20 @@ public:
     explicit ResumeDeleteWindow(QWidget *parent = nullptr);
     ~ResumeDeleteWindow();
 
+    void setResumeId(int new_id);
+    void update();
+
 private:
     Ui::ResumeDeleteWindow *ui;
+    int id;
+
+private slots:
+    void on_btn_ok_released();
+    void on_btn_cancel_released();
+
+signals:
+    void pushOk();
+    void pushCancel();
 };
 
 #endif // RESUMEDELETEWINDOW_HXX
