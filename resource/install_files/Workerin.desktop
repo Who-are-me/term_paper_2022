@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec=/usr/local/bin/Workerin
+Icon=/usr/local/share/icons/Workerin.png
+Comment=Program for find work
+Terminal=false
+Version=0.1
+Type=Application
+Name=Workerin
+Categories=Office
+ 
