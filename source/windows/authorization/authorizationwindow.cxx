@@ -8,8 +8,8 @@ AuthorizationWindow::AuthorizationWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setMinimumSize(270, 150);
-    this->setMaximumSize(270, 150);
+    this->setMinimumSize(300, 150);
+    this->setMaximumSize(300, 150);
 
 
     ui->btn_login->setText("Авторизуватися");

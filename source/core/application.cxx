@@ -389,6 +389,7 @@ void Application::tryLogin() {
     }
 
     if(net_conector->getIsAdmin()) {
+        w_allprofiles->admin();
         moveToControlAllProfilesWindow(net_conector->getIsAdmin());
     }
     else {

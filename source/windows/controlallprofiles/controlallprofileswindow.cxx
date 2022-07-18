@@ -305,6 +305,16 @@ void ControlAllProfilesWindow::noAdmin() {
 }
 
 
+void ControlAllProfilesWindow::admin() {
+    ui->btn_create_account->setEnabled(true);
+    ui->btn_read_account->setEnabled(true);
+    ui->btn_update_account->setEnabled(true);
+    ui->btn_delete_account->setEnabled(true);
+    ui->tab_table->setTabEnabled(0, true);
+    is_admin = true;
+}
+
+
 const QString &ControlAllProfilesWindow::getUsername() const {
     return username;
 }

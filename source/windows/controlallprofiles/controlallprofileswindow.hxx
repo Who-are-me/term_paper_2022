@@ -34,6 +34,7 @@ public:
     int getCurrentVacancyId();
 
     void noAdmin();
+    void admin();
 
     const QString &getUsername() const;
     void setUsername(const QString &newUsername);
